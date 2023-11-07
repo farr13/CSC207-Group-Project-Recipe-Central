@@ -5,34 +5,49 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Recipe implements Iterable<Ingredient> {
-    private List<Ingredient> ingredients;
     private String name;
-    private List<String> instructions;
+    private List<Ingredient> ingredients;
+    private String instructions; // Instructions as a single String
 
     public Recipe(String name) {
         this.name = name;
-        ingredients = new ArrayList<>();
-        instructions = new ArrayList<>();
+        this.ingredients = new ArrayList<>();
+        this.instructions = "";
     }
 
+    // Get the recipe name
+    public String getName() {
+        return name;
+    }
+
+    // Set the recipe name
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Get a copy of the ingredient list to prevent modification
     public List<Ingredient> getIngredientList() {
-        return ingredients;
+        return new ArrayList<>(ingredients);
     }
 
+    // Add an ingredient to the recipe
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
     }
 
-    public void addInstruction(String instruction) {
-        instructions.add(instruction);
+    // Get the instructions for the recipe
+    public String getInstructions() {
+        return instructions;
     }
 
+    // Set the instructions for the recipe
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    // Implement the Iterable interface for ingredients
     @Override
     public Iterator<Ingredient> iterator() {
         return ingredients.iterator();
-    }
-
-    public Instruction getInstructions() {
-        return () -> instructions.iterator();
     }
 }
