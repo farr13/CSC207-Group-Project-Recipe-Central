@@ -1,11 +1,37 @@
 package users.entity;
 
-/*
-    TODO: Implement me by wednesday! Note:
-     -  String for ingredient
-     -  Double for quantity
-     -  String for quantity measurement
-     -  getters and setters
- */
-public class Ingredient {
+public class Ingredient{
+    String name;
+    String measureType; //Quantity could be count, cups, tsp, lbs, ... etc.
+    double quantity;
+
+    public Ingredient(String name, String measureType, double quantity){
+        this.name = name;
+        this.measureType = measureType;
+        this.quantity = quantity;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getMeasureType(){
+        return measureType;
+    }
+
+    public double getQuantity(){
+        return quantity;
+    }
+
+    public String giveAmount(){
+        if (measureType.equals("<unit>"))
+            return Double.toString(quantity); // removes count from output
+        return Double.toString(quantity) + " " + measureType;
+    }
+
+    public String giveNameAmount(){
+        if (measureType.equals("<unit>"))
+            return name + " " + Double.toString(quantity); // removes count from output
+        return name + " " + Double.toString(quantity) + " " + measureType;
+    }
 }
