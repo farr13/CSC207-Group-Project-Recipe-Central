@@ -1,9 +1,9 @@
 package users.entity;
 
 public class Ingredient{
-    String name;
-    String measureType; //Quantity could be count, cups, tsp, lbs, ... etc.
-    double quantity;
+    private String name;
+    private String measureType; //Quantity could be count, cups, tsp, lbs, ... etc.
+    private double quantity;
 
     public Ingredient(String name, String measureType, double quantity){
         this.name = name;
