@@ -1,38 +1,27 @@
-import users.entity.Ingredient;
+package users.entity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Recipe implements Iterable<Ingredient> {
+public class Recipe {
     private List<Ingredient> ingredients;
     private String name;
-    private List<String> instructions;
+    private String instructionsURL;
 
-    public Recipe(String name) {
+    public Recipe(String name, String instructionsURL) {
         this.name = name;
         ingredients = new ArrayList<>();
-        instructions = new ArrayList<>();
-    }
-
-    public List<Ingredient> getIngredientList() {
-        return ingredients;
+        this.instructionsURL = instructionsURL;
     }
 
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
     }
 
-    public void addInstruction(String instruction) {
-        instructions.add(instruction);
-    }
+    public String getInstructions() { return instructionsURL; }
 
-    @Override
-    public Iterator<Ingredient> iterator() {
-        return ingredients.iterator();
-    }
-
-    public Instruction getInstructions() {
-        return () -> instructions.iterator();
+    public List<Ingredient> getIngredientList() {
+        return ingredients;
     }
 }
