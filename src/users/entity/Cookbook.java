@@ -23,20 +23,6 @@ public class Cookbook implements Iterable<Recipe>{
         return Recipes;
     }
 
-
-    public void addRecipes(Recipe recipe) {
-        this.Recipes.add(recipe);
-    }
-
-    public void removeRecipes(Recipe recipe) {
-        if (!this.Recipes.contains(recipe)){
-            throw new NoSuchElementException();
-        }
-        else {
-          this.Recipes.remove(recipe);
-        }
-    }
-
     @Override
     public Iterator<Recipe> iterator() {
         return new CookbookItr();
