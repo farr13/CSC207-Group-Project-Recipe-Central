@@ -18,11 +18,6 @@ public class Recipe {
     // Set the recipe name
     public void setName(String name) { this.name = name; }
 
-    // Add an ingredient to the recipe
-    public void addIngredient(Ingredient ingredient) {
-        ingredients.add(ingredient);
-    }
-
     // Get the recipe name
     public String getName() { return name; }
 
