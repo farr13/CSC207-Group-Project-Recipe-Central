@@ -3,46 +3,62 @@ package users.entity;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
-public class Cookbook implements Iterable<Recipe>{
+public class Cookbook implements Iterable<Recipe> {
 
-    private final String name;
+    private String name;
+    private ArrayList<Recipe> recipes;
 
-    private ArrayList<Recipe> Recipes = new ArrayList<Recipe>();
-
-    Cookbook(String name, ArrayList<Recipe> Recipes){
+    public Cookbook(String name, ArrayList<Recipe> recipes) {
         this.name = name;
-        this.Recipes = Recipes;
+        this.recipes = new ArrayList<>(recipes);
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String newName) {
+        if (newName == null || newName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+        this.name = newName;
+    }
+
     public ArrayList<Recipe> getRecipes() {
-        return Recipes;
+        return new ArrayList<>(recipes); // Return a copy of the recipes list
+    }
+
+    public boolean removeRecipe(String recipeName) {
+        return recipes.removeIf(recipe -> recipe.getName().equals(recipeName));
     }
 
     @Override
     public Iterator<Recipe> iterator() {
-        return new CookbookItr();
+        return recipes.iterator();
     }
 
-    private class CookbookItr implements Iterator<Recipe>{
-        private int currindex;
-        @Override
-        public boolean hasNext() {
-            return currindex < Recipes.size();
-        }
+    @Override
+    public String toString() {
+        return "Cookbook{" +
+                "name='" + name + '\'' +
+                ", recipes=" + recipes +
+                '}';
+    }
 
-        @Override
-        public Recipe next() {
-           if (!hasNext()) {
-               throw new NoSuchElementException();
-           }
-           Recipe currRecipe = Recipes.get(currindex);
-           currindex += 1;
-           return currRecipe;
-        }
+    // Optional: Override equals and hashCode if needed
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cookbook cookbook = (Cookbook) o;
+        return name.equals(cookbook.name) &&
+                Objects.equals(recipes, cookbook.recipes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, recipes);
     }
 }
