@@ -1,4 +1,4 @@
-package users.entity;
+package backend.entity;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,4 +1,4 @@
-package users.entity;
+package backend.entity;
 
 public class Ingredient{
     private String name;
