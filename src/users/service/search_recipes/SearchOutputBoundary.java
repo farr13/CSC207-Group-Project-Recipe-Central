@@ -1,5 +1,5 @@
 package users.service.search_recipes;
 
 public interface SearchOutputBoundary {
-    public void prepareSuccessView(OutputData recipeResults[]);
+    public void prepareSuccessView(SearchOutputData recipeResults[]);
 }
