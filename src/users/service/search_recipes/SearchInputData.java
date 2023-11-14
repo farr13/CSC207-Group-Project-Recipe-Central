@@ -12,11 +12,11 @@ public class SearchInputData {
         this.health = health;
     }
 
-    public ArrayList getIngredients() { return ingredients; }
+    public ArrayList<String> getIngredients() { return ingredients; }
 
-    public ArrayList getMealType() { return mealType; }
+    public ArrayList<String> getMealType() { return mealType; }
 
-    public ArrayList getDiet() { return diet; }
+    public ArrayList<String> getDiet() { return diet; }
 
-    public ArrayList getHealth() { return health; }
+    public ArrayList<String> getHealth() { return health; }
 }
