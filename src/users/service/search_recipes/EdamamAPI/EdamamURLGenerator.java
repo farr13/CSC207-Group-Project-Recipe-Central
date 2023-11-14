@@ -1,4 +1,7 @@
-package users.service.search_recipes;
+package users.service.search_recipes.EdamamAPI;
+
+import users.service.search_recipes.API_Interface.InputDataURLConverter;
+import users.service.search_recipes.SearchInputData;
 
 public class EdamamURLGenerator implements InputDataURLConverter {
     String apiID, apiKey;
