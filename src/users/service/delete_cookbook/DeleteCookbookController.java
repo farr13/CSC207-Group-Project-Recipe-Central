@@ -1,6 +1,6 @@
 package users.service.delete_cookbook;
 
-public class DeleteCookbookController {
+public class  DeleteCookbookController {
 
     final DeleteCookbookInputBoundary deleteCookbookIteractor;
 
