@@ -1,4 +1,9 @@
 package users.service.delete_cookbook;
 
-public class DeleteCookbookPresenter {
+import jdk.jshell.spi.ExecutionControl;
+
+public class DeleteCookbookPresenter implements DeleteCookbookOutputBoundary {
+    @Override
+    public void prepareSuccessView(DeleteCookbookOutputData response) {
+    }
 }
