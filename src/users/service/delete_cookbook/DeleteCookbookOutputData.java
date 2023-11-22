@@ -8,4 +8,7 @@ public class DeleteCookbookOutputData {
         this.storedCookbooks = storedCookbooks;
     }
 
+    public String[] getStoredCookbooks() {
+        return storedCookbooks;
+    }
 }
