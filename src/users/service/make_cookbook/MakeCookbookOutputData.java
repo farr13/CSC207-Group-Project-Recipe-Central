@@ -8,5 +8,7 @@ public class MakeCookbookOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getTitle(){return title;}
+    public String getTitle() {
+        return title;
+    }
 }

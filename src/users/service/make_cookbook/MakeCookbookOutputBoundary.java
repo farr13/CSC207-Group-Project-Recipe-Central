@@ -1,7 +1,7 @@
 package users.service.make_cookbook;
 
 public interface MakeCookbookOutputBoundary {
-    void prepareSuccesView(MakeCookbookOutputData response);
+    void prepareSuccessView(MakeCookbookOutputData response);
 
-    void prepareFailView(MakeCookbookOutputData error);
+    void prepareFailView(String error);
 }
