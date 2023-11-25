@@ -4,11 +4,15 @@ public class Ingredient{
     private String name;
     private String measureType; //Quantity could be count, cups, tsp, lbs, ... etc.
     private double quantity;
+    private String textDescription;
 
     public Ingredient(String name, String measureType, double quantity){
         this.name = name;
         this.measureType = measureType;
         this.quantity = quantity;
+    }
+    public Ingredient(String textDescription){
+        this.textDescription = textDescription;
     }
 
     public String getName(){
