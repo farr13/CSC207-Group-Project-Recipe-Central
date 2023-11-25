@@ -1,8 +1,12 @@
-package users.service.search_recipes;
+package users.service.search_recipes.application_business_rules;
 
-import users.service.search_recipes.API_Interface.APICaller;
-import users.service.search_recipes.API_Interface.InputDataURLConverter;
-import users.service.search_recipes.API_Interface.JsonOutputDataConverter;
+import users.service.search_recipes.application_business_rules.API_Interface.APICaller;
+import users.service.search_recipes.application_business_rules.API_Interface.InputDataURLConverter;
+import users.service.search_recipes.application_business_rules.API_Interface.JsonOutputDataConverter;
+import users.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchInputBoundary;
+import users.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchOutputBoundary;
+import users.service.search_recipes.application_business_rules.DataTypes.SearchInputData;
+import users.service.search_recipes.application_business_rules.DataTypes.SearchOutputData;
 
 public class SearchInteractor implements SearchInputBoundary {
     private APICaller apiCaller;
@@ -24,7 +28,7 @@ public class SearchInteractor implements SearchInputBoundary {
         // Call the API Caller which gives a string in Json format
         String requestResponce = apiCaller.execute(pullRequestURL);
         // Convert Json String to Recipe output data
-        SearhcOutputData searchOutputData = outputDataConverter.convertToRecipies(requestResponce);
+        SearchOutputData searchOutputData = outputDataConverter.convertRecipes(requestResponce);
         // Call the presenter
         searchPresenter.prepareSuccessView(searchOutputData);
     }
