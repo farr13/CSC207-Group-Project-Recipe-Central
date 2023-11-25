@@ -35,7 +35,7 @@ public class JsonRecipeGenerator implements JsonOutputDataConverter {
                 ingredients.add(new Ingredient(ingredientResponseObj.getText()));
 
             Ingredient[] ingredientsArr = ingredients.toArray(new Ingredient[0]);
-            recipes.add(new Recipe(recipeName, recipeUrl, ingredientsArr);
+            recipes.add(new Recipe(recipeName, recipeUrl, ingredientsArr));
         }
 
         return recipes.toArray(new Recipe[0]);
