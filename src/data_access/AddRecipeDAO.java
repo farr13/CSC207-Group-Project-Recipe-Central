@@ -13,7 +13,8 @@ public class AddRecipeDAO { // implements AddRecipeInterface {
     String json;
     AddCookbookDAO cookbookDAO;
     public void AddRecipe (Recipe recipe, Cookbook cookbook) {
-
+        Cookbook tempbook = get(cookbook.getName());
+        tempbook.
     }
 
     private Cookbook[] readFile(){
