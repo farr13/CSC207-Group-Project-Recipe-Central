@@ -27,7 +27,6 @@ public class CookbookFactory {
     }
 
     private static ArrayList<Recipe> generateRandomRecipes(int numRecipes) {
-        // Logic to generate random recipes (replace with your implementation)
         ArrayList<Recipe> randomRecipes = new ArrayList<>();
         for (int i = 1; i <= numRecipes; i++) {
             String recipeName = "Random Recipe " + i;
