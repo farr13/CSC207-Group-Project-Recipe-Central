@@ -36,10 +36,10 @@ public class AddCookbookDAO { //implements AddCookbookInterface {}
         Cookbook[] cookbooks = readFile();
         assert cookbooks != null;
         for (Cookbook cookbook : cookbooks) {
-                String name = cookbook.getName();
-                if (name.equals(identifier))
-                    return true;
-            }
+            String name = cookbook.getName();
+            if (name.equals(identifier))
+                return true;
+        }
             return false;
     }
 
