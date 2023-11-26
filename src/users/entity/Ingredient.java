@@ -38,4 +38,8 @@ public class Ingredient{
             return name + " " + Double.toString(quantity); // removes count from output
         return name + " " + Double.toString(quantity) + " " + measureType;
     }
+
+    public String getTextDescription() {
+        return textDescription;
+    }
 }
