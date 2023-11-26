@@ -11,10 +11,14 @@ import java.io.IOException;
 public class AddRecipeDAO { // implements AddRecipeInterface {
     String jsonPath = "cookbooks.json";
     String json;
-    AddCookbookDAO cookbookDAO;
-    public void AddRecipe (Recipe recipe, Cookbook cookbook) {
+    public void AddRecipe (Recipe recipe, Cookbook cookbook) throws Exception {
         Cookbook tempbook = get(cookbook.getName());
-        tempbook.
+        assert tempbook != null;
+        tempbook.getRecipes().add(recipe);
+        DeleteCookbookDAO deleteCookbookDAO = new DeleteCookbookDAO();
+        deleteCookbookDAO.DeleteCookbook(cookbook);
+        AddCookbookDAO addCookbookDAO = new AddCookbookDAO();
+        addCookbookDAO.AddCookbook(tempbook);
     }
 
     private Cookbook[] readFile(){
