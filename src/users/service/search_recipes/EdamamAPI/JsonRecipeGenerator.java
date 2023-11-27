@@ -8,7 +8,6 @@ import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class JsonRecipeGenerator implements JsonOutputDataConverter {
     @Override
@@ -20,7 +19,7 @@ public class JsonRecipeGenerator implements JsonOutputDataConverter {
     }
 
     private Recipe[] getRecipesResponses(JsonCallResponseObj jsonCallResponseObj){
-        Hit[] hits = jsonCallResponseObj.getRecipes();
+        Hit[] hits = jsonCallResponseObj.getHits();
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         for (Hit hit: hits){
             RecipeResponseObj recipeResponseObj = hit.getRecipe();
@@ -41,8 +40,6 @@ public class JsonRecipeGenerator implements JsonOutputDataConverter {
         return recipes.toArray(new Recipe[0]);
     }
 
-    private class Link{ private String herf, title; }
-    private class _Links{ private Link self, next; }
     private class Hit{
         private  RecipeResponseObj recipe;
         RecipeResponseObj getRecipe() { return recipe; }
@@ -58,44 +55,23 @@ public class JsonRecipeGenerator implements JsonOutputDataConverter {
 
         String getText() { return text; }
     }
-    private class Nutrient{
-        private String label, unit;
-        private double quantity;
-    }
-    private class NutrientsResponceObj{
-        private Nutrient ENERC_KCAL, FAT, FASAT, FATRN, FAMS, FAPU, CHOCDF, FIBTG, SUGAR, PROCNT, CHOLE, NA, CA, MG, K, FE, ZN,
-                P, VITA_RAE, VITC, THIA, RIBF, NIA, VITB6A, FOLDFE, FOLFD, FOLAC, VITB12, VITD, TOCPHA, VITK1, WATER;
-
-        @SerializedName(value = "CHOCDF.net", alternate = "CHOCDF_net")
-        private Nutrient CHOCDF_net;
-    }
-    private class Digest{
-        private String label, tag, schemaOrgTag, unit;
-        private double total, daily;
-        private Boolean hasRDI;
-        private Digest[] sub;
-    }
     private class RecipeResponseObj{
-        private String uri, label, image, source, url, shareAs, co2EmissionsClass, externalId;
-        private int yield;
-        private double calories, glycemicIndex, totalCO2Emissions, totalWeight;
+        private String label, url;
         private RecipeRequiredImages images;
-        private String[] dietLabels, healthLabels, cautions, ingredientLines, cuisineType, mealType, dishType, instructions, tags;
         private IngredientResponseObj[] ingredients;
-        private NutrientsResponceObj totalNutrients, totalDaily;
-        private Digest[] digest;
-        private _Links _links;
         IngredientResponseObj[] getIngredients() { return ingredients; }
 
         String getLabel() { return label; }
 
         String getUrl() { return url; }
+
+        RecipeRequiredImages getImages() {
+            return images;
+        }
     }
 
     private class JsonCallResponseObj{
-        private int from,to,count;
-        private _Links _links;
-        private Hit[] recipes;
-        Hit[] getRecipes() { return recipes; }
+        private Hit[] hits;
+        Hit[] getHits() { return hits; }
     }
 }

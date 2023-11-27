@@ -15,21 +15,24 @@ public class EdamamURLGenerator implements InputDataURLConverter {
     public String convertToURL(SearchInputData searchInputData) {
         String ingredients = "", mealTypes = "", diets = "", healths = "", requestURL = "";
         for (String ingredient: searchInputData.getIngredients()){
-            ingredients = ingredient + "%2C%20";
+            ingredients = ingredients + ingredient + "%2C%20";
         }
         if (ingredients.length() > 1)
             ingredients = ingredients.substring(0, ingredients.length() - 6);
 
         for (String mealType: searchInputData.getMealType())
-            mealTypes = "&mealType=" + mealType;
+            mealTypes = mealTypes + "&mealType=" + mealType;
 
         for (String diet: searchInputData.getDiet())
-            diets = "&diet=" + diet;
+            diets = diets + "&diet=" + diet;
 
         for (String health: searchInputData.getHealth())
-            healths = "&health=" + health;
+            healths = healths + "&health=" + health;
 
+        if (ingredients.isEmpty())
+            return "https://api.edamam.com/api/recipes/v2?type=public" + ingredients + "&app_id=" + apiID +
+                    "&app_key=" + apiKey + diets + healths + mealTypes + "&imageSize=THUMBNAIL&random=true";
         return "https://api.edamam.com/api/recipes/v2?type=public&q=" + ingredients + "&app_id=" + apiID +
-                "&app_key=" + apiKey + diets + healths + mealTypes;
+                "&app_key=" + apiKey + diets + healths + mealTypes + "&imageSize=THUMBNAIL&random=true";
     }
 }
