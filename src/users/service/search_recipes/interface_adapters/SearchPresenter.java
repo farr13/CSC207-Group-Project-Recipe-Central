@@ -8,11 +8,6 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     @Override
     public void prepareSuccessView(SearchOutputData recipeResults) {
-        for (Recipe recipe: recipeResults.getRecipes()){
-            System.out.println(recipe.getName() + "\n");
-            System.out.println(recipe.getInstructions() + "\n");
-            for (Ingredient ingredient: recipe.getIngredients())
-                System.out.println(ingredient.getTextDescription() + ",");
-        }
+
     }
 }
