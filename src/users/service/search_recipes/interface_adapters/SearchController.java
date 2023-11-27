@@ -25,8 +25,8 @@ public class SearchController {
     }
 
     private void trimIngredients(String[] ingredients){
-        for (String ingredient: ingredients){
-            ingredient.trim();
+        for (int i=0; i < ingredients.length; i++){
+            ingredients[i] = ingredients[i].trim();
         }
     }
 }
