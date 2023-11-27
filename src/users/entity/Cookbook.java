@@ -31,12 +31,38 @@ public class Cookbook implements Iterable<Recipe> {
     }
 
     public boolean removeRecipe(String recipeName) {
-        return recipes.removeIf(recipe -> recipe.getName().equals(recipeName));
+        boolean removed = recipes.removeIf(recipe -> recipe.getName().equals(recipeName));
+        if (!removed) {
+            throw new NoSuchElementException("Recipe with name '" + recipeName + "' not found.");
+        }
+        return true;
     }
 
     @Override
     public Iterator<Recipe> iterator() {
-        return recipes.iterator();
+        return new CookbookIterator();
+    }
+
+    private class CookbookIterator implements Iterator<Recipe> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < recipes.size();
+        }
+
+        @Override
+        public Recipe next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more recipes in the cookbook.");
+            }
+            return recipes.get(currentIndex++);
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Remove operation is not supported.");
+        }
     }
 
     @Override
@@ -47,7 +73,6 @@ public class Cookbook implements Iterable<Recipe> {
                 '}';
     }
 
-    // Optional: Override equals and hashCode if needed
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
