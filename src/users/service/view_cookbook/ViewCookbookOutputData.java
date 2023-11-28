@@ -5,7 +5,11 @@ import users.entity.Cookbook;
 public class ViewCookbookOutputData {
     private Cookbook[] cookbooks;
 
-    public ViewCookbookOutputData(Cookbook[] cookbooks){
+    public ViewCookbookOutputData(Cookbook[] cookbooks) {
         this.cookbooks = cookbooks;
+    }
+
+    public Cookbook[] getCookbooks() {
+        return cookbooks;
     }
 }
