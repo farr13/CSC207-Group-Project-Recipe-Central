@@ -1,6 +1,8 @@
 package users.service.view_cookbook;
 
-import backend.entity.Cookbook;
+import users.entity.Cookbook;
+import users.entity.Recipe;
+import users.entity.Ingredient;
 import data_access.AddCookbookDAO;
 
 public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
@@ -27,7 +29,15 @@ public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
     }
 
     private void displayCookbook(Cookbook cookbook) {
-        // Logic to display the cookbook's details
-        System.out.println(cookbook);
+        System.out.println("Cookbook: " + cookbook.getName());
+        System.out.println("Recipes:");
+        for (Recipe recipe : cookbook.getRecipes()) {
+            System.out.println(" - " + recipe.getName());
+            System.out.println("   Ingredients:");
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                System.out.println("    * " + ingredient); // Assuming Ingredient class has a meaningful toString()
+            }
+            System.out.println("   Instructions URL: " + recipe.getInstructionsURL());
+        }
     }
 }
