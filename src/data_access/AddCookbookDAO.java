@@ -2,57 +2,78 @@ package data_access;
 
 import backend.entity.Cookbook;
 import com.google.gson.Gson;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.google.gson.reflect.TypeToken;
 
-public class AddCookbookDAO { //implements AddCookbookInterface {}
-    String jsonPath = "cookbooks.json";
-    String json;
-    public void AddCookbook(Cookbook cookbook) throws Exception {
-        json = new Gson().toJson(cookbook);
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class AddCookbookDAO {
+    private String jsonPath;
+    private String json;
+    private ArrayList<Cookbook> cookbooks;
+    private File cookbookFile;
+
+    public AddCookbookDAO(String fileName){
+        jsonPath = fileName;
+
+        this.cookbookFile = new File(fileName);
+
+        String cookbookStr;
+
+        if (this.cookbookFile.exists()) {
+            cookbookStr = readFile();
+        }else{
+            cookbookFile = null;
+            cookbookStr = "[]";
+        }
+
+        this.cookbooks = convertCookbook(cookbookStr);
+    }
+
+    private String readFile(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(cookbookFile))) {
+            String result = reader.readLine();
+            while (result != null) {
+                result = result + reader.readLine();
+            }
+            return result;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void writeFile(){
+        try {
+            BufferedWriter cookbookWriter = new BufferedWriter(new FileWriter(cookbookFile));
+            String jsonPrint = new Gson().toJson(cookbooks);
+            cookbookWriter.write(jsonPrint);
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ArrayList<Cookbook> convertCookbook(String jsonStr){
+        Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
+        return new Gson().fromJson(jsonStr, cookbookListType);
+    }
+    public void addCookbook(Cookbook cookbook) throws Exception {
         if (existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook Name already exist");
         }
         else {
-            try (FileWriter writer = new FileWriter(jsonPath)) {
-                writer.write(json);
-                System.out.println("cookbook saved to cookbooks.json");
-            } catch (IOException e) {
-                e.fillInStackTrace();
-            }
-        }
-    }
-
-    private Cookbook[] readFile(){
-        try (FileReader reader = new FileReader(jsonPath)) {
-            return new Gson().fromJson(reader, Cookbook[].class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            this.cookbooks.add(cookbook);
+            writeFile();
         }
     }
 
     private boolean existByTitle(String identifier) {
-        Cookbook[] cookbooks = readFile();
-        assert cookbooks != null;
-        for (Cookbook cookbook : cookbooks) {
-            String name = cookbook.getName();
-            if (name.equals(identifier))
-                return true;
+        for (Cookbook cookbook: cookbooks){
+            if (cookbook.getName() == identifier.trim())
+                return false;
         }
-            return false;
-    }
-
-    private Cookbook get(String findName) {
-        Cookbook[] cookbooks = readFile();
-        assert cookbooks != null;
-        for (Cookbook cookbook : cookbooks) {
-            String name = cookbook.getName();
-            if (name.equals(findName))
-                return cookbook;
-        }
-        return null;
+        return true;
     }
 
 }
