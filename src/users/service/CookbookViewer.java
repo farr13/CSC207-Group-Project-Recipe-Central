@@ -1,6 +1,6 @@
 package app;
 
-import backend.entity.Cookbook;
+import users.entity.Cookbook;
 import data_access.AddCookbookDAO;
 import java.io.IOException;
 
