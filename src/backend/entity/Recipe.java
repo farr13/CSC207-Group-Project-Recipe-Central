@@ -2,6 +2,7 @@ package backend.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Recipe {
     private String name;
@@ -14,7 +15,16 @@ public class Recipe {
         this.instructionsURL = instructionsURL;
         this.ingredients = new ArrayList<>();
     }
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof Recipe)){
+            return false;
+        } else if (Objects.equals(((Recipe) o).getName(), name) && Objects.equals(((Recipe) o).getInstructions(), instructionsURL)) {
+            return this.ingredients.equals(((Recipe) o).ingredients);
+        }
 
+        return false;
+    }
     // Get the recipe name
     public String getName() { return name; }
 
