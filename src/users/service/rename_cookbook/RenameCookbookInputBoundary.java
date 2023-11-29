@@ -1,4 +1,5 @@
 package users.service.rename_cookbook;
 
-public class RenameCookbookInputBoundary {
+public interface RenameCookbookInputBoundary {
+    void execute(RenameCookbookInputData renameCookbookInputData);
 }

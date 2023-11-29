@@ -1,4 +1,7 @@
 package users.service.rename_cookbook;
 
-public class RenameCookbookDAI {
+import java.io.IOException;
+
+public interface RenameCookbookDAI {
+    void renameCookbook(String oldName, String newName) throws IOException;
 }
