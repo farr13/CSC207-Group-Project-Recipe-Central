@@ -8,11 +8,11 @@ public class Cookbook implements Iterable<Recipe>{
 
     private final String name;
 
-    private ArrayList<Recipe> Recipes = new ArrayList<Recipe>();
+    private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
     Cookbook(String name, ArrayList<Recipe> Recipes){
         this.name = name;
-        this.Recipes = Recipes;
+        this.recipes = Recipes;
     }
 
     public String getName() {
@@ -20,7 +20,17 @@ public class Cookbook implements Iterable<Recipe>{
     }
 
     public ArrayList<Recipe> getRecipes() {
-        return Recipes;
+        return recipes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Cookbook)){
+            return false;
+        } else if (((Cookbook) o).getName() == this.name) {
+            return this.recipes.equals(((Cookbook) o).recipes);
+        }
+        return false;
     }
 
     @Override
