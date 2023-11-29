@@ -42,7 +42,7 @@ public class Cookbook implements Iterable<Recipe>{
         private int currindex;
         @Override
         public boolean hasNext() {
-            return currindex < Recipes.size();
+            return currindex < recipes.size();
         }
 
         @Override
@@ -50,7 +50,7 @@ public class Cookbook implements Iterable<Recipe>{
            if (!hasNext()) {
                throw new NoSuchElementException();
            }
-           Recipe currRecipe = Recipes.get(currindex);
+           Recipe currRecipe = recipes.get(currindex);
            currindex += 1;
            return currRecipe;
         }
