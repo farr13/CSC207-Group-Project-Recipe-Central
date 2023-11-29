@@ -1,5 +1,7 @@
 package users.service.see_list_cookbooks;
 
+import users.entity.Cookbook;
+
 public class SeeListCookbooksInteractor implements SeeListCookbooksInputBoundary{
     final SeeListCookbooksDataAccessInterface seeListCookbooksDataAccessObject;
 
@@ -11,7 +13,9 @@ public class SeeListCookbooksInteractor implements SeeListCookbooksInputBoundary
     }
 
     @Override
-    public void execute(SeeListCookbooksInputBoundary seeListCookbooksInputBoundary) {
-
+    public void execute(SeeListCookbooksInputData seeListCookbooksInputData) {
+        String[] cookbooks = seeListCookbooksDataAccessObject.getAllCookbooks();
+        SeeListCookbooksOutputData seeListCookbooksOutputData = new SeeListCookbooksOutputData(cookbooks);
+        seeListCookbooksPresnter.prepareSucceccView(seeListCookbooksOutputData);
     }
 }

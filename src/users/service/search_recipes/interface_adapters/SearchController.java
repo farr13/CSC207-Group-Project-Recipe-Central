@@ -3,8 +3,6 @@ package users.service.search_recipes.interface_adapters;
 import users.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchInputBoundary;
 import users.service.search_recipes.application_business_rules.DataTypes.SearchInputData;
 
-import java.util.ArrayList;
-
 public class SearchController {
     final SearchInputBoundary searchUseCaseInteractor;
     public SearchController(SearchInputBoundary searchUseCaseInteractor) {
