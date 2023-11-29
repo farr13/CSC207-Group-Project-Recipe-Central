@@ -11,7 +11,7 @@ public class Cookbook implements Iterable<Recipe>{
 
     private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
-    Cookbook(String name, ArrayList<Recipe> Recipes){
+    public Cookbook(String name, ArrayList<Recipe> Recipes){
         this.name = name;
         this.recipes = Recipes;
     }
