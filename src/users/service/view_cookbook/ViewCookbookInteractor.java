@@ -15,6 +15,6 @@ public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
     public void execute(ViewCookbookInputData viewCookbookInputData) {
         ViewCookbookOutputData viewCookbookOutputData =
                 new ViewCookbookOutputData(cookbookDataAccessObject.getCookbook(viewCookbookInputData.getName()));
-        viewCookbookPresenter.prepareSuccesView(viewCookbookOutputData);
+        viewCookbookPresenter.prepareSuccessView(viewCookbookOutputData);
     }
 }
