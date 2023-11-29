@@ -15,7 +15,7 @@ public class AddCookbookDAO {
     private ArrayList<Cookbook> cookbooks;
     private File cookbookFile;
 
-    public AddCookbookDAO(String fileName){
+    public void AddCookbookDAO(String fileName){
         jsonPath = fileName;
 
         cookbookFile = new File(fileName);
@@ -23,17 +23,16 @@ public class AddCookbookDAO {
 
         String cookbookStr;
 
-        if (cookbookFile.exists()) {
-            cookbookStr = readFile();
-        }else{
-            cookbookFile = null;
-            cookbookStr = "[]";
-        }
+        cookbookStr = readFile();
 
         this.cookbooks = convertCookbook(cookbookStr);
     }
 
     private String readFile(){
+        return getString(cookbookFile);
+    }
+
+    static String getString(File cookbookFile) {
         try (BufferedReader reader = new BufferedReader(new FileReader(cookbookFile))) {
             String result = reader.readLine();
             while (result != null) {
@@ -66,6 +65,16 @@ public class AddCookbookDAO {
             cookbooks.add(cookbook);
             writeFile();
         }
+    }
+    public void addCookbook(Cookbook[] cookbooks) throws Exception {
+        for (Cookbook cookbook: cookbooks){
+            if (existByTitle(cookbook.getName())) {
+                throw new Exception("Cookbook Name already exist");
+            } else {
+                this.cookbooks.add(cookbook);
+            }
+        }
+        writeFile();
     }
     private boolean existByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
