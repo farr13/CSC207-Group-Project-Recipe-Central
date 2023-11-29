@@ -1,6 +1,5 @@
 package data_access;
 
-import app.NotImplementedException;
 import backend.entity.Cookbook;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,20 +12,20 @@ public class DeleteCookbookDAO {
     private String jsonPath;
     private String json;
     private ArrayList<Cookbook> cookbooks;
-    private File cookbookFile;
+    private File file;
 
-    public void DeleteCookbookDAO(String fileName){
+    public DeleteCookbookDAO(String fileName){
         jsonPath = fileName;
 
-        cookbookFile = new File(fileName);
+        file = new File(fileName);
         createFile();
 
         String cookbookStr;
 
-        if (cookbookFile.exists()) {
+        if (file.exists()) {
             cookbookStr = readFile();
         }else{
-            cookbookFile = null;
+            file = null;
             cookbookStr = "[]";
         }
 
@@ -34,7 +33,7 @@ public class DeleteCookbookDAO {
     }
 
     private String readFile(){
-        try (BufferedReader reader = new BufferedReader(new FileReader(cookbookFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String result = reader.readLine();
             while (result != null) {
                 result = result + reader.readLine();
@@ -47,7 +46,7 @@ public class DeleteCookbookDAO {
 
     private void writeFile(){
         try {
-            BufferedWriter cookbookWriter = new BufferedWriter(new FileWriter(cookbookFile));
+            BufferedWriter cookbookWriter = new BufferedWriter(new FileWriter(file));
             String jsonPrint = new Gson().toJson(cookbooks);
             cookbookWriter.write(jsonPrint);
         }catch (IOException e) {
@@ -68,7 +67,7 @@ public class DeleteCookbookDAO {
     }
     private void createFile(){
         try {
-            cookbookFile.createNewFile();
+            file.createNewFile();
         } catch (IOException ignored) { }
     }
     public void deleteCookbook(Cookbook cookbook) throws Exception {

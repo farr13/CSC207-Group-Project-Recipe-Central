@@ -1,9 +1,7 @@
 package data_access;
 
-import app.NotImplementedException;
 import backend.entity.Cookbook;
 import backend.entity.Recipe;
-import backend.entity.Cookbook;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,12 +13,12 @@ public class AddRecipeDAO {
     private String jsonPath;
     private String json;
     private ArrayList<Cookbook> cookbooks;
-    private File cookbookFile;
+    private File file;
 
-    public void AddCookbookDAO(String fileName){
+    public AddRecipeDAO(String fileName){
         jsonPath = fileName;
 
-        cookbookFile = new File(fileName);
+        file = new File(fileName);
         createFile();
 
         String cookbookStr;
@@ -31,7 +29,7 @@ public class AddRecipeDAO {
     }
 
     private String readFile(){
-        return getString(cookbookFile);
+        return getString(file);
     }
 
     static String getString(File cookbookFile) {
@@ -49,7 +47,7 @@ public class AddRecipeDAO {
 
     private void writeFile(){
         try {
-            BufferedWriter cookbookWriter = new BufferedWriter(new FileWriter(cookbookFile));
+            BufferedWriter cookbookWriter = new BufferedWriter(new FileWriter(file));
             String jsonPrint = new Gson().toJson(cookbooks);
             cookbookWriter.close();
         }catch (IOException e) {
@@ -68,6 +66,18 @@ public class AddRecipeDAO {
         Cookbook newCookbook = new Cookbook(oldCookbook.getName(), recipeModified);
         cookbooks.set(cookbooks.indexOf(cookbook), newCookbook);
     }
+    private boolean existByTitle(String identifier) {
+        for (Cookbook cookbook: cookbooks){
+            if (cookbook.getName() == identifier.trim())
+                return false;
+        }
+        return true;
+    }
+    private void createFile(){
+        try {
+            file.createNewFile();
+        } catch (IOException ignored) { }
+    }
     public void addRecipe(Cookbook cookbook, Recipe recipe) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist");
@@ -78,16 +88,15 @@ public class AddRecipeDAO {
             writeFile();
         }
     }
-    private boolean existByTitle(String identifier) {
-        for (Cookbook cookbook: cookbooks){
-            if (cookbook.getName() == identifier.trim())
-                return false;
+    public void addRecipe(Cookbook cookbook, Recipe[] recipes) throws Exception {
+        if (!existByTitle(cookbook.getName())) {
+            throw new Exception("Cookbook doesn't exist");
+        } else {
+            if (cookbooks.contains(cookbook)){
+                for (Recipe recipe: recipes)
+                    changeCookbook(cookbook, recipe);
+            }
+            writeFile();
         }
-        return true;
-    }
-    private void createFile(){
-        try {
-            cookbookFile.createNewFile();
-        } catch (IOException ignored) { }
     }
 }
