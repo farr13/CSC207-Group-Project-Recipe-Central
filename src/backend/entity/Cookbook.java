@@ -3,6 +3,7 @@ package backend.entity;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class Cookbook implements Iterable<Recipe>{
 
@@ -25,10 +26,9 @@ public class Cookbook implements Iterable<Recipe>{
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Cookbook)){
-            return false;
-        } else if (((Cookbook) o).getName() == this.name) {
-            return this.recipes.equals(((Cookbook) o).recipes);
+        if (o instanceof Cookbook){
+            return Objects.equals(((Cookbook) o).getName(), name) &&
+                    Objects.equals(((Cookbook)o).getRecipes(), recipes);
         }
         return false;
     }

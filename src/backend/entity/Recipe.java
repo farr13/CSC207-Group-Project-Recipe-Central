@@ -17,12 +17,11 @@ public class Recipe {
     }
     @Override
     public boolean equals(Object o){
-        if (!(o instanceof Recipe)){
-            return false;
-        } else if (Objects.equals(((Recipe) o).getName(), name) && Objects.equals(((Recipe) o).getInstructions(), instructionsURL)) {
-            return this.ingredients.equals(((Recipe) o).ingredients);
+        if (o instanceof Recipe){
+            return (Objects.equals(((Recipe) o).getName(), name) &&
+                    Objects.equals(((Recipe) o).getInstructions(), instructionsURL) &&
+                    Objects.equals(((Recipe) o).ingredients, ingredients));
         }
-
         return false;
     }
     // Get the recipe name
