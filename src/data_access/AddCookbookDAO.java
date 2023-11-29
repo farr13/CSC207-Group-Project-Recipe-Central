@@ -18,11 +18,12 @@ public class AddCookbookDAO {
     public AddCookbookDAO(String fileName){
         jsonPath = fileName;
 
-        this.cookbookFile = new File(fileName);
+        cookbookFile = new File(fileName);
+        createFile();
 
         String cookbookStr;
 
-        if (this.cookbookFile.exists()) {
+        if (cookbookFile.exists()) {
             cookbookStr = readFile();
         }else{
             cookbookFile = null;
@@ -61,13 +62,11 @@ public class AddCookbookDAO {
     public void addCookbook(Cookbook cookbook) throws Exception {
         if (existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook Name already exist");
-        }
-        else {
-            this.cookbooks.add(cookbook);
+        } else {
+            cookbooks.add(cookbook);
             writeFile();
         }
     }
-
     private boolean existByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
             if (cookbook.getName() == identifier.trim())
@@ -75,5 +74,9 @@ public class AddCookbookDAO {
         }
         return true;
     }
-
+    private void createFile(){
+        try {
+            cookbookFile.createNewFile();
+        } catch (IOException ignored) { }
+    }
 }
