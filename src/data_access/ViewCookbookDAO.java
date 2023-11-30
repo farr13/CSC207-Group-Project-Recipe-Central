@@ -2,6 +2,7 @@ package data_access;
 
 import backend.entity.Cookbook;
 import backend.entity.Recipe;
+import backend.service.view_cookbook.ViewCookbookDataAccessInterface;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ViewCookbookDAO {
+public class ViewCookbookDAO implements ViewCookbookDataAccessInterface {
     private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
