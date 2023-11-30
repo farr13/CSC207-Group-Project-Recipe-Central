@@ -1,4 +1,4 @@
-package backend.data_access_interfaces;
+package backend.service.view_cookbook;
 
 import backend.entity.Cookbook;
 

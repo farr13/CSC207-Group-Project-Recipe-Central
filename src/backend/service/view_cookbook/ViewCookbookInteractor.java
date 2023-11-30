@@ -1,8 +1,5 @@
 package backend.service.view_cookbook;
 
-import backend.data_access_interfaces.ViewCookbookDAI;
-import backend.entity.Cookbook;
-
 public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
 
     final ViewCookbookDAI viewCookbookDAO;
