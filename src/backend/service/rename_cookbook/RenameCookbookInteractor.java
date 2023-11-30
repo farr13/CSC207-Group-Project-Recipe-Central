@@ -1,9 +1,9 @@
 package backend.service.rename_cookbook;
 
 import backend.entity.Cookbook;
-import backend.service.rename_cookbook.data_access_interfaces.AddCookbookDAI;
-import backend.service.rename_cookbook.data_access_interfaces.DeleteCookbookDAI;
-import backend.service.rename_cookbook.data_access_interfaces.ViewCookbookDAI;
+import backend.data_access_interfaces.AddCookbookDAI;
+import backend.data_access_interfaces.DeleteCookbookDAI;
+import backend.data_access_interfaces.ViewCookbookDAI;
 
 public class RenameCookbookInteractor implements RenameCookbookInputBoundary{
 

@@ -1,6 +1,7 @@
 package data_access;
 
 import backend.entity.Cookbook;
+import backend.data_access_interfaces.AddCookbookDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,10 +10,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddCookbookDAO {
-    private String jsonPath;
-    private ArrayList<Cookbook> cookbooks;
-    private File file;
+public class AddCookbookDAO implements AddCookbookDAI {
+    private final String jsonPath;
+    private final ArrayList<Cookbook> cookbooks;
+    private final File file;
 
     public AddCookbookDAO(String fileName){
         jsonPath = fileName;
@@ -68,10 +69,9 @@ public class AddCookbookDAO {
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
+    @Override
     public void addCookbook(Cookbook cookbook) throws Exception {
-        if (existByTitle(cookbook.getName())) {
-            throw new Exception("Cookbook name already exists.");
-        } else {
+        if (!existByTitle(cookbook.getName())) {
             cookbooks.add(cookbook);
             writeFile();
         }
@@ -79,7 +79,6 @@ public class AddCookbookDAO {
     public void addCookbook(Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (existByTitle(cookbook.getName())) {
-                throw new Exception("Cookbook name already exists.");
             } else {
                 this.cookbooks.add(cookbook);
             }

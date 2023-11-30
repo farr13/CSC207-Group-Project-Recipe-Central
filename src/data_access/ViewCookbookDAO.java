@@ -1,8 +1,7 @@
 package data_access;
 
+import backend.data_access_interfaces.ViewCookbookDAI;
 import backend.entity.Cookbook;
-import backend.entity.Recipe;
-import backend.service.view_cookbook.ViewCookbookDataAccessInterface;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ViewCookbookDAO implements ViewCookbookDataAccessInterface {
+public class ViewCookbookDAO implements ViewCookbookDAI {
     private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
@@ -77,6 +76,7 @@ public class ViewCookbookDAO implements ViewCookbookDataAccessInterface {
         }
         throw new NoSuchElementException();
     }
+    @Override
     public Cookbook viewCookbook(String cookbookName) {
         if (existByTitle(cookbookName)){
             for (Cookbook cookbook: cookbooks){
