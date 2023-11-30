@@ -1,4 +1,6 @@
-package users.entity;
+package backend.entity;
+
+import java.util.Objects;
 
 public class Ingredient{
     private String name;
