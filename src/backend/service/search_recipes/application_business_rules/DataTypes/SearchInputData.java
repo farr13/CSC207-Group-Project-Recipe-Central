@@ -1,7 +1,5 @@
 package backend.service.search_recipes.application_business_rules.DataTypes;
 
-import java.util.ArrayList;
-
 public class SearchInputData {
     private String[] ingredients, mealType, diet, health;
 

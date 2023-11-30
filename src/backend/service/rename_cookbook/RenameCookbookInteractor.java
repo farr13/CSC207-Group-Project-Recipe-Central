@@ -1,20 +1,21 @@
 package backend.service.rename_cookbook;
 
 import backend.entity.Cookbook;
-import backend.data_access_interfaces.AddCookbookDAI;
-import backend.data_access_interfaces.DeleteCookbookDAI;
-import backend.data_access_interfaces.ViewCookbookDAI;
+import backend.service.rename_cookbook.DAI.RenameCookbookAddDAI;
+import backend.service.rename_cookbook.DAI.RenameCookbookDeleteDAI;
+import backend.service.rename_cookbook.DAI.RenameCookbookViewDAI;
+import backend.service.view_cookbook.ViewCookbookDAI;
 
 public class RenameCookbookInteractor implements RenameCookbookInputBoundary{
 
-    final DeleteCookbookDAI deleteCookbookDAO;
-    final ViewCookbookDAI viewCookbookDAO;
-    final AddCookbookDAI addCookbookDAO;
+    final RenameCookbookDeleteDAI deleteCookbookDAO;
+    final RenameCookbookViewDAI viewCookbookDAO;
+    final RenameCookbookAddDAI addCookbookDAO;
     final RenameCookbookOutputBoundary renameCookbookPresenter;
 
-    public RenameCookbookInteractor(DeleteCookbookDAI deleteCookbookDAO,
-                                    ViewCookbookDAI viewCookbookDAO,
-                                    AddCookbookDAI addCookbookDAO,
+    public RenameCookbookInteractor(RenameCookbookDeleteDAI deleteCookbookDAO,
+                                    RenameCookbookViewDAI viewCookbookDAO,
+                                    RenameCookbookAddDAI addCookbookDAO,
                                     RenameCookbookOutputBoundary renameCookbookOutputBoundary) {
         this.deleteCookbookDAO = deleteCookbookDAO;
         this.viewCookbookDAO = viewCookbookDAO;

@@ -1,7 +1,7 @@
 package data_access;
 
 import backend.entity.Cookbook;
-import backend.data_access_interfaces.AddCookbookDAI;
+import backend.service.rename_cookbook.DAI.RenameCookbookAddDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddCookbookDAO implements AddCookbookDAI {
+public class AddCookbookDAO implements RenameCookbookAddDAI {
     private final String jsonPath;
     private final ArrayList<Cookbook> cookbooks;
     private final File file;

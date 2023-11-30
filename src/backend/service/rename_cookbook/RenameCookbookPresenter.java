@@ -5,7 +5,6 @@ public class RenameCookbookPresenter implements RenameCookbookOutputBoundary{
     public void prepareSuccessView(RenameCookbookOutputdata name) {
 
     }
-
     @Override
     public void prepareFailView() {
 
