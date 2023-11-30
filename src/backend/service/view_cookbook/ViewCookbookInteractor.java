@@ -1,4 +1,4 @@
-package users.service.view_cookbook;
+package backend.service.view_cookbook;
 
 public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
 
@@ -14,7 +14,7 @@ public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
     @Override
     public void execute(ViewCookbookInputData viewCookbookInputData) {
         ViewCookbookOutputData viewCookbookOutputData =
-                new ViewCookbookOutputData(cookbookDataAccessObject.getCookbook(viewCookbookInputData.getName()));
+                new ViewCookbookOutputData(cookbookDataAccessObject.viewCookbook(viewCookbookInputData.getName()));
         viewCookbookPresenter.prepareSuccessView(viewCookbookOutputData);
     }
 }

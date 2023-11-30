@@ -1,4 +1,4 @@
-package users.service.view_cookbook;
+package backend.service.view_cookbook;
 
 public class ViewCookbookController {
     final ViewCookbookInputBoundary viewCookbookInteractor;

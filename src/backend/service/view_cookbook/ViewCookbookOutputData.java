@@ -1,6 +1,6 @@
-package users.service.view_cookbook;
+package backend.service.view_cookbook;
 
-import users.entity.Cookbook;
+import backend.entity.Cookbook;
 
 public class ViewCookbookOutputData {
     private final Cookbook cookbook;
