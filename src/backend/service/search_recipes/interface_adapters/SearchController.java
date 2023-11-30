@@ -1,9 +1,7 @@
-package users.service.search_recipes.interface_adapters;
+package backend.service.search_recipes.interface_adapters;
 
-import users.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchInputBoundary;
-import users.service.search_recipes.application_business_rules.DataTypes.SearchInputData;
-
-import java.util.ArrayList;
+import backend.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchInputBoundary;
+import backend.service.search_recipes.application_business_rules.DataTypes.SearchInputData;
 
 public class SearchController {
     final SearchInputBoundary searchUseCaseInteractor;

@@ -1,11 +1,10 @@
-package users.service.search_recipes.EdamamAPI;
+package backend.service.search_recipes.EdamamAPI;
 
 import users.entity.Ingredient;
 import users.entity.Recipe;
-import users.service.search_recipes.application_business_rules.API_Interface.JsonOutputDataConverter;
-import users.service.search_recipes.application_business_rules.DataTypes.SearchOutputData;
+import backend.service.search_recipes.application_business_rules.API_Interface.JsonOutputDataConverter;
+import backend.service.search_recipes.application_business_rules.DataTypes.SearchOutputData;
 import com.google.gson.*;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
