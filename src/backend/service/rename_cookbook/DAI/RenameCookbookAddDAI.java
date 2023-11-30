@@ -1,7 +1,7 @@
-package backend.data_access_interfaces;
+package backend.service.rename_cookbook.DAI;
 
 import backend.entity.Cookbook;
 
-public interface AddCookbookDAI {
+public interface RenameCookbookAddDAI {
     public void addCookbook(Cookbook cookbook) throws Exception;
 }
