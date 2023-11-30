@@ -1,6 +1,6 @@
-package users.service.search_recipes.EdamamAPI;
+package backend.service.search_recipes.EdamamAPI;
 
-import users.service.search_recipes.application_business_rules.API_Interface.APICaller;
+import backend.service.search_recipes.application_business_rules.API_Interface.APICaller;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
