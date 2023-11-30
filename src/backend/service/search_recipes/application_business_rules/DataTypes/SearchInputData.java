@@ -1,4 +1,4 @@
-package users.service.search_recipes.application_business_rules.DataTypes;
+package backend.service.search_recipes.application_business_rules.DataTypes;
 
 import java.util.ArrayList;
 

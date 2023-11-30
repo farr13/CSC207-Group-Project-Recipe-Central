@@ -1,6 +1,6 @@
-package users.service.search_recipes.application_business_rules.DataTypes;
+package backend.service.search_recipes.application_business_rules.DataTypes;
 
-import users.entity.Recipe;
+import backend.entity.Recipe;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,12 @@
-package users.service.search_recipes.application_business_rules;
+package backend.service.search_recipes.application_business_rules;
 
-import users.service.search_recipes.application_business_rules.API_Interface.APICaller;
-import users.service.search_recipes.application_business_rules.API_Interface.InputDataURLConverter;
-import users.service.search_recipes.application_business_rules.API_Interface.JsonOutputDataConverter;
-import users.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchInputBoundary;
-import users.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchOutputBoundary;
-import users.service.search_recipes.application_business_rules.DataTypes.SearchInputData;
-import users.service.search_recipes.application_business_rules.DataTypes.SearchOutputData;
+import backend.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchOutputBoundary;
+import backend.service.search_recipes.application_business_rules.DataTypes.SearchInputData;
+import backend.service.search_recipes.application_business_rules.API_Interface.APICaller;
+import backend.service.search_recipes.application_business_rules.API_Interface.InputDataURLConverter;
+import backend.service.search_recipes.application_business_rules.API_Interface.JsonOutputDataConverter;
+import backend.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchInputBoundary;
+import backend.service.search_recipes.application_business_rules.DataTypes.SearchOutputData;
 
 public class SearchInteractor implements SearchInputBoundary {
     private APICaller apiCaller;
