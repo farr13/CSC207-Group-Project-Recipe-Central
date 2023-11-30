@@ -1,7 +1,7 @@
 package backend.service.search_recipes.EdamamAPI;
 
-import users.entity.Ingredient;
-import users.entity.Recipe;
+import backend.entity.Ingredient;
+import backend.entity.Recipe;
 import backend.service.search_recipes.application_business_rules.API_Interface.JsonOutputDataConverter;
 import backend.service.search_recipes.application_business_rules.DataTypes.SearchOutputData;
 import com.google.gson.*;
