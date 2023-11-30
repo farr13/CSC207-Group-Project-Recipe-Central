@@ -1,5 +1,6 @@
 package data_access;
 
+import backend.data_access_interfaces.DeleteCookbookDAI;
 import backend.entity.Cookbook;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,9 +10,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class DeleteCookbookDAO {
+public class DeleteCookbookDAO implements DeleteCookbookDAI {
     private String jsonPath;
-    private String json;
     private ArrayList<Cookbook> cookbooks;
     private File file;
 
@@ -70,6 +70,7 @@ public class DeleteCookbookDAO {
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
+    @Override
     public void deleteCookbook(Cookbook cookbook) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook Does Not Exist");

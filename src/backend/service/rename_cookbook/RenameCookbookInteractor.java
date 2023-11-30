@@ -1,9 +1,9 @@
 package backend.service.rename_cookbook;
 
 import backend.entity.Cookbook;
-import backend.service.rename_cookbook.data_access_interfaces.AddCookbookDAI;
-import backend.service.rename_cookbook.data_access_interfaces.DeleteCookbookDAI;
-import backend.service.rename_cookbook.data_access_interfaces.ViewCookbookDAI;
+import backend.data_access_interfaces.AddCookbookDAI;
+import backend.data_access_interfaces.DeleteCookbookDAI;
+import backend.data_access_interfaces.ViewCookbookDAI;
 
 public class RenameCookbookInteractor implements RenameCookbookInputBoundary{
 
@@ -24,10 +24,14 @@ public class RenameCookbookInteractor implements RenameCookbookInputBoundary{
 
     @Override
     public void execute(RenameCookbookInputData renameCookbookInputData){
-        Cookbook oldCookbook = viewCookbookDAO.viewCookbook(renameCookbookInputData.getCookbookNameOld());
-        Cookbook newCookbook = new Cookbook(renameCookbookInputData.getCookbookNameNew(), oldCookbook.getRecipes());
-        deleteCookbookDAO.deleteCookbook(oldCookbook);
-        addCookbookDAO.addCookbook(newCookbook);
-        renameCookbookPresenter.prepareSuccessView(new RenameCookbookOutputdata(newCookbook.getName()));
+        try {
+            Cookbook oldCookbook = viewCookbookDAO.viewCookbook(renameCookbookInputData.getCookbookNameOld());
+            Cookbook newCookbook = new Cookbook(renameCookbookInputData.getCookbookNameNew(), oldCookbook.getRecipes());
+            deleteCookbookDAO.deleteCookbook(oldCookbook);
+            addCookbookDAO.addCookbook(newCookbook);
+            renameCookbookPresenter.prepareSuccessView(new RenameCookbookOutputdata(newCookbook.getName()));
+        } catch (Exception e) {
+            renameCookbookPresenter.prepareFailView();
+        }
     }
 }
