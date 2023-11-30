@@ -7,37 +7,40 @@ import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Objects;
 
 public class AddCookbookDAO {
     private String jsonPath;
-    private String json;
     private ArrayList<Cookbook> cookbooks;
     private File file;
 
     public AddCookbookDAO(String fileName){
         jsonPath = fileName;
-
         file = new File(fileName);
-        createFile();
 
-        String cookbookStr;
+        if (!file.exists())
+            createFile();
 
-        cookbookStr = readFile();
-
-        this.cookbooks = convertCookbook(cookbookStr);
+        cookbooks = convertCookbook(readFile());
     }
-
+    private void createFile(){
+        try {
+            BufferedWriter cookbookWriter = new BufferedWriter(new FileWriter(file.getName()));
+            cookbookWriter.write("[]");
+            cookbookWriter.close();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private String readFile(){
-        return getString(file);
-    }
-
-    static String getString(File file) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String result = reader.readLine();
-            while (result != null) {
-                result = result + reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getName()))) {
+            String result = "";
+            String nextLine = reader.readLine();
+            while (nextLine != null) {
+                result = result + nextLine;
+                nextLine = reader.readLine();
             }
+
             return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -46,24 +49,20 @@ public class AddCookbookDAO {
 
     private void writeFile(){
         try {
-            BufferedWriter cookbookWriter = new BufferedWriter(new FileWriter(file));
-            String jsonPrint = new Gson().toJson(cookbooks);
-            cookbookWriter.write(jsonPrint);
+            PrintWriter cookbookWriter = new PrintWriter(file);
+            cookbookWriter.print("");
+            cookbookWriter.print(new Gson().toJson(cookbooks));
+            cookbookWriter.close();
         }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
     private boolean existByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
-            if (cookbook.getName() == identifier.trim())
-                return false;
+            if (Objects.equals(cookbook.getName(), identifier))
+                return true;
         }
-        return true;
-    }
-    private void createFile(){
-        try {
-            file.createNewFile();
-        } catch (IOException ignored) { }
+        return false;
     }
     private ArrayList<Cookbook> convertCookbook(String jsonStr){
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
@@ -71,7 +70,7 @@ public class AddCookbookDAO {
     }
     public void addCookbook(Cookbook cookbook) throws Exception {
         if (existByTitle(cookbook.getName())) {
-            throw new Exception("Cookbook Name already exist");
+            throw new Exception("Cookbook name already exists.");
         } else {
             cookbooks.add(cookbook);
             writeFile();
@@ -80,7 +79,7 @@ public class AddCookbookDAO {
     public void addCookbook(Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (existByTitle(cookbook.getName())) {
-                throw new Exception("Cookbook Name already exist");
+                throw new Exception("Cookbook name already exists.");
             } else {
                 this.cookbooks.add(cookbook);
             }
