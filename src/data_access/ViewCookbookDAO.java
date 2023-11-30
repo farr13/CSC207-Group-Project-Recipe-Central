@@ -76,6 +76,15 @@ public class ViewCookbookDAO {
         }
         throw new NoSuchElementException();
     }
+    public Cookbook viewCookbook(String cookbookName) {
+        if (existByTitle(cookbookName)){
+            for (Cookbook cookbook: cookbooks){
+                if (Objects.equals(cookbook.getName(), cookbookName))
+                    return cookbook;
+            }
+        }
+        throw new NoSuchElementException();
+    }
     public Cookbook[] viewCookbooks(){
         return cookbooks.toArray(new Cookbook[cookbooks.size()]);
     }
