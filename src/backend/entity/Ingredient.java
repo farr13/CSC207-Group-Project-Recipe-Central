@@ -14,6 +14,13 @@ public class Ingredient{
     public Ingredient(String textDescription){
         this.textDescription = textDescription;
     }
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof Ingredient){
+            return Objects.equals(textDescription, ((Ingredient) o).textDescription);
+        }
+        return false;
+    }
 
     public String getName(){
         return name;
