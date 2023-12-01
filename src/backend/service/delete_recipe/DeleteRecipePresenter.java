@@ -1,4 +1,7 @@
-package backend.service.delete_cookbook;
+package backend.service.delete_recipe;
+
+import backend.service.delete_recipe.DeleteRecipeOutputBoundary;
+import backend.service.delete_recipe.DeleteRecipeOutputData;
 
 public class DeleteRecipePresenter implements DeleteRecipeOutputBoundary {
     @Override
