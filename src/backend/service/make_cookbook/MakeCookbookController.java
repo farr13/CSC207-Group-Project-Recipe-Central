@@ -1,7 +1,4 @@
-package users.service.make_cookbook;
-
-import users.service.make_cookbook.MakeCookbookInputBoundary;
-import users.service.make_cookbook.MakeCookbookInputData;
+package backend.service.make_cookbook;
 
 public class MakeCookbookController {
 

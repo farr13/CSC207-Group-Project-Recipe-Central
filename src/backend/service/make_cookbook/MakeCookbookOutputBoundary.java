@@ -1,4 +1,4 @@
-package users.service.make_cookbook;
+package backend.service.make_cookbook;
 
 public interface MakeCookbookOutputBoundary {
     void prepareSuccessView(MakeCookbookOutputData response);
