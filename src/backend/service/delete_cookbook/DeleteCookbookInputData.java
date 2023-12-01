@@ -1,6 +1,6 @@
 package backend.service.delete_cookbook;
 
-import users.entity.Cookbook;
+import backend.entity.Cookbook;
 
 import java.util.ArrayList;
 
