@@ -15,7 +15,7 @@ public class DeleteRecipeInteractor implements DeleteRecipeInputBoundary {
     @Override
     public void execute(DeleteRecipeInputData deleteRecipeInputData){
         try {
-            deleteRecipeDAO.removeRecipe(deleteRecipeInputData.getRecipeName());
+            deleteRecipeDAO.removeRecipe(deleteRecipeInputData.getCookbookName(), deleteRecipeInputData.getRecipeName());
             DeleteRecipeOutputData deleteRecipeOutputData =
                     new DeleteRecipeOutputData(deleteRecipeInputData.getRecipeName());
 

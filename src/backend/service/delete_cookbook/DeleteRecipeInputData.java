@@ -3,10 +3,14 @@ package backend.service.delete_cookbook;
 public class DeleteRecipeInputData {
     private final String recipeName;
 
-    public DeleteRecipeInputData(String recipeName){
+    private final String cookbookName;
+
+    public DeleteRecipeInputData(String recipeName, String cookbookName){
+        this.cookbookName = cookbookName;
         this.recipeName = recipeName;
     }
 
     String getRecipeName() {return recipeName;}
+    String getCookbookName() {return cookbookName;}
 
 }
