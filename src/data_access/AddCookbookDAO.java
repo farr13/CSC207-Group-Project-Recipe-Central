@@ -1,6 +1,7 @@
 package data_access;
 
 import backend.entity.Cookbook;
+import backend.service.make_cookbook.MakeCookbookDataAccessInterface;
 import backend.service.rename_cookbook.DAI.RenameCookbookAddDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -10,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddCookbookDAO implements RenameCookbookAddDAI {
+public class AddCookbookDAO implements RenameCookbookAddDAI, MakeCookbookDataAccessInterface {
     private final String jsonPath;
     private final ArrayList<Cookbook> cookbooks;
     private final File file;
@@ -58,7 +59,8 @@ public class AddCookbookDAO implements RenameCookbookAddDAI {
             throw new RuntimeException(e);
         }
     }
-    private boolean existByTitle(String identifier) {
+    @Override
+    public boolean existByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), identifier))
                 return true;
@@ -70,12 +72,13 @@ public class AddCookbookDAO implements RenameCookbookAddDAI {
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
     @Override
-    public void addCookbook(Cookbook cookbook) throws Exception {
+    public void addCookbook(Cookbook cookbook) {
         if (!existByTitle(cookbook.getName())) {
             cookbooks.add(cookbook);
             writeFile();
         }
     }
+
     public void addCookbook(Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (existByTitle(cookbook.getName())) {

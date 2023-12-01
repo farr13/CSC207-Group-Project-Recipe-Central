@@ -20,8 +20,9 @@ public class MakeCookbookInteractor implements MakeCookbookInputBoundary{
             makeCookbookPresenter.prepareFailView(title + "Cookbook title already exist.");
         }
         else {
-            Cookbook cookbook = makeCookbookDataAccessObject.get(makeCookbookInputData.getTitle());
-
+            Recipe[] recipes = {};
+            Cookbook cookbook = new Cookbook(makeCookbookInputData.getTitle(), recipes);
+            makeCookbookDataAccessObject.addCookbook(cookbook);
             MakeCookbookOutputData makeCookbookOutputData = new MakeCookbookOutputData(
                     cookbook.getName(), false);
             makeCookbookPresenter.prepareSuccessView(makeCookbookOutputData);
