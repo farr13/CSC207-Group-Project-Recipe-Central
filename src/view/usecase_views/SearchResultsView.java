@@ -38,8 +38,17 @@ public class SearchResultsView extends JPanel implements ActionListener, Propert
         AddtoCookbook = new JButton(SearchResultViewModel.ADD_COOKBOOK_BUTTON_LABEL);
         MainMenu = new JButton(SearchResultViewModel.MAIN_BUTTON_LABEL);
 
+        MainMenu.addActionListener({
+                public void actionPerformed(ActionEvent evt) {
+                    if (evt.getSource().equals(MainMenu)) {
+                        System.out.println("Search Text: " + searchText);
+                    }
+        }
+        });
         frame.setVisible(true);
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
