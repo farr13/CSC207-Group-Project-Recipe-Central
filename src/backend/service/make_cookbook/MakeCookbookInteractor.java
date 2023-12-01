@@ -1,9 +1,7 @@
-package users.service.make_cookbook;
+package backend.service.make_cookbook;
 
-import users.entity.Cookbook;
-import users.entity.Recipe;
-
-import java.util.ArrayList;
+import backend.entity.Cookbook;
+import backend.entity.Recipe;
 
 public class MakeCookbookInteractor implements MakeCookbookInputBoundary{
 

@@ -1,4 +1,4 @@
-package users.service.make_cookbook;
+package backend.service.make_cookbook;
 public class MakeCookbookOutputData {
     private final String title;
     private final boolean useCaseFailed;

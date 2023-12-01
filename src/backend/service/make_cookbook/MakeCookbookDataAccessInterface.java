@@ -1,6 +1,6 @@
-package users.service.make_cookbook;
+package backend.service.make_cookbook;
 
-import users.entity.Cookbook;
+import backend.entity.Cookbook;
 
 public interface MakeCookbookDataAccessInterface {
     /*Check if the cookbook title already exist*/
