@@ -1,7 +1,9 @@
 package app;
 
+import view.usecase_views.MainMenuView;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
+import view.view_models.MainMenuViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +15,25 @@ public class Main {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        views.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JPanel view = new JPanel(cardLayout);
+        view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        frame.add(views, BorderLayout.CENTER);
+        frame.add(view, BorderLayout.CENTER);
 
         // This keeps track of and manages which view is currently showing.
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
+        new ViewManager(view, cardLayout, viewManagerModel);
 
-        //Other code
+        //Making View Models
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
+
+        //Making Views
+        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel);
+        view.add(mainMenuView);
+
+        //Final Steps
+        viewManagerModel.setActiveView(mainMenuView.viewName);
+        viewManagerModel.firePropertyChanged();
 
         frame.pack();
         frame.setVisible(true);
