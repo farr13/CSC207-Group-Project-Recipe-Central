@@ -106,7 +106,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     }
     @Override
     public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+        JOptionPane.showConfirmDialog(this, "Cancel " +
+                "not implemented yet.");
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
