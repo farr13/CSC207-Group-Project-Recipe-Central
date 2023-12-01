@@ -1,4 +1,4 @@
-package users.service.delete_cookbook;
+package backend.service.delete_cookbook;
 
 public interface DeleteCookbookOutputBoundary {
 
