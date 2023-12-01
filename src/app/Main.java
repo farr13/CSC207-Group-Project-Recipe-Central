@@ -1,5 +1,6 @@
 package app;
 
+import data_access.*;
 import view.usecase_views.MainMenuView;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
@@ -20,15 +21,22 @@ public class Main {
 
         frame.add(view, BorderLayout.CENTER);
 
-        // This keeps track of and manages which view is currently showing.
+        //This keeps track of and manages which view is currently showing.
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(view, cardLayout, viewManagerModel);
+
+        //Creating data access objects
+        AddCookbookDAO addCookbookDAO = new AddCookbookDAO("saved_data.json");
+        AddRecipeDAO addRecipeDAO = new AddRecipeDAO("saved_data.json");
+        DeleteCookbookDAO deleteCookbookDAO = new DeleteCookbookDAO("saved_data.json");
+        DeleteRecipeDAO deleteRecipeDAO = new DeleteRecipeDAO("saved_data.json");
+        ViewCookbookDAO viewCookbookDAO = new ViewCookbookDAO("saved_data.json");
 
         //Making View Models
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
 
         //Making Views
-        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel, viewCookbookDAO);
         view.add(mainMenuView);
 
         //Final Steps

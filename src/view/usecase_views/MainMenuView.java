@@ -1,5 +1,7 @@
 package view.usecase_views;
 
+import backend.service.search_recipes.interface_adapters.SearchController;
+import backend.service.view_cookbook.ViewCookbookController;
 import view.view_models.MainMenuViewModel;
 
 import javax.swing.*;
@@ -14,12 +16,18 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "sign up";
 
     private final MainMenuViewModel mainMenuViewModel;
+    private final SearchController searchController;
+    private final ViewCookbookController viewCookbookController;
     private final JTextField searchInputField = new JTextField(30);
     private final JButton search;
     //private final JButton viewCookbooks;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel) {
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, SearchController searchController,
+                        ViewCookbookController viewCookbookController) {
         this.mainMenuViewModel = mainMenuViewModel;
+        this.searchController = searchController;
+        this.viewCookbookController = viewCookbookController;
+
         mainMenuViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(MainMenuViewModel.TITLE_LABEL);
@@ -62,14 +70,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             String searchText = searchInputField.getText();
-                            ArrayList<String> selectedMealTypes = getSelectedItems(filter1Panel);
-                            ArrayList<String> selectedDietOptions = getSelectedItems(filter2Panel);
-                            ArrayList<String> selectedHealthOptions = getSelectedItems(filter3Panel);
-
-                            System.out.println("Search Text: " + searchText);
-                            System.out.println("Selected Meal Types: " + selectedMealTypes);
-                            System.out.println("Selected Diet Options: " + selectedDietOptions);
-                            System.out.println("Selected Health Options: " + selectedHealthOptions);
+                            String[] selectedFilter1 = getSelectedItems(filter1Panel);
+                            String[] selectedFilter2 = getSelectedItems(filter2Panel);
+                            String[] selectedFilter3 = getSelectedItems(filter3Panel);
+                            searchController.execute(searchText, selectedFilter1, selectedFilter2, selectedFilter3);
                         }
                     }
                 }
@@ -91,8 +95,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         }
     }
 
-    //If time, put this in a seperate class.
-    private static ArrayList<String> getSelectedItems(JPanel panel) {
+    //If time, put this in a separate class.
+    private static String[] getSelectedItems(JPanel panel) {
         ArrayList<String> selectedItems = new ArrayList<>();
         for (Component component : panel.getComponents()) {
             if (component instanceof JCheckBox) {
@@ -102,7 +106,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         }
-        return selectedItems;
+        return selectedItems.toArray(new String[selectedItems.size()]);
     }
     @Override
     public void actionPerformed(ActionEvent evt) {

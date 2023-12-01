@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksDAI {
+public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksDAI, ViewCookbookDAI {
     private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
