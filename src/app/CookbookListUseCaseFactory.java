@@ -26,13 +26,11 @@ public class CookbookListUseCaseFactory {
     private static ViewCookbookController createViewCookbookUsecase(ViewCookbookViewDAI viewCookbookDAO){
         ViewCookbookPresenter viewCookbookPresenter = new ViewCookbookPresenter();
         ViewCookbookInteractor viewCookbookInteractor = new ViewCookbookInteractor(viewCookbookDAO, viewCookbookPresenter);
-        ViewCookbookController viewCookbookController = new ViewCookbookController(viewCookbookInteractor);
-        return viewCookbookController;
+        return new ViewCookbookController(viewCookbookInteractor);
     }
     private static DeleteCookbookController createDeleteCookbookUsecase(DeleteCookbookDAI deleteCookbookDAO){
         DeleteCookbookPresenter deleteCookbookPresenter = new DeleteCookbookPresenter();
         DeleteCookbookInteractor deleteCookbookInteractor = new DeleteCookbookInteractor(deleteCookbookDAO, deleteCookbookPresenter);
-        DeleteCookbookController deleteCookbookController = new DeleteCookbookController(deleteCookbookInteractor);
-        return deleteCookbookController;
+        return new DeleteCookbookController(deleteCookbookInteractor);
     }
 }

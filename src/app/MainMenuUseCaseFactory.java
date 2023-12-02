@@ -31,8 +31,7 @@ public class MainMenuUseCaseFactory {
         EdamamURLGenerator edamamURLGenerator = new EdamamURLGenerator("ebc53afb", "16c8dd744237d5c5cc0ca9b3b5a5f6eb");
         JsonRecipeGenerator jsonRecipeGenerator = new JsonRecipeGenerator();
         SearchInteractor searchInteractor = new SearchInteractor(edamamCaller, edamamURLGenerator, jsonRecipeGenerator, searchPresenter);
-        SearchController searchController = new SearchController(searchInteractor);
-        return searchController;
+        return new SearchController(searchInteractor);
     }
     private static SeeListCookbooksController createSeeListCookbooksUseCase(ViewManagerModel viewManagerModel,
                                                                             MainMenuViewModel mainMenuViewModel,
@@ -42,7 +41,6 @@ public class MainMenuUseCaseFactory {
                 cookbookListViewModel);
         SeeListCookbooksInteractor seeListCookbooksInteractor = new SeeListCookbooksInteractor(seeListCookbooksDAO,
                 seeListCookbooksPresenter);
-        SeeListCookbooksController seeListCookbooksController = new SeeListCookbooksController(seeListCookbooksInteractor);
-        return seeListCookbooksController;
+        return new SeeListCookbooksController(seeListCookbooksInteractor);
     }
 }
