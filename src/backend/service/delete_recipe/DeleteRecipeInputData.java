@@ -1,4 +1,4 @@
-package backend.service.delete_cookbook;
+package backend.service.delete_recipe;
 
 public class DeleteRecipeInputData {
     private final String cookbookName;
