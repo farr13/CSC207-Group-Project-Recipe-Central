@@ -2,6 +2,7 @@ package data_access;
 
 import backend.entity.Cookbook;
 import backend.entity.Recipe;
+import backend.service.add_recipe.AddRecipeDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class AddRecipeDAO {
+public class AddRecipeDAO implements AddRecipeDAI {
     private String jsonPath;
     private String json;
     private ArrayList<Cookbook> cookbooks;
@@ -84,6 +85,22 @@ public class AddRecipeDAO {
         Cookbook newCookbook = new Cookbook(oldCookbook.getName(), recipesModified);
         cookbooks.set(idx, newCookbook);
     }
+    @Override
+    public Cookbook getCookbook(String cookbookName) throws Exception {
+        Cookbook savecookbook = null;
+        if (existByTitle(cookbookName)) {
+            throw new Exception("Cookbook doesn't exist.");
+        } else {
+            for (Cookbook cookbook: cookbooks){
+                if(cookbook.getName().equals(cookbookName)){
+                    savecookbook = cookbook;
+                }
+            }
+        }
+        return savecookbook;
+    }
+
+    @Override
     public void addRecipe(Cookbook cookbook, Recipe recipe) throws Exception {
         if (existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist.");

@@ -2,6 +2,7 @@ package data_access;
 
 import backend.entity.Cookbook;
 import backend.entity.Recipe;
+import backend.service.delete_recipe.DeleteRecipeDeleteDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DeleteRecipeDAO {
+public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
 
     private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
@@ -83,6 +84,20 @@ public class DeleteRecipeDAO {
         Recipe[] recipesModified = removeRecipeLst(oldCookbook.getRecipes(), recipeRemove);
         Cookbook newCookbook = new Cookbook(oldCookbook.getName(), recipesModified);
         cookbooks.set(idx, newCookbook);
+    }
+    @Override
+    public void deleteRecipe(String cookbookName, String recipeName) throws Exception{
+        for (Cookbook cookbook: cookbooks){
+            if (Objects.equals(cookbook.getName(), cookbookName)){
+                for (Recipe recipe: cookbook.getRecipes()){
+                    if (Objects.equals(recipe.getName(), recipeName)){
+                        deleteRecipe(cookbook, recipe);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
     }
     public void deleteRecipe(Cookbook cookbook, Recipe recipe) throws Exception {
         if (!existByTitle(cookbook.getName())) {
