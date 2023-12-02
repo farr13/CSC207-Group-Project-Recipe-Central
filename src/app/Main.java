@@ -26,7 +26,7 @@ public class Main {
         new ViewManager(view, cardLayout, viewManagerModel);
 
         //Making View Models
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
 
         //Making Views
         MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel);
@@ -53,7 +53,7 @@ public class Main {
 
         frame.add(view, BorderLayout.CENTER);
 
-        SearchResultViewModel searchResultViewModel = new SearchResultViewModel("Results Screen");
+        SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
 
         //Making Views
         SearchResultsView searchResultsView = new SearchResultsView(searchResultViewModel);
@@ -67,7 +67,35 @@ public class Main {
         frame.setVisible(true);
     }
     public static void main(String[] args) {
+        // Search results screen
         // new Main().mainGUI();
+        // Results screen
         new Main().resultsGUI();
+
+        /*
+        JFrame application = new JFrame("Recipe Central");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        CardLayout cardLayout = new CardLayout();
+
+        // The various View objects. Only one view is visible at a time.
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        // This keeps track of and manages which view is currently showing.
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
+        // The data for the views, such as username and password, are in the ViewModels.
+        // This information will be changed by a presenter object that is reporting the
+        // results from the use case. The ViewModels are observable, and will
+        // be observed by the Views.
+
+        SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+
+        SearchResultsView searchResultsView =
+
+         */
     }
 }

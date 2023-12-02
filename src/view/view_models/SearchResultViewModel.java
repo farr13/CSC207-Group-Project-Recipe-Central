@@ -48,7 +48,7 @@ public class SearchResultViewModel extends ViewModel{
     };
     public static final String[] RECIPES = recipeNames;
     private SearchResultsState state = new SearchResultsState();
-    public SearchResultViewModel(String viewName) {super(viewName);}
+    public SearchResultViewModel() {super("Results");}
 
     public void setState(SearchResultsState state){this.state = state;}
 

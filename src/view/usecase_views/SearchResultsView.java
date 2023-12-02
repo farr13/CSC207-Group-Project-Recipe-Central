@@ -1,6 +1,7 @@
 package view.usecase_views;
 
 import backend.entity.Ingredient;
+import view.view_models.AddRecipeToCookbookViewmodel;
 import view.view_models.SearchResultViewModel;
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,8 @@ public class SearchResultsView extends JPanel implements ActionListener, Propert
     private final  JButton AddtoCookbook;
     private final  JButton mainMenu;
 
-    public SearchResultsView(SearchResultViewModel searchResultViewModel) {
+    public SearchResultsView(SearchResultViewModel searchResultViewModel, AddRecipeToCookbookViewmodel
+            addRecipeToCookbookViewmodel) {
         this.searchResultViewModel = searchResultViewModel;
         searchResultViewModel.addPropertyChangeListener(this);
 

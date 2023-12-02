@@ -19,8 +19,8 @@ public class MainMenuViewModel extends ViewModel {
             FILTER_3_OPTIONS = new String[]{"Breakfast", "Dinner", "Lunch", "Snack"};
 
     private MainMenuState state = new MainMenuState();
-    public MainMenuViewModel(String viewName) {
-        super(viewName);
+    public MainMenuViewModel() {
+        super("Main Menu");
     }
 
     public void setState(MainMenuState state) {
