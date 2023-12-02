@@ -8,7 +8,7 @@ public class DeleteRecipeController {
         this.deleteRecipeInteractor = deleteRecipeInteractor;
     }
 
-    public void execute(String cookbookName, String recipeName) {
+    public void execute(String cookbookName,String recipeName) {
         DeleteRecipeInputData deleteRecipeInputData = new DeleteRecipeInputData(cookbookName, recipeName);
 
         deleteRecipeInteractor.execute(deleteRecipeInputData);

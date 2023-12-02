@@ -74,11 +74,14 @@ public class AddCookbookDAO implements RenameCookbookAddDAI {
         if (!existByTitle(cookbook.getName())) {
             cookbooks.add(cookbook);
             writeFile();
+        }else{
+            throw new RuntimeException("Cookbook name already exists.");
         }
     }
     public void addCookbook(Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (existByTitle(cookbook.getName())) {
+                throw new RuntimeException("Cookbook name already exists.");
             } else {
                 this.cookbooks.add(cookbook);
             }
