@@ -56,11 +56,11 @@ public class Main {
         SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
 
         //Making Views
-        SearchResultsView searchResultsView = new SearchResultsView(searchResultViewModel);
-        view.add(searchResultsView);
+        //SearchResultsView searchResultsView = new SearchResultsView();
+        //view.add(searchResultsView);
 
         //Final Steps
-        viewManagerModel.setActiveView(searchResultsView.viewName);
+        //viewManagerModel.setActiveView(searchResultsView.viewName);
         viewManagerModel.firePropertyChanged();
 
         frame.pack();
@@ -72,7 +72,6 @@ public class Main {
         // Results screen
         new Main().resultsGUI();
 
-        /*
         JFrame application = new JFrame("Recipe Central");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
