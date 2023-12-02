@@ -16,15 +16,18 @@ import backend.service.view_cookbook.ViewCookbookInteractor;
 import backend.service.view_cookbook.ViewCookbookPresenter;
 import view.usecase_views.MainMenuView;
 import view.view_managers.ViewManagerModel;
+import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 
 public class MainMenuUseCaseFactory {
     public MainMenuUseCaseFactory(){}
 
-    public static MainMenuView create(MainMenuViewModel mainMenuViewModel, SeeListCookbooksDAI seeListCookbooksDAO){
+    public static MainMenuView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel,
+                                      CookbookListViewModel cookbookListViewModel, SeeListCookbooksDAI seeListCookbooksDAO){
         SearchController searchController = MainMenuUseCaseFactory.createSearchUseCase();
-        SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(seeListCookbooksDAO);
-        return new MainMenuView(mainMenuViewModel, searchController, seeListCookbooksController);
+        SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel,
+                mainMenuViewModel, cookbookListViewModel,seeListCookbooksDAO);
+        return new MainMenuView(mainMenuViewModel, cookbookListViewModel,searchController, seeListCookbooksController);
     }
     private static SearchController createSearchUseCase(){
         SearchPresenter searchPresenter = new SearchPresenter();
@@ -35,9 +38,14 @@ public class MainMenuUseCaseFactory {
         SearchController searchController = new SearchController(searchInteractor);
         return searchController;
     }
-    private static SeeListCookbooksController createSeeListCookbooksUseCase(SeeListCookbooksDAI seeListCookbooksDAO){
-        SeeListCookbooksPresenter seeListCookbooksPresenter = new SeeListCookbooksPresenter();
-        SeeListCookbooksInteractor seeListCookbooksInteractor = new SeeListCookbooksInteractor(seeListCookbooksDAO, seeListCookbooksPresenter);
+    private static SeeListCookbooksController createSeeListCookbooksUseCase(ViewManagerModel viewManagerModel,
+                                                                            MainMenuViewModel mainMenuViewModel,
+                                                                            CookbookListViewModel cookbookListViewModel,
+                                                                            SeeListCookbooksDAI seeListCookbooksDAO){
+        SeeListCookbooksPresenter seeListCookbooksPresenter = new SeeListCookbooksPresenter(viewManagerModel, mainMenuViewModel,
+                cookbookListViewModel);
+        SeeListCookbooksInteractor seeListCookbooksInteractor = new SeeListCookbooksInteractor(seeListCookbooksDAO,
+                seeListCookbooksPresenter);
         SeeListCookbooksController seeListCookbooksController = new SeeListCookbooksController(seeListCookbooksInteractor);
         return seeListCookbooksController;
     }

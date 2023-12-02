@@ -42,7 +42,8 @@ public class Main {
         cookbookListViewModel.getState().setCookbookNames(new String[]{"Breakfast", "Lunch"});
 
         //Making Views
-        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel, viewCookbookDAO);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel,
+                cookbookListViewModel, viewCookbookDAO);
         view.add(mainMenuView);
         CookbookListView cookbookListView = CookbookListUseCaseFactory.create(cookbookListViewModel, viewManagerModel,
                 mainMenuViewModel, viewCookbookDAO, deleteCookbookDAO);

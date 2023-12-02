@@ -2,6 +2,7 @@ package view.states;
 
 public class MainMenuState {
     private String ingredients = "";
+    private String errorMessage = "";
     public MainMenuState(MainMenuState copy){
         this.ingredients = copy.getIngredients();
     }
@@ -11,7 +12,15 @@ public class MainMenuState {
         this.ingredients = ingredients;
     }
 
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
     public String getIngredients() {
         return ingredients;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

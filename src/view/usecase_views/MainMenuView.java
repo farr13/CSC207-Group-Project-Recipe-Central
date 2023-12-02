@@ -3,6 +3,9 @@ package view.usecase_views;
 import backend.service.search_recipes.interface_adapters.SearchController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import backend.service.view_cookbook.ViewCookbookController;
+import view.states.CookbookListState;
+import view.states.MainMenuState;
+import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 
 import javax.swing.*;
@@ -17,19 +20,23 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "sign up";
 
     private final MainMenuViewModel mainMenuViewModel;
+    private final CookbookListViewModel cookbookListViewModel;
     private final SearchController searchController;
     private final SeeListCookbooksController seeListCookbooksController;
     private final JTextField searchInputField = new JTextField(30);
     private final JButton search;
     private final JButton viewCookbooks;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel, SearchController searchController,
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, CookbookListViewModel cookbookListViewModel,
+                        SearchController searchController,
                         SeeListCookbooksController seeListCookbooksController) {
         this.mainMenuViewModel = mainMenuViewModel;
+        this.cookbookListViewModel = cookbookListViewModel;
         this.searchController = searchController;
         this.seeListCookbooksController = seeListCookbooksController;
 
         mainMenuViewModel.addPropertyChangeListener(this);
+        cookbookListViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(MainMenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
