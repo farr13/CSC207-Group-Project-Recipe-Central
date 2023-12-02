@@ -14,19 +14,20 @@ import view.usecase_views.MainMenuView;
 import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
+import view.view_models.SearchResultViewModel;
 
 public class MainMenuUseCaseFactory {
     public MainMenuUseCaseFactory(){}
 
-    public static MainMenuView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel,
+    public static MainMenuView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel, SearchResultViewModel searchResultViewModel,
                                       CookbookListViewModel cookbookListViewModel, SeeListCookbooksDAI seeListCookbooksDAO){
-        SearchController searchController = MainMenuUseCaseFactory.createSearchUseCase();
+        SearchController searchController = MainMenuUseCaseFactory.createSearchUseCase(viewManagerModel, searchResultViewModel);
         SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel,
                 mainMenuViewModel, cookbookListViewModel,seeListCookbooksDAO);
         return new MainMenuView(mainMenuViewModel, cookbookListViewModel,searchController, seeListCookbooksController);
     }
-    private static SearchController createSearchUseCase(){
-        SearchPresenter searchPresenter = new SearchPresenter();
+    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchResultViewModel searchResultViewModel){
+        SearchPresenter searchPresenter = new SearchPresenter(viewManagerModel, searchResultViewModel);
         EdamamCaller edamamCaller = new EdamamCaller();
         EdamamURLGenerator edamamURLGenerator = new EdamamURLGenerator("ebc53afb", "16c8dd744237d5c5cc0ca9b3b5a5f6eb");
         JsonRecipeGenerator jsonRecipeGenerator = new JsonRecipeGenerator();

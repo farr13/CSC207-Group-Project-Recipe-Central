@@ -23,7 +23,7 @@ public class SearchResultsUseCaseFactory {
                                     ViewCookbookDAI viewCookbookDAO,
                                     AddRecipeDAI addRecipeDAO) {
         AddRecipeController addRecipeController = createAddRecipeUseCase(addRecipeViewModel, viewManagerModel, addRecipeDAO);
-        BackToMenuController backToMenuController = createBackToMenuUseCase();
+        BackToMenuController backToMenuController = createBackToMenuUseCase(viewManagerModel, mainMenuViewModel);
         return new SearchResultsView(searchResultViewModel, addRecipeViewModel, addRecipeController, backToMenuController);
     }
 
@@ -34,8 +34,8 @@ public class SearchResultsUseCaseFactory {
         AddRecipeInteractor addRecipeInteractor = new AddRecipeInteractor(addRecipeDAO, addRecipePresenter);
         return new AddRecipeController(addRecipeInteractor);
     }
-    private static BackToMenuController createBackToMenuUseCase(MainMenuViewModel mainMenuViewModel) {
-        BackToMenuPresenter backToMenuPresenter = new BackToMenuPresenter(mainMenuViewModel);
+    private static BackToMenuController createBackToMenuUseCase(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel) {
+        BackToMenuPresenter backToMenuPresenter = new BackToMenuPresenter(viewManagerModel, mainMenuViewModel);
         BackToMenuInteractor backToMenuInteractor = new BackToMenuInteractor(backToMenuPresenter);
         return new BackToMenuController(backToMenuInteractor);
     }

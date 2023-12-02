@@ -50,6 +50,7 @@ public class Main {
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create
                 (viewManagerModel,
                 mainMenuViewModel,
+                searchResultViewModel,
                 cookbookListViewModel,
                 viewCookbookDAO);
         view.add(mainMenuView);
