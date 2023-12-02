@@ -14,14 +14,14 @@ import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 
 public class CookbookListUseCaseFactory {
-    public CookbookListUseCaseFactory(){}
+    private CookbookListUseCaseFactory(){}
 
     public static CookbookListView create(CookbookListViewModel cookbookListViewModel, ViewManagerModel viewManagerModel,
                                           MainMenuViewModel mainMenuViewModel, ViewCookbookViewDAI viewCookbookDAO,
                                           DeleteCookbookDAI deleteCookbookDAO){
         ViewCookbookController viewCookbookController = CookbookListUseCaseFactory.createViewCookbookUsecase(viewCookbookDAO);
         DeleteCookbookController deleteCookbookController = CookbookListUseCaseFactory.createDeleteCookbookUsecase(deleteCookbookDAO);
-        return new CookbookListView(cookbookListViewModel, viewManagerModel, mainMenuViewModel, viewCookbookController, deleteCookbookController);
+        return new CookbookListView(viewManagerModel, cookbookListViewModel, mainMenuViewModel, viewCookbookController, deleteCookbookController);
     }
     private static ViewCookbookController createViewCookbookUsecase(ViewCookbookViewDAI viewCookbookDAO){
         ViewCookbookPresenter viewCookbookPresenter = new ViewCookbookPresenter();

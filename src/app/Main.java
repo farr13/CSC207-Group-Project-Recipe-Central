@@ -2,13 +2,16 @@ package app;
 
 import backend.entity.Cookbook;
 import data_access.*;
+import view.recipe_objects.Triplet;
 import view.states.CookbookListState;
 import view.usecase_views.CookbookListView;
 import view.usecase_views.MainMenuView;
+import view.usecase_views.OpenCookbookView;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
+import view.view_models.OpenCookbookViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,18 +42,24 @@ public class Main {
         //Making View Models
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
         CookbookListViewModel cookbookListViewModel = new CookbookListViewModel("Cookbook List");
-        cookbookListViewModel.getState().setCookbookNames(new String[]{"Breakfast", "Lunch"});
+        OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel("Open Cookbook View");
+        openCookbookViewModel.getState().setCookbookName("Breakfast");
+        openCookbookViewModel.getState().setRecipes(new Triplet[]{new Triplet<>("Cookies", "www.com",
+                new String[]{"flour", "sugar"})});
 
         //Making Views
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel,
                 cookbookListViewModel, viewCookbookDAO);
-        view.add(mainMenuView);
+        //view.add(mainMenuView);
         CookbookListView cookbookListView = CookbookListUseCaseFactory.create(cookbookListViewModel, viewManagerModel,
                 mainMenuViewModel, viewCookbookDAO, deleteCookbookDAO);
-        view.add(cookbookListView);
+        //view.add(cookbookListView);
+        OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create(viewManagerModel, openCookbookViewModel,
+                cookbookListViewModel, mainMenuViewModel, viewCookbookDAO, deleteRecipeDAO);
+        view.add(openCookbookView);
 
         //Final Steps
-        viewManagerModel.setActiveView(mainMenuView.viewName);
+        viewManagerModel.setActiveView(openCookbookView.viewName);
         viewManagerModel.firePropertyChanged();
 
         frame.pack();

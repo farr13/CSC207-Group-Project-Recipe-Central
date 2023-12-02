@@ -20,13 +20,13 @@ import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 
 public class MainMenuUseCaseFactory {
-    public MainMenuUseCaseFactory(){}
+    private MainMenuUseCaseFactory(){}
 
     public static MainMenuView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel,
                                       CookbookListViewModel cookbookListViewModel, SeeListCookbooksDAI seeListCookbooksDAO){
         SearchController searchController = MainMenuUseCaseFactory.createSearchUseCase();
         SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel,
-                mainMenuViewModel, cookbookListViewModel,seeListCookbooksDAO);
+                cookbookListViewModel,seeListCookbooksDAO);
         return new MainMenuView(mainMenuViewModel, cookbookListViewModel,searchController, seeListCookbooksController);
     }
     private static SearchController createSearchUseCase(){
@@ -39,11 +39,9 @@ public class MainMenuUseCaseFactory {
         return searchController;
     }
     private static SeeListCookbooksController createSeeListCookbooksUseCase(ViewManagerModel viewManagerModel,
-                                                                            MainMenuViewModel mainMenuViewModel,
                                                                             CookbookListViewModel cookbookListViewModel,
                                                                             SeeListCookbooksDAI seeListCookbooksDAO){
-        SeeListCookbooksPresenter seeListCookbooksPresenter = new SeeListCookbooksPresenter(viewManagerModel, mainMenuViewModel,
-                cookbookListViewModel);
+        SeeListCookbooksPresenter seeListCookbooksPresenter = new SeeListCookbooksPresenter(viewManagerModel, cookbookListViewModel);
         SeeListCookbooksInteractor seeListCookbooksInteractor = new SeeListCookbooksInteractor(seeListCookbooksDAO,
                 seeListCookbooksPresenter);
         SeeListCookbooksController seeListCookbooksController = new SeeListCookbooksController(seeListCookbooksInteractor);

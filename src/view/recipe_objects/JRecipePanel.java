@@ -12,8 +12,7 @@ public class JRecipePanel extends JPanel {
         this.add(intructionsURL);
 
         JList<String> ingredients = new JList<>(recipe.getThird());
-        JScrollPane ingredientsPanel = new JScrollPane(ingredients);
-        ingredientsPanel.add(ingredients);
-        this.add(ingredientsPanel);
+
+        this.add(ingredients);
     }
 }

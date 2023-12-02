@@ -82,8 +82,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
         //Create view cookbook button
         viewCookbooks = new JButton(MainMenuViewModel.VIEW_COOKBOOKS_BUTTON_LABEL);
-        JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        flowLayoutPanel.add(viewCookbooks);
+        JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        navigationPanel.add(viewCookbooks);
 
         //Adds action listeners for buttons
         search.addActionListener(
@@ -117,7 +117,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         this.add(searchInductions);
         this.add(searchSection);
         this.add(filterPanel);
-        this.add(flowLayoutPanel);
+        this.add(navigationPanel);
     }
     @Override
     public void actionPerformed(ActionEvent evt) {

@@ -1,4 +1,4 @@
-package view.view_models;
+package view.view_managers;
 
 import java.beans.PropertyChangeListener;
 
