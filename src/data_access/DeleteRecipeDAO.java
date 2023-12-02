@@ -2,7 +2,7 @@ package data_access;
 
 import backend.entity.Cookbook;
 import backend.entity.Recipe;
-import backend.service.delete_recipe.DeleteRecipeDeleteDAI;
+import backend.service.delete_recipe.DeleteRecipeDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -12,14 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
-
-    private String jsonPath;
+public class DeleteRecipeDAO implements DeleteRecipeDAI {
     private ArrayList<Cookbook> cookbooks;
-    private File file;
+    private final File file;
 
     public DeleteRecipeDAO(String fileName){
-        jsonPath = fileName;
         file = new File(fileName);
 
         if (!file.exists())
@@ -78,7 +75,7 @@ public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
             modifiedRecipes.remove(removedRecipe);
         return modifiedRecipes.toArray(new Recipe[modifiedRecipes.size()]);
     }
-    private void changeCookbook(Cookbook cookbook, Recipe recipeRemove){
+    private void changeCookbook(Cookbook cookbook, Recipe recipeRemove) {
         int idx = cookbooks.indexOf(cookbook);                              //idx = -1 is not possible
         Cookbook oldCookbook = cookbooks.get(idx);
         Recipe[] recipesModified = removeRecipeLst(oldCookbook.getRecipes(), recipeRemove);
@@ -86,12 +83,12 @@ public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
         cookbooks.set(idx, newCookbook);
     }
     @Override
-    public void deleteRecipe(String cookbookName, String recipeName) throws Exception{
+    public void deleteRecipe(String cookbookName, String recipeName) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), cookbookName)){
                 for (Recipe recipe: cookbook.getRecipes()){
                     if (Objects.equals(recipe.getName(), recipeName)){
-                        deleteRecipe(cookbook, recipe);
+                        deleteRecipeObject(cookbook, recipe);
                         break;
                     }
                 }
@@ -99,7 +96,7 @@ public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
             }
         }
     }
-    public void deleteRecipe(Cookbook cookbook, Recipe recipe) throws Exception {
+    public void deleteRecipeObject(Cookbook cookbook, Recipe recipe) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist");
         } else {
@@ -109,7 +106,7 @@ public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
             writeFile();
         }
     }
-    public void deleteRecipe(Cookbook cookbook, Recipe[] recipes) throws Exception {
+    public void deleteRecipeList(Cookbook cookbook, Recipe[] recipes) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist");
         } else {
@@ -123,4 +120,27 @@ public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
             writeFile();
         }
     }
+
+// ** Alternate Code, keeping just in case implementation fails
+//    @Override
+//    public void removeRecipe(String cookbookName, String recipeName) throws Exception {
+//        Recipe recipe = null;
+//        for (Cookbook cookbook: cookbooks){
+//            if (Objects.equals(cookbook.getName(), cookbookName)){
+//                recipe = getRecipe(cookbook.getRecipes(), recipeName);
+//                changeCookbook(cookbook, recipe);
+//            }
+//            writeFile();
+//        }
+//    }
+//
+//    public Recipe getRecipe(Recipe[] recipes, String recipeName) throws Exception {
+//        Recipe saveRecipe = null;
+//        for (Recipe recipe: recipes){
+//            if (Objects.equals(recipe.getName(), recipeName))
+//                saveRecipe = recipe;
+//        }
+//        return saveRecipe;
+//    }
+
 }

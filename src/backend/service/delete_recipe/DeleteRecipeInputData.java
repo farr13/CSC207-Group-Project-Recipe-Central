@@ -8,10 +8,8 @@ public class DeleteRecipeInputData {
         this.cookbookName = cookbookName;
         this.recipeName = recipeName;
     }
-
-    public String getCookbookName() {
-        return cookbookName;
-    }
+  
+    public String getCookbookName() {return cookbookName;}
 
     String getRecipeName() {return recipeName;}
 

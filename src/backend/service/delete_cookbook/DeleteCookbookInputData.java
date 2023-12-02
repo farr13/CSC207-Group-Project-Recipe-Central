@@ -5,13 +5,13 @@ import backend.entity.Cookbook;
 import java.util.ArrayList;
 
 public class DeleteCookbookInputData {
-    final private String[] cookbookNames;
+    final private String[] storedCookbooks;
 
-    public DeleteCookbookInputData(String[] cookbookNames){
-        this.cookbookNames = cookbookNames;
+    public DeleteCookbookInputData(String[] storedCookbooks){
+        this.storedCookbooks = storedCookbooks;
     }
 
-    public String[] getCookbookName() {
-        return cookbookNames;
+    String[] getStoredCookbooks() {
+        return storedCookbooks;
     }
 }

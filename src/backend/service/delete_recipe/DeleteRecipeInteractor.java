@@ -1,12 +1,11 @@
 package backend.service.delete_recipe;
 
 public class DeleteRecipeInteractor implements DeleteRecipeInputBoundary {
-
-    final DeleteRecipeDeleteDAI deleteRecipeDAO;
+    final DeleteRecipeDAI deleteRecipeDAO;
 
     final DeleteRecipeOutputBoundary deleteRecipePresenter;
 
-    public DeleteRecipeInteractor(DeleteRecipeDeleteDAI deleteRecipeDAO,
+    public DeleteRecipeInteractor(DeleteRecipeDAI deleteRecipeDAO,
                                   DeleteRecipeOutputBoundary deleteRecipeOutputBoundary){
         this.deleteRecipeDAO = deleteRecipeDAO;
         this.deleteRecipePresenter = deleteRecipeOutputBoundary;
