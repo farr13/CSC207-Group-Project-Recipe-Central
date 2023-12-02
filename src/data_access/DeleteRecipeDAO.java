@@ -2,7 +2,7 @@ package data_access;
 
 import backend.entity.Cookbook;
 import backend.entity.Recipe;
-import backend.service.delete_cookbook.DeleteRecipeDeleteDAI;
+import backend.service.delete_recipe.DeleteRecipeDeleteDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
