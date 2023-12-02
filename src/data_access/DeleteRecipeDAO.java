@@ -123,4 +123,23 @@ public class DeleteRecipeDAO implements DeleteRecipeDeleteDAI {
             writeFile();
         }
     }
+    public Recipe getRecipe(Recipe[] recipes, String recipeName) throws Exception {
+        Recipe saveRecipe = null;
+        for (Recipe recipe: recipes){
+            if (Objects.equals(recipe.getName(), recipeName))
+                saveRecipe = recipe;
+        }
+        return saveRecipe;
+    }
+    @Override
+    public void removeRecipe(String cookbookName, String recipeName) throws Exception {
+        Recipe recipe = null;
+        for (Cookbook cookbook: cookbooks){
+            if (Objects.equals(cookbook.getName(), cookbookName)){
+                recipe = getRecipe(cookbook.getRecipes(), recipeName);
+                changeCookbook(cookbook, recipe);
+        }
+            writeFile();
+        }
+    }
 }
