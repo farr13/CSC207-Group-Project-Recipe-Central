@@ -1,7 +1,7 @@
 package view.usecase_views;
 
-import backend.entity.Ingredient;
-import view.view_models.AddRecipeToCookbookViewmodel;
+import backend.service.add_recipe.AddRecipeController;
+import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 import javax.swing.*;
 import java.awt.*;
@@ -9,18 +9,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class SearchResultsView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "results";
     private final SearchResultViewModel searchResultViewModel;
+    private final AddRecipeViewModel addRecipeViewModel;
+    private final AddRecipeController addRecipeController;
     private final  JButton AddtoCookbook;
     private final  JButton mainMenu;
 
-    public SearchResultsView(SearchResultViewModel searchResultViewModel, AddRecipeToCookbookViewmodel
-            addRecipeToCookbookViewmodel) {
+    public SearchResultsView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
+                             AddRecipeController addRecipeController) {
         this.searchResultViewModel = searchResultViewModel;
+        this.addRecipeViewModel = addRecipeViewModel;
+        this.addRecipeController = addRecipeController;
         searchResultViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);

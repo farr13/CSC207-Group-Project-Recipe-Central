@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class AddRecipeToCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
+public class DeleteRecipeView extends JPanel implements ActionListener, PropertyChangeListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     }
