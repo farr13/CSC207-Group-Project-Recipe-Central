@@ -7,7 +7,7 @@ import backend.service.delete_cookbook.DeleteCookbookPresenter;
 import backend.service.view_cookbook.ViewCookbookController;
 import backend.service.view_cookbook.ViewCookbookInteractor;
 import backend.service.view_cookbook.ViewCookbookPresenter;
-import backend.service.view_cookbook.ViewCookbookViewDAI;
+import backend.service.view_cookbook.ViewCookbookDAI;
 import view.usecase_views.CookbookListView;
 import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;
@@ -17,13 +17,13 @@ public class CookbookListUseCaseFactory {
     public CookbookListUseCaseFactory(){}
 
     public static CookbookListView create(CookbookListViewModel cookbookListViewModel, ViewManagerModel viewManagerModel,
-                                          MainMenuViewModel mainMenuViewModel, ViewCookbookViewDAI viewCookbookDAO,
+                                          MainMenuViewModel mainMenuViewModel, ViewCookbookDAI viewCookbookDAO,
                                           DeleteCookbookDAI deleteCookbookDAO){
         ViewCookbookController viewCookbookController = CookbookListUseCaseFactory.createViewCookbookUsecase(viewCookbookDAO);
         DeleteCookbookController deleteCookbookController = CookbookListUseCaseFactory.createDeleteCookbookUsecase(deleteCookbookDAO);
         return new CookbookListView(cookbookListViewModel, viewManagerModel, mainMenuViewModel, viewCookbookController, deleteCookbookController);
     }
-    private static ViewCookbookController createViewCookbookUsecase(ViewCookbookViewDAI viewCookbookDAO){
+    private static ViewCookbookController createViewCookbookUsecase(ViewCookbookDAI viewCookbookDAO){
         ViewCookbookPresenter viewCookbookPresenter = new ViewCookbookPresenter();
         ViewCookbookInteractor viewCookbookInteractor = new ViewCookbookInteractor(viewCookbookDAO, viewCookbookPresenter);
         return new ViewCookbookController(viewCookbookInteractor);

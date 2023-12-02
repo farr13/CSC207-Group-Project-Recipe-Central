@@ -14,7 +14,8 @@ public class SearchResultViewModel extends ViewModel{
     public static final String TITLE_LABEL = "Results";
     public static final String ADD_COOKBOOK_BUTTON_LABEL = "Add to Cookbook";
     public static final String MAIN_BUTTON_LABEL = "Main Menu";
-    public static String[] recipeNames = {
+
+    public static final String[] RECIPES = {
             "Spaghetti Bolognese",
             "Chicken Alfredo",
             "Vegetarian Chili",
@@ -46,9 +47,10 @@ public class SearchResultViewModel extends ViewModel{
             "Beef Tacos",
             "Sweet Potato and Chickpea Curry"
     };
-    public static final String[] RECIPES = recipeNames;
     private SearchResultsState state = new SearchResultsState();
-    public SearchResultViewModel() {super("Results");}
+    public SearchResultViewModel(String viewName) {
+        super(viewName);
+    }
 
     public void setState(SearchResultsState state){this.state = state;}
 

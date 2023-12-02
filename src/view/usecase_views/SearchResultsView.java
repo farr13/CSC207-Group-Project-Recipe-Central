@@ -1,6 +1,7 @@
 package view.usecase_views;
 
 import backend.service.add_recipe.AddRecipeController;
+import backend.service.back_to_menu.BackToMenuController;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 import javax.swing.*;
@@ -11,19 +12,20 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SearchResultsView extends JPanel implements ActionListener, PropertyChangeListener {
-
-    public final String viewName = "results";
+    public final String viewName = "Search Results";
     private final SearchResultViewModel searchResultViewModel;
     private final AddRecipeViewModel addRecipeViewModel;
     private final AddRecipeController addRecipeController;
-    private final  JButton AddtoCookbook;
-    private final  JButton mainMenu;
+    private final BackToMenuController backToMenuController;
+    private final JButton AddtoCookbook;
+    private final JButton mainMenu;
 
     public SearchResultsView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
-                             AddRecipeController addRecipeController) {
+                             AddRecipeController addRecipeController, BackToMenuController backToMenuController ) {
         this.searchResultViewModel = searchResultViewModel;
         this.addRecipeViewModel = addRecipeViewModel;
         this.addRecipeController = addRecipeController;
+        this.backToMenuController = backToMenuController;
         searchResultViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);
@@ -62,7 +64,6 @@ public class SearchResultsView extends JPanel implements ActionListener, Propert
                     }
                 }
         );
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(scrollPane);
