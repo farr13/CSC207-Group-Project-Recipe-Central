@@ -8,7 +8,6 @@ import view.view_models.SearchResultViewModel;
 
 public class AddRecipePresenter implements AddRecipeOutputBoundary {
     private final ViewManagerModel viewManagerModel;
-
     private final AddRecipeViewModel addRecipeViewModel;
 
     public AddRecipePresenter(ViewManagerModel viewManagerModel, AddRecipeViewModel addRecipeViewModel){
@@ -16,6 +15,7 @@ public class AddRecipePresenter implements AddRecipeOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
     @Override
-    public void prepareSuccessView(AddRecipeOutputData response) {
+    public void prepareSuccessView() {
+        System.out.println("Success");
     }
 }
