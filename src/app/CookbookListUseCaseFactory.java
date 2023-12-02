@@ -1,7 +1,7 @@
 package app;
 
 import backend.service.delete_cookbook.DeleteCookbookController;
-import backend.service.delete_cookbook.DeleteCookbookDeleteDAI;
+import backend.service.delete_cookbook.DeleteCookbookDAI;
 import backend.service.delete_cookbook.DeleteCookbookInteractor;
 import backend.service.delete_cookbook.DeleteCookbookPresenter;
 import backend.service.view_cookbook.ViewCookbookController;
@@ -18,7 +18,7 @@ public class CookbookListUseCaseFactory {
 
     public static CookbookListView create(CookbookListViewModel cookbookListViewModel, ViewManagerModel viewManagerModel,
                                           MainMenuViewModel mainMenuViewModel, ViewCookbookViewDAI viewCookbookDAO,
-                                          DeleteCookbookDeleteDAI deleteCookbookDAO){
+                                          DeleteCookbookDAI deleteCookbookDAO){
         ViewCookbookController viewCookbookController = CookbookListUseCaseFactory.createViewCookbookUsecase(viewCookbookDAO);
         DeleteCookbookController deleteCookbookController = CookbookListUseCaseFactory.createDeleteCookbookUsecase(deleteCookbookDAO);
         return new CookbookListView(cookbookListViewModel, viewManagerModel, mainMenuViewModel, viewCookbookController, deleteCookbookController);
@@ -29,7 +29,7 @@ public class CookbookListUseCaseFactory {
         ViewCookbookController viewCookbookController = new ViewCookbookController(viewCookbookInteractor);
         return viewCookbookController;
     }
-    private static DeleteCookbookController createDeleteCookbookUsecase(DeleteCookbookDeleteDAI deleteCookbookDAO){
+    private static DeleteCookbookController createDeleteCookbookUsecase(DeleteCookbookDAI deleteCookbookDAO){
         DeleteCookbookPresenter deleteCookbookPresenter = new DeleteCookbookPresenter();
         DeleteCookbookInteractor deleteCookbookInteractor = new DeleteCookbookInteractor(deleteCookbookDAO, deleteCookbookPresenter);
         DeleteCookbookController deleteCookbookController = new DeleteCookbookController(deleteCookbookInteractor);
