@@ -1,7 +1,7 @@
 package data_access;
 
 import backend.entity.Cookbook;
-import backend.service.delete_cookbook.DeleteCookbookDeleteDAI;
+import backend.service.delete_cookbook.DeleteCookbookDAI;
 import backend.service.rename_cookbook.DAI.RenameCookbookDeleteDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookbookDeleteDAI {
+public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookbookDAI {
     private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
@@ -72,6 +72,21 @@ public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookboo
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
     @Override
+    public void deleteCookbooks(String[] cookbookNames) throws Exception {
+        for (String cookbookName: cookbookNames){
+            if (!existByTitle(cookbookName)) {
+                throw new Exception("Cookbook Does Not Exist");
+            } else {
+                for (Cookbook cookbook: cookbooks){
+                    if (Objects.equals(cookbook.getName(), cookbookName)){
+                        cookbooks.remove(cookbook);
+                        writeFile();
+                    }
+                }
+            }
+        }
+    }
+    @Override
     public void deleteCookbook(Cookbook cookbook) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook Does Not Exist");
@@ -81,7 +96,7 @@ public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookboo
         }
     }
 
-    public void deleteCookbook(Cookbook[] cookbooks) throws Exception {
+    public void deleteCookbookLst(Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (!existByTitle(cookbook.getName())) {
                 throw new Exception("Cookbook Does Not Exist");
@@ -90,24 +105,5 @@ public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookboo
             }
         }
         writeFile();
-    }
-    public void deleteCookbook(String cookbookName) throws Exception {
-        for (Cookbook cookbook: cookbooks){
-            if (Objects.equals(cookbook.getName(), cookbookName)){
-                deleteCookbook(cookbook);
-                break;
-            }
-        }
-    }
-    @Override
-    public void deleteCookbook(String[] cookbookNames) throws Exception {
-        for (String cookbookName: cookbookNames){
-            for (Cookbook cookbook: cookbooks){
-                if (Objects.equals(cookbook.getName(), cookbookName)){
-                    deleteCookbook(cookbook);
-                    break;
-                }
-            }
-        }
     }
 }

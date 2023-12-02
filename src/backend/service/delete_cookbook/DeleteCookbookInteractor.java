@@ -2,11 +2,11 @@ package backend.service.delete_cookbook;
 
 public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
 
-    final DeleteCookbookDeleteDAI deleteCookbookDAO;
+    final DeleteCookbookDAI deleteCookbookDAO;
 
     final DeleteCookbookOutputBoundary deletePresenter;
 
-    public DeleteCookbookInteractor(DeleteCookbookDeleteDAI deleteCookbookDAO,
+    public DeleteCookbookInteractor(DeleteCookbookDAI deleteCookbookDAO,
                                     DeleteCookbookOutputBoundary deleteCookbookOutputBoundary) {
         this.deletePresenter = deleteCookbookOutputBoundary;
         this.deleteCookbookDAO = deleteCookbookDAO;
@@ -15,12 +15,11 @@ public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
     @Override
     public void execute(DeleteCookbookInputData deleteCookbookInputData) {
         try {
-            deleteCookbookDAO.deleteCookbook(deleteCookbookInputData.getCookbookName());
+            deleteCookbookDAO.deleteCookbooks(deleteCookbookInputData.getStoredCookbooks());
+            DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(deleteCookbookInputData.getStoredCookbooks());
+            deletePresenter.prepareSuccessView(deleteCookbookOutputData);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            deletePresenter.prepareFailView("Could not delete all selected cookbooks.");
         }
-
-        DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(deleteCookbookInputData.getCookbookName());
-        deletePresenter.prepareSuccessView(deleteCookbookOutputData);
     }
 }
