@@ -2,13 +2,13 @@ package backend.service.delete_cookbook;
 
 public class DeleteCookbookOutputData {
 
-    private final String[] storedCookbooks;
+    private final String[] deletedCookbookNames;
 
-    public DeleteCookbookOutputData(String[] storedCookbooks) {
-        this.storedCookbooks = storedCookbooks;
+    public DeleteCookbookOutputData(String[] deletedCookbookNames) {
+        this.deletedCookbookNames = deletedCookbookNames;
     }
 
-    public String[] getStoredCookbooks() {
-        return storedCookbooks;
+    public String[] getDeletedCookbookName() {
+        return deletedCookbookNames;
     }
 }

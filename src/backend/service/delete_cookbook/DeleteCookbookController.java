@@ -8,8 +8,8 @@ public class  DeleteCookbookController {
         this.deleteCookbookIteractor = deleteCookbookIteractor;
     }
 
-    public void execute(String[] storedCookbooks) {
-        DeleteCookbookInputData deleteCookbookInputData = new DeleteCookbookInputData(storedCookbooks);
+    public void execute(String[] deleteCookbooks) {
+        DeleteCookbookInputData deleteCookbookInputData = new DeleteCookbookInputData(deleteCookbooks);
 
         deleteCookbookIteractor.execute(deleteCookbookInputData);
     }

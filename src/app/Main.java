@@ -1,9 +1,13 @@
 package app;
 
+import backend.entity.Cookbook;
 import data_access.*;
+import view.states.CookbookListState;
+import view.usecase_views.CookbookListView;
 import view.usecase_views.MainMenuView;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
+import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 
 import javax.swing.*;
@@ -34,10 +38,15 @@ public class Main {
 
         //Making View Models
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
+        CookbookListViewModel cookbookListViewModel = new CookbookListViewModel("Cookbook List");
+        cookbookListViewModel.getState().setCookbookNames(new String[]{"Breakfast", "Lunch"});
 
         //Making Views
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel, viewCookbookDAO);
         view.add(mainMenuView);
+        CookbookListView cookbookListView = CookbookListUseCaseFactory.create(cookbookListViewModel, viewManagerModel,
+                mainMenuViewModel, viewCookbookDAO, deleteCookbookDAO);
+        view.add(cookbookListView);
 
         //Final Steps
         viewManagerModel.setActiveView(mainMenuView.viewName);

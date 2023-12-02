@@ -1,6 +1,7 @@
 package view.usecase_views;
 
 import backend.service.search_recipes.interface_adapters.SearchController;
+import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import backend.service.view_cookbook.ViewCookbookController;
 import view.view_models.MainMenuViewModel;
 
@@ -17,39 +18,48 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     private final MainMenuViewModel mainMenuViewModel;
     private final SearchController searchController;
-    private final ViewCookbookController viewCookbookController;
+    private final SeeListCookbooksController seeListCookbooksController;
     private final JTextField searchInputField = new JTextField(30);
     private final JButton search;
-    //private final JButton viewCookbooks;
+    private final JButton viewCookbooks;
 
     public MainMenuView(MainMenuViewModel mainMenuViewModel, SearchController searchController,
-                        ViewCookbookController viewCookbookController) {
+                        SeeListCookbooksController seeListCookbooksController) {
         this.mainMenuViewModel = mainMenuViewModel;
         this.searchController = searchController;
-        this.viewCookbookController = viewCookbookController;
+        this.seeListCookbooksController = seeListCookbooksController;
 
         mainMenuViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(MainMenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //Creating filter panel
+        JPanel filterPanel = new JPanel();
+
         // Create the first menu category for first filter
         JPanel filter1Panel = new JPanel();
         filter1Panel.setBorder(BorderFactory.createTitledBorder(MainMenuViewModel.FILTER_1_LABEL));
-        String[] filter1Options = MainMenuViewModel.FILTER_1_OPTIONS;
-        createCheckBoxes(filter1Panel, filter1Options);
+        JList<String> filter1Lst = new JList<>(MainMenuViewModel.FILTER_1_OPTIONS);
+        JScrollPane scrollPane1 = new JScrollPane(filter1Lst);
+        filter1Panel.add(scrollPane1);
+        filterPanel.add(filter1Panel);
 
         // Create the second menu category for second filter
         JPanel filter2Panel = new JPanel();
         filter2Panel.setBorder(BorderFactory.createTitledBorder(MainMenuViewModel.FILTER_2_LABEL));
-        String[] filter2Options = MainMenuViewModel.FILTER_2_OPTIONS;
-        createCheckBoxes(filter2Panel, filter2Options);
+        JList<String> filter2Lst = new JList<>(MainMenuViewModel.FILTER_2_OPTIONS);
+        JScrollPane scrollPane2 = new JScrollPane(filter2Lst);
+        filter2Panel.add(scrollPane2);
+        filterPanel.add(filter2Panel);
 
         // Create the third menu category for third filter
         JPanel filter3Panel = new JPanel();
         filter3Panel.setBorder(BorderFactory.createTitledBorder(MainMenuViewModel.FILTER_3_LABEL));
-        String[] filter3Options = MainMenuViewModel.FILTER_3_OPTIONS;
-        createCheckBoxes(filter3Panel, filter3Options);
+        JList<String> filter3Lst = new JList<>(MainMenuViewModel.FILTER_3_OPTIONS);
+        JScrollPane scrollPane3 = new JScrollPane(filter3Lst);
+        filter3Panel.add(scrollPane3);
+        filterPanel.add(filter3Panel);
 
         //Create panel for search instuctions
         JPanel searchInductions = new JPanel();
@@ -63,6 +73,11 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         search = new JButton(MainMenuViewModel.SEARCH_BUTTON_LABEL);
         searchSection.add(search);
 
+        //Create view cookbook button
+        viewCookbooks = new JButton(MainMenuViewModel.VIEW_COOKBOOKS_BUTTON_LABEL);
+        JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        flowLayoutPanel.add(viewCookbooks);
+
         //Adds action listeners for buttons
         search.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -70,10 +85,20 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             String searchText = searchInputField.getText();
-                            String[] selectedFilter1 = getSelectedItems(filter1Panel);
-                            String[] selectedFilter2 = getSelectedItems(filter2Panel);
-                            String[] selectedFilter3 = getSelectedItems(filter3Panel);
+                            String[] selectedFilter1 = filter1Lst.getSelectedValuesList().toArray(new String[0]);
+                            String[] selectedFilter2 = filter2Lst.getSelectedValuesList().toArray(new String[0]);
+                            String[] selectedFilter3 = filter3Lst.getSelectedValuesList().toArray(new String[0]);
                             searchController.execute(searchText, selectedFilter1, selectedFilter2, selectedFilter3);
+                        }
+                    }
+                }
+        );
+
+        viewCookbooks.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(viewCookbooks)) {
+                            seeListCookbooksController.execute();
                         }
                     }
                 }
@@ -84,29 +109,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         this.add(title);
         this.add(searchInductions);
         this.add(searchSection);
-        this.add(filter1Panel);
-        this.add(filter2Panel);
-        this.add(filter3Panel);
-    }
-    private static void createCheckBoxes(JPanel panel, String[] options) {
-        for (String option : options) {
-            JCheckBox checkBox = new JCheckBox(option);
-            panel.add(checkBox);
-        }
-    }
-
-    //If time, put this in a separate class.
-    private static String[] getSelectedItems(JPanel panel) {
-        ArrayList<String> selectedItems = new ArrayList<>();
-        for (Component component : panel.getComponents()) {
-            if (component instanceof JCheckBox) {
-                JCheckBox checkBox = (JCheckBox) component;
-                if (checkBox.isSelected()) {
-                    selectedItems.add(checkBox.getText());
-                }
-            }
-        }
-        return selectedItems.toArray(new String[selectedItems.size()]);
+        this.add(filterPanel);
+        this.add(flowLayoutPanel);
     }
     @Override
     public void actionPerformed(ActionEvent evt) {

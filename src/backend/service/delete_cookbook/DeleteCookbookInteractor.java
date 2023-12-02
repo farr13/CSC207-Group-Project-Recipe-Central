@@ -2,23 +2,25 @@ package backend.service.delete_cookbook;
 
 public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
 
-    final DeleteCookbookDataAccessInterface deleteCookbookDataAccessObject;
+    final DeleteCookbookDeleteDAI deleteCookbookDAO;
 
     final DeleteCookbookOutputBoundary deletePresenter;
 
-    public DeleteCookbookInteractor(DeleteCookbookDataAccessInterface deleteCookbookDataAccessObject,
+    public DeleteCookbookInteractor(DeleteCookbookDeleteDAI deleteCookbookDAO,
                                     DeleteCookbookOutputBoundary deleteCookbookOutputBoundary) {
         this.deletePresenter = deleteCookbookOutputBoundary;
-        this.deleteCookbookDataAccessObject = deleteCookbookDataAccessObject;
+        this.deleteCookbookDAO = deleteCookbookDAO;
     }
 
     @Override
     public void execute(DeleteCookbookInputData deleteCookbookInputData) {
-        String[] storedCookbooks = deleteCookbookDataAccessObject.getStoredCookbooks();
+        try {
+            deleteCookbookDAO.deleteCookbook(deleteCookbookInputData.getCookbookName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-        deleteCookbookDataAccessObject.deleteStoredCookbooks();
-
-        DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(storedCookbooks);
+        DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(deleteCookbookInputData.getCookbookName());
         deletePresenter.prepareSuccessView(deleteCookbookOutputData);
     }
 }

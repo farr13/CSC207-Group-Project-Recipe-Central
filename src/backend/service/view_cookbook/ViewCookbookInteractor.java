@@ -2,11 +2,11 @@ package backend.service.view_cookbook;
 
 public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
 
-    final ViewCookbookDAI viewCookbookDAO;
+    final ViewCookbookViewDAI viewCookbookDAO;
 
     final ViewCookbookOutputBoundary viewCookbookPresenter;
 
-    public ViewCookbookInteractor(ViewCookbookDAI viewCookbookDAO,
+    public ViewCookbookInteractor(ViewCookbookViewDAI viewCookbookDAO,
                                   ViewCookbookOutputBoundary viewCookbookPresenter) {
         this.viewCookbookDAO = viewCookbookDAO;
         this.viewCookbookPresenter = viewCookbookPresenter;

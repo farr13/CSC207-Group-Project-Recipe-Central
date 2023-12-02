@@ -7,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 
 public class MainMenuViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Recipe Central";
-    public static final String SEARCH_BUTTON_LABEL = "Search";
+    public static final String SEARCH_BUTTON_LABEL = "Search", VIEW_COOKBOOKS_BUTTON_LABEL = "View Cookbooks";
     public static final String SEARCH_BOX_INSTRUCTIONS = "Type in ingredients required, and separate ingredients by comma:";
     public static final String FILTER_2_LABEL = "Diet", FILTER_3_LABEL = "Health", FILTER_1_LABEL = "Meal Type";
     public static final String[] FILTER_2_OPTIONS = new String[]{"balanced", "high-fiber", "high-protein", "low-carb", "low-fat", "low-sodium"},
