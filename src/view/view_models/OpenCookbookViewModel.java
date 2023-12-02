@@ -1,23 +1,24 @@
 package view.view_models;
 
 import view.states.CookbookListState;
+import view.states.OpenCookbookState;
 import view.view_managers.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class CookbookListViewModel extends ViewModel {
-    public static final String TITLE_LABEL = "All Cookbooks";
+public class OpenCookbookViewModel extends ViewModel {
     public static final String MAIN_MENU_BUTTON_LABEL = "Main Menu";
-    public static final String ADD_COOKBOOK_BUTTON_LABEL = "Add Cookbook";
-    public static final String DELETE_COOKBOOK_BUTTON_LABEL = "Delete Cookbook";
+    public static final String COOKBOOK_LIST_BUTTON_LABEL = "Back";
+    public static final String DELETE_RECIPE_BUTTON_LABEL = "Delete Recipe";
+    public static final String RENAME_RECIPE_BUTTON_LABEL = "Rename Cookbook";
 
-    private CookbookListState state = new CookbookListState();
-    public CookbookListViewModel(String viewName) {
+    private OpenCookbookState state = new OpenCookbookState();
+    public OpenCookbookViewModel(String viewName) {
         super(viewName);
     }
 
-    public void setState(CookbookListState state) {
+    public void setState(OpenCookbookState state) {
         this.state = state;
     }
 
@@ -34,7 +35,7 @@ public class CookbookListViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public CookbookListState getState() {
+    public OpenCookbookState getState() {
         return state;
     }
 }

@@ -10,13 +10,10 @@ import view.view_models.MainMenuViewModel;
 import java.util.ArrayList;
 
 public class SeeListCookbooksPresenter implements SeeListCookbooksOutputBoundary {
-    MainMenuViewModel mainMenuViewModel;
     CookbookListViewModel cookbookListViewModel;
     ViewManagerModel viewManagerModel;
-    public SeeListCookbooksPresenter(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel,
-                                     CookbookListViewModel cookbookListViewModel){
+    public SeeListCookbooksPresenter(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel){
         this.viewManagerModel = viewManagerModel;
-        this.mainMenuViewModel = mainMenuViewModel;
         this.cookbookListViewModel = cookbookListViewModel;
     }
     private String[] getCookbookNames(Cookbook[] cookbooks){
@@ -39,8 +36,8 @@ public class SeeListCookbooksPresenter implements SeeListCookbooksOutputBoundary
 
     @Override
     public void prepareFailView(String error) {
-        MainMenuState mainMenuState = mainMenuViewModel.getState();
-        mainMenuState.setErrorMessage(error);
-        mainMenuViewModel.firePropertyChanged();
+        //MainMenuState mainMenuState = mainMenuViewModel.getState();
+        //mainMenuState.setErrorMessage(error);
+        //mainMenuViewModel.firePropertyChanged();
     }
 }

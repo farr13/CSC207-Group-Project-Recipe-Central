@@ -19,22 +19,19 @@ import java.util.ArrayList;
 
 public class CookbookListView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "cookbook list";
-    private final CookbookListViewModel cookbookListViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final CookbookListViewModel cookbookListViewModel;
     private final MainMenuViewModel mainMenuViewModel;
     private final ViewCookbookController viewCookbookController;
     private final DeleteCookbookController deleteCookbookController;
-    private final JTextField searchInputField = new JTextField(30);
     private final JButton mainMenu;
     //private final JButton viewCookbooks;
 
-    public CookbookListView(CookbookListViewModel cookbookListViewModel,
-                            ViewManagerModel viewManagerModel,
-                            MainMenuViewModel mainMenuViewModel,
-                            ViewCookbookController viewCookbookController,
+    public CookbookListView(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
+                            MainMenuViewModel mainMenuViewModel, ViewCookbookController viewCookbookController,
                             DeleteCookbookController deleteCookbookController) {
-        this.cookbookListViewModel = cookbookListViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.cookbookListViewModel = cookbookListViewModel;
         this.mainMenuViewModel = mainMenuViewModel;
         this.viewCookbookController = viewCookbookController;
         this.deleteCookbookController = deleteCookbookController;

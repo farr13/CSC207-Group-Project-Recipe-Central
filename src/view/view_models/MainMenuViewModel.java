@@ -1,6 +1,7 @@
 package view.view_models;
 
 import view.states.MainMenuState;
+import view.view_managers.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
