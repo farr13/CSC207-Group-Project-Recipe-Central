@@ -2,6 +2,10 @@ package view.states;
 
 public class MainMenuState {
     private String ingredients = "";
+<<<<<<< HEAD
+=======
+    private String errorMessage = "";
+>>>>>>> ViewModels
     public MainMenuState(MainMenuState copy){
         this.ingredients = copy.getIngredients();
     }
@@ -11,7 +15,21 @@ public class MainMenuState {
         this.ingredients = ingredients;
     }
 
+<<<<<<< HEAD
     public String getIngredients() {
         return ingredients;
     }
+=======
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+>>>>>>> ViewModels
 }

@@ -19,7 +19,7 @@ public class SeeListCookbooksInteractor implements SeeListCookbooksInputBoundary
             SeeListCookbooksOutputData seeListCookbooksOutputData = new SeeListCookbooksOutputData(cookbooks);
             seeListCookbooksPresenter.prepareSuccessView(seeListCookbooksOutputData);
         } catch (Exception e) {
-            seeListCookbooksPresenter.prepareFailView();
+            seeListCookbooksPresenter.prepareFailView("Could not get cookbooks.");
         }
     }
 }
