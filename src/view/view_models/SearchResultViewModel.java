@@ -14,7 +14,6 @@ public class SearchResultViewModel extends ViewModel{
     public static final String TITLE_LABEL = "Results";
     public static final String ADD_COOKBOOK_BUTTON_LABEL = "Add to Cookbook";
     public static final String MAIN_BUTTON_LABEL = "Main Menu";
-
     public static final String[] RECIPES = {
             "Spaghetti Bolognese",
             "Chicken Alfredo",
