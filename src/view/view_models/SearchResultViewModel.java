@@ -51,9 +51,6 @@ public class SearchResultViewModel extends ViewModel{
     public SearchResultViewModel(String viewName) {
         super(viewName);
     }
-
-    public void setState(SearchResultsState state){this.state = state;}
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     @Override
     public void firePropertyChanged() {
@@ -64,5 +61,6 @@ public class SearchResultViewModel extends ViewModel{
         support.addPropertyChangeListener(listener);
     }
 
+    public void setState(SearchResultsState state){this.state = state;}
     public SearchResultsState getState() {return state;}
 }
