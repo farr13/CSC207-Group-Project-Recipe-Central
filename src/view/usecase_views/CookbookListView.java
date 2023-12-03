@@ -54,13 +54,23 @@ public class CookbookListView extends JPanel implements ActionListener, Property
         flowLayoutPanel.add(deleteCookbook);
 
         //Create active listeners
-        mainMenu.addActionListener();
+        mainMenu.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(mainMenu)) {
+                            cookbookListViewModel.setState(cookbookListViewModel.getState());
+                            cookbookListViewModel.firePropertyChanged();
+
+                            viewManagerModel.setActiveView(cookbookListViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+                        }
+                    }
+                }
+        );
 
         // Make Cookbook Scroll panel
         JList<String> cookbookNames = new JList<>(cookbookListViewModel.getState().getCookbookNames());
         JScrollPane scrollPane = new JScrollPane(cookbookNames);
-
-        //
 
         //Adding all components to this Jpanel
         this.add(title);

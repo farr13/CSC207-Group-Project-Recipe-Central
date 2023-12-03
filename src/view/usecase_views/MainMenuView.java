@@ -5,6 +5,7 @@ import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import backend.service.view_cookbook.ViewCookbookController;
 import view.states.CookbookListState;
 import view.states.MainMenuState;
+import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 
@@ -29,7 +30,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     public MainMenuView(MainMenuViewModel mainMenuViewModel, CookbookListViewModel cookbookListViewModel,
                         SearchController searchController,
-                        SeeListCookbooksController seeListCookbooksController) {
+                        SeeListCookbooksController seeListCookbooksController, ViewManagerModel viewManagerModel) {
         this.mainMenuViewModel = mainMenuViewModel;
         this.cookbookListViewModel = cookbookListViewModel;
         this.searchController = searchController;
@@ -105,7 +106,11 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(viewCookbooks)) {
-                            seeListCookbooksController.execute();
+                            cookbookListViewModel.setState(cookbookListViewModel.getState());
+                            cookbookListViewModel.firePropertyChanged();
+
+                            viewManagerModel.setActiveView(cookbookListViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
