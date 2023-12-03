@@ -1,13 +1,17 @@
 package backend.service.delete_cookbook;
 
+import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
+import backend.service.view_cookbook.ViewCookbookViewDAI;
+
 public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
 
-    final DeleteCookbookDAI deleteCookbookDAO;
-
-    final DeleteCookbookOutputBoundary deletePresenter;
+    final private DeleteCookbookDAI deleteCookbookDAO;
+    final private SeeListCookbooksDAI viewCookbookDAO;
+    final private DeleteCookbookOutputBoundary deletePresenter;
 
     public DeleteCookbookInteractor(DeleteCookbookDAI deleteCookbookDAO,
-                                    DeleteCookbookOutputBoundary deleteCookbookOutputBoundary) {
+                                    SeeListCookbooksDAI viewCookbookDAO, DeleteCookbookOutputBoundary deleteCookbookOutputBoundary) {
+        this.viewCookbookDAO = viewCookbookDAO;
         this.deletePresenter = deleteCookbookOutputBoundary;
         this.deleteCookbookDAO = deleteCookbookDAO;
     }
@@ -16,7 +20,7 @@ public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
     public void execute(DeleteCookbookInputData deleteCookbookInputData) {
         try {
             deleteCookbookDAO.deleteCookbooks(deleteCookbookInputData.getStoredCookbooks());
-            DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(deleteCookbookInputData.getStoredCookbooks());
+            DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(viewCookbookDAO.viewCookbooks());
             deletePresenter.prepareSuccessView(deleteCookbookOutputData);
         } catch (Exception e) {
             deletePresenter.prepareFailView("Could not delete all selected cookbooks.");

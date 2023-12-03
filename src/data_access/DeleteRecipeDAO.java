@@ -83,15 +83,10 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
         cookbooks.set(idx, newCookbook);
     }
     @Override
-    public void deleteRecipe(String cookbookName, String recipeName) throws Exception {
+    public void deleteRecipe(String cookbookName, Recipe[] recipes) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), cookbookName)){
-                for (Recipe recipe: cookbook.getRecipes()){
-                    if (Objects.equals(recipe.getName(), recipeName)){
-                        deleteRecipeObject(cookbook, recipe);
-                        break;
-                    }
-                }
+                deleteRecipeList(cookbook, recipes);
                 break;
             }
         }

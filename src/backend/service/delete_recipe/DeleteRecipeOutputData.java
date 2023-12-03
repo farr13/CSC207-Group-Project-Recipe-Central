@@ -1,10 +1,15 @@
 package backend.service.delete_recipe;
 
-public class DeleteRecipeOutputData {
-    private final String recipeName;
+import backend.entity.Recipe;
 
-    public DeleteRecipeOutputData(String recipeName) {
-        this.recipeName = recipeName;
+public class DeleteRecipeOutputData {
+    private final Recipe[] recipes;
+
+    public DeleteRecipeOutputData(Recipe[] recipes) {
+        this.recipes = recipes;
     }
-    public String getRecipeName() {return recipeName;}
+
+    public Recipe[] getRecipes() {
+        return recipes;
+    }
 }

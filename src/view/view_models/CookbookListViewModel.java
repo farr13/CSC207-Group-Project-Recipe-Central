@@ -14,8 +14,8 @@ public class CookbookListViewModel extends ViewModel {
     public static final String OPEN_COOKBOOK_BUTTON_LABEL = "View Cookbook";
 
     private CookbookListState state = new CookbookListState();
-    public CookbookListViewModel(String viewName) {
-        super(viewName);
+    public CookbookListViewModel() {
+        super(TITLE_LABEL);
     }
 
     public void setState(CookbookListState state) {

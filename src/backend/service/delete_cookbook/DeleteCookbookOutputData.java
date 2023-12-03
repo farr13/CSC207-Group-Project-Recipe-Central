@@ -1,14 +1,16 @@
 package backend.service.delete_cookbook;
 
+import backend.entity.Cookbook;
+
 public class DeleteCookbookOutputData {
 
-    private final String[] storedCookbooks;
+    private final Cookbook[] storedCookbooks;
 
-    public DeleteCookbookOutputData(String[] storedCookbooks) {
+    public DeleteCookbookOutputData(Cookbook[] storedCookbooks) {
         this.storedCookbooks = storedCookbooks;
     }
 
-    public String[] getStoredCookbooks() {
+    public Cookbook[] getStoredCookbooks() {
         return storedCookbooks;
     }
 }

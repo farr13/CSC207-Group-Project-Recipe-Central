@@ -21,18 +21,15 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "main menu";
 
     private final MainMenuViewModel mainMenuViewModel;
-    private final CookbookListViewModel cookbookListViewModel;
     private final SearchController searchController;
     private final SeeListCookbooksController seeListCookbooksController;
     private final JTextField searchInputField = new JTextField(30);
     private final JButton search;
     private final JButton viewCookbooks;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel, CookbookListViewModel cookbookListViewModel,
-                        SearchController searchController,
-                        SeeListCookbooksController seeListCookbooksController, ViewManagerModel viewManagerModel) {
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, SearchController searchController,
+                        SeeListCookbooksController seeListCookbooksController) {
         this.mainMenuViewModel = mainMenuViewModel;
-        this.cookbookListViewModel = cookbookListViewModel;
         this.searchController = searchController;
         this.seeListCookbooksController = seeListCookbooksController;
 
@@ -106,11 +103,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(viewCookbooks)) {
-                            cookbookListViewModel.setState(cookbookListViewModel.getState());
-                            cookbookListViewModel.firePropertyChanged();
-
-                            viewManagerModel.setActiveView(cookbookListViewModel.getViewName());
-                            viewManagerModel.firePropertyChanged();
+                            seeListCookbooksController.execute();
                         }
                     }
                 }

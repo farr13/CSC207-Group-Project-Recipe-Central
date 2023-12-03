@@ -1,5 +1,6 @@
 package view.usecase_views;
 
+import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_recipe.DeleteRecipeController;
 import backend.service.rename_cookbook.RenameCookbookController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
@@ -20,30 +21,26 @@ import java.util.ArrayList;
 
 public class OpenCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "open cookbook";
-
-    private final MainMenuViewModel mainMenuViewModel;
     private final OpenCookbookViewModel openCookbookViewModel;
-    private final CookbookListViewModel cookbookListViewModel;
     private final SeeListCookbooksController seeListCookbooksController;
     private final DeleteRecipeController deleteRecipeController;
+    private final BackToMenuController backToMenuController;
     //private final RenameCookbookController renameCookbookController;
     private final JButton mainMenu;
     private final JButton viewCookbooks;
-    private final JButton renameCookbook;
+    //private final JButton renameCookbook;
     private final JButton deleteRecipe;
 
-    public OpenCookbookView(MainMenuViewModel mainMenuViewModel, OpenCookbookViewModel openCookbookViewModel,
-                            CookbookListViewModel cookbookListViewModel, SeeListCookbooksController seeListCookbooksController,
-                            DeleteRecipeController deleteRecipeController) {
-        this.mainMenuViewModel = mainMenuViewModel;
+    public OpenCookbookView(OpenCookbookViewModel openCookbookViewModel, SeeListCookbooksController seeListCookbooksController,
+                            DeleteRecipeController deleteRecipeController, BackToMenuController backToMenuController) {
         this.openCookbookViewModel = openCookbookViewModel;
-        this.cookbookListViewModel = cookbookListViewModel;
         this.seeListCookbooksController = seeListCookbooksController;
         this.deleteRecipeController = deleteRecipeController;
+        this.backToMenuController = backToMenuController;
         //this.renameCookbookController = renameCookbookController;
 
         openCookbookViewModel.addPropertyChangeListener(this);
-        //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(openCookbookViewModel.getState().getCookbookName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -59,23 +56,56 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         JPanel editCookbookPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         deleteRecipe = new JButton(OpenCookbookViewModel.DELETE_RECIPE_BUTTON_LABEL);
         editCookbookPanel.add(deleteRecipe);
-        renameCookbook = new JButton(OpenCookbookViewModel.RENAME_RECIPE_BUTTON_LABEL);
-        editCookbookPanel.add(renameCookbook);
 
         // Make Recipe Scroll panel
         ArrayList<String> recipesDescription = new ArrayList<String>();
 
         for (Triplet<String, String, String[]> recipe: openCookbookViewModel.getState().getRecipes()){
-            recipesDescription.add("*******" + recipe.getFirst() + "*******");
+            recipesDescription.add("***" + recipe.getFirst() + "***");
             recipesDescription.add("Instructions Link: "+ recipe.getSecond());
 
-            recipesDescription.add("Ingredients:");
+            StringBuilder ingredients = new StringBuilder("Ingredients: ");
             for (String ingredientDescription: recipe.getThird())
-                recipesDescription.add(" - " + ingredientDescription);
+                ingredients.append(ingredientDescription).append(",");
+            recipesDescription.add(ingredients.toString());
         }
 
         JList<String> recipesFinal = new JList<String>(recipesDescription.toArray(new String[recipesDescription.size()]));
         JScrollPane scrollPane = new JScrollPane(recipesFinal);
+        scrollPane.createHorizontalScrollBar();
+        scrollPane.createVerticalScrollBar();
+
+        //Create active listeners
+        mainMenu.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(mainMenu)) {
+                            backToMenuController.execute();
+                        }
+                    }
+                }
+        );
+
+        viewCookbooks.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(viewCookbooks)) {
+                            seeListCookbooksController.execute();
+                        }
+                    }
+                }
+        );
+
+        deleteRecipe.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(deleteRecipe)) {
+                            deleteRecipeController.execute(openCookbookViewModel.getState().getCookbookName(),
+                                    convertToTriplet(recipesFinal.getSelectedValuesList().toArray(String[]::new)));
+                        }
+                    }
+                }
+        );
 
         //Adding components to this Jpanel
         this.add(scrollPane);
@@ -83,6 +113,22 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         this.add(navigationPanel);
     }
 
+    private Triplet<String, String, String[]>[] convertToTriplet(String[] selected){
+        ArrayList<Triplet<String, String, String[]>> results = new ArrayList<Triplet<String, String, String[]>>();
+
+        for (int i = 0; i < selected.length; i += 3){
+            String line = selected[i];
+            if (line.substring(0,3) == "***"){
+                String name = line.substring(3, line.length()-3);
+                String link = selected[i+1];
+                String ingredientComma = selected[i+2];
+                String[] ingredients = ingredientComma.split(",");
+                results.add(new Triplet<>(name, link, ingredients));
+            }
+        }
+
+        return results.toArray(Triplet[]::new);
+    }
     @Override
     public void actionPerformed(ActionEvent evt) {
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");

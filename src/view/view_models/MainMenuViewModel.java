@@ -7,7 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class MainMenuViewModel extends ViewModel {
-    public static final String TITLE_LABEL = "Recipe Central";
+    public static final String TITLE_LABEL = "Main Menu";
     public static final String SEARCH_BUTTON_LABEL = "Search", VIEW_COOKBOOKS_BUTTON_LABEL = "View Cookbooks";
     public static final String SEARCH_BOX_INSTRUCTIONS = "Type in ingredients required, and separate ingredients by comma:";
     public static final String FILTER_2_LABEL = "Diet", FILTER_3_LABEL = "Health", FILTER_1_LABEL = "Meal Type";
@@ -16,8 +16,8 @@ public class MainMenuViewModel extends ViewModel {
             FILTER_1_OPTIONS = new String[]{"Breakfast", "Dinner", "Lunch", "Snack"};
 
     private MainMenuState state = new MainMenuState();
-    public MainMenuViewModel(String viewName) {
-        super(viewName);
+    public MainMenuViewModel() {
+        super(TITLE_LABEL);
     }
 
     public void setState(MainMenuState state) {

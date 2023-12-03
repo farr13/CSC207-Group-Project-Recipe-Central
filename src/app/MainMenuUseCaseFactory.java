@@ -27,7 +27,7 @@ public class MainMenuUseCaseFactory {
         SearchController searchController = MainMenuUseCaseFactory.createSearchUseCase();
         SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel,
                 cookbookListViewModel,seeListCookbooksDAO);
-        return new MainMenuView(mainMenuViewModel, cookbookListViewModel,searchController, seeListCookbooksController, viewManagerModel);
+        return new MainMenuView(mainMenuViewModel, searchController, seeListCookbooksController);
     }
     private static SearchController createSearchUseCase(){
         SearchPresenter searchPresenter = new SearchPresenter();

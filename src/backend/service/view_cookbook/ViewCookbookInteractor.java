@@ -18,7 +18,7 @@ public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
             viewCookbookOutputData = new ViewCookbookOutputData(viewCookbookDAO.viewCookbook(viewCookbookInputData.getName()));
             viewCookbookPresenter.prepareSuccessView(viewCookbookOutputData);
         } catch (Exception e) {
-            viewCookbookPresenter.prepareFailView();
+            viewCookbookPresenter.prepareFailView("Could not retrieve cookbooks.");
         }
     }
 }

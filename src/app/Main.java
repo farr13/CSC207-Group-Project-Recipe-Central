@@ -1,6 +1,8 @@
 package app;
 
 import backend.entity.Cookbook;
+import backend.service.delete_recipe.ViewRecipeDAI;
+import backend.service.view_cookbook.ViewCookbookViewDAI;
 import data_access.*;
 import view.recipe_objects.Triplet;
 import view.states.CookbookListState;
@@ -38,22 +40,23 @@ public class Main {
         DeleteCookbookDAO deleteCookbookDAO = new DeleteCookbookDAO("saved_data.json");
         DeleteRecipeDAO deleteRecipeDAO = new DeleteRecipeDAO("saved_data.json");
         ViewCookbookDAO viewCookbookDAO = new ViewCookbookDAO("saved_data.json");
+        ViewRecipeDAO viewRecipeDAO = new ViewRecipeDAO("saved_data.json");
 
         //Making View Models
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
-        CookbookListViewModel cookbookListViewModel = new CookbookListViewModel("Cookbook List");
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        CookbookListViewModel cookbookListViewModel = new CookbookListViewModel();
         cookbookListViewModel.getState().setCookbookNames(new String[]{"Breakfast", "Lunch", "Dinner"});
-        OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel("Open Cookbook");
+        OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel();
 
         //Making Views
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel,
                 cookbookListViewModel, viewCookbookDAO);
         view.add(mainMenuView, mainMenuView.viewName);
-        CookbookListView cookbookListView = CookbookListUseCaseFactory.create(cookbookListViewModel, viewManagerModel,
-                mainMenuViewModel, viewCookbookDAO, deleteCookbookDAO);
+        CookbookListView cookbookListView = CookbookListUseCaseFactory.create(viewManagerModel, mainMenuViewModel,
+                cookbookListViewModel, openCookbookViewModel, viewCookbookDAO, deleteCookbookDAO);
         view.add(cookbookListView, cookbookListView.viewName);
         OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create(viewManagerModel, openCookbookViewModel,
-                cookbookListViewModel, mainMenuViewModel, viewCookbookDAO, deleteRecipeDAO);
+                cookbookListViewModel, mainMenuViewModel, viewCookbookDAO, deleteRecipeDAO, viewRecipeDAO);
         view.add(openCookbookView, openCookbookView.viewName);
 
         //Final Steps
