@@ -1,5 +1,6 @@
 package view.view_models;
 
+import view.view_managers.ViewModel;
 import java.beans.PropertyChangeListener;
 
 public class AddRecipeViewModel extends ViewModel {

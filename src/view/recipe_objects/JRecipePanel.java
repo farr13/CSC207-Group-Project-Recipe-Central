@@ -5,14 +5,11 @@ import view.view_models.MainMenuViewModel;
 import javax.swing.*;
 
 public class JRecipePanel extends JPanel {
-    public JRecipePanel(Triplet<String, String, String[]> recipe){
-        this.setBorder(BorderFactory.createTitledBorder(recipe.getFirst()));
-
-        JLabel intructionsURL = new JLabel("Recipe Link: " + recipe.getSecond());
-        this.add(intructionsURL);
-
-        JList<String> ingredients = new JList<>(recipe.getThird());
-
+    public JRecipePanel(Triplet recipe){
+        this.setBorder(BorderFactory.createTitledBorder(recipe.getName()));
+        JLabel instructions = new JLabel("Recipe Link: " + recipe.getLink());
+        this.add(instructions);
+        JList<String> ingredients = new JList<>(recipe.getList());
         this.add(ingredients);
     }
 }

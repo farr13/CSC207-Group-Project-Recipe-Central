@@ -61,7 +61,7 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
 
         // Make Recipe Scroll panel
         JScrollPane recipeScrollPanel = new JScrollPane();
-        for (Triplet<String, String, String[]> recipe: openCookbookViewModel.getState().getRecipes())
+        for (Triplet recipe: openCookbookViewModel.getState().getRecipes())
             recipeScrollPanel.add(new JRecipePanel(recipe));
 
         this.add(title);

@@ -12,8 +12,6 @@ import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 import backend.service.see_list_cookbooks.SeeListCookbooksInteractor;
 import backend.service.see_list_cookbooks.SeeListCookbooksPresenter;
-import backend.service.view_cookbook.ViewCookbookViewDAI;
-import data_access.DeleteCookbookDAO;
 import view.usecase_views.OpenCookbookView;
 import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;

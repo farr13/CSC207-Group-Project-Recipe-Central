@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class SearchResultsView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Search Results";
     private final SearchResultViewModel searchResultViewModel;
     private final AddRecipeViewModel addRecipeViewModel;
@@ -20,8 +20,8 @@ public class SearchResultsView extends JPanel implements ActionListener, Propert
     private final JButton AddtoCookbook;
     private final JButton mainMenu;
 
-    public SearchResultsView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
-                             AddRecipeController addRecipeController, BackToMenuController backToMenuController ) {
+    public SearchResultView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
+                            AddRecipeController addRecipeController, BackToMenuController backToMenuController ) {
         this.searchResultViewModel = searchResultViewModel;
         this.addRecipeViewModel = addRecipeViewModel;
         this.addRecipeController = addRecipeController;
@@ -31,10 +31,8 @@ public class SearchResultsView extends JPanel implements ActionListener, Propert
         JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
-        JList<String> recipeLst = new JList<>(SearchResultViewModel.RECIPES);
-
-        JScrollPane scrollPane = new JScrollPane(recipeLst);
+        // JList<String> recipeLst = new JList<>(SearchResultViewModel.RECIPES);
+        // JScrollPane scrollPane = new JScrollPane(recipeLst);
 
         AddtoCookbook = new JButton(SearchResultViewModel.ADD_COOKBOOK_BUTTON_LABEL);
         mainMenu = new JButton(SearchResultViewModel.MAIN_BUTTON_LABEL);
@@ -66,7 +64,7 @@ public class SearchResultsView extends JPanel implements ActionListener, Propert
         );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
-        this.add(scrollPane);
+        // this.add(scrollPane);
         this.add(flowLayoutPanel, BorderLayout.NORTH);
     }
 

@@ -1,13 +1,10 @@
 package app;
 
-import backend.entity.Cookbook;
-import backend.service.add_recipe.AddRecipeDAI;
 import data_access.*;
 import view.recipe_objects.Triplet;
-import view.states.CookbookListState;
 import view.usecase_views.CookbookListView;
 import view.usecase_views.MainMenuView;
-import view.usecase_views.SearchResultsView;
+import view.usecase_views.SearchResultView;
 import view.usecase_views.OpenCookbookView;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
@@ -47,29 +44,33 @@ public class Main {
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
         CookbookListViewModel cookbookListViewModel = new CookbookListViewModel("Cookbook List");
         OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel("Open Cookbook View");
-        openCookbookViewModel.getState().setCookbookName("Breakfast");
-        openCookbookViewModel.getState().setRecipes(new Triplet[]{new Triplet<>("Cookies", "www.com",
-                new String[]{"flour", "sugar"})});
         SearchResultViewModel searchResultViewModel = new SearchResultViewModel("Search Results");
         AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel("Add Recipes");
 
+        // Testing
+        openCookbookViewModel.getState().setCookbookName("Breakfast");
+        openCookbookViewModel.getState().setRecipes(new Triplet[]{new Triplet("Cookies", "www.com",
+                new String[]{"flour", "sugar"})});
+
         //Making Views
-        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel,
-                cookbookListViewModel, viewCookbookDAO);
-        //view.add(mainMenuView);
-        CookbookListView cookbookListView = CookbookListUseCaseFactory.create(cookbookListViewModel, viewManagerModel,
-                mainMenuViewModel, viewCookbookDAO, deleteCookbookDAO);
-        //view.add(cookbookListView);
-        OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create(viewManagerModel, openCookbookViewModel,
-                cookbookListViewModel, mainMenuViewModel, viewCookbookDAO, deleteRecipeDAO);
-        view.add(openCookbookView);
+
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create
                 (viewManagerModel,
-                mainMenuViewModel,
-                searchResultViewModel,
-                cookbookListViewModel,
-                viewCookbookDAO);
+                        mainMenuViewModel,
+                        searchResultViewModel,
+                        cookbookListViewModel,
+                        viewCookbookDAO);
         view.add(mainMenuView);
+
+
+        OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create
+                (viewManagerModel,
+                openCookbookViewModel,
+                cookbookListViewModel,
+                mainMenuViewModel,
+                viewCookbookDAO,
+                deleteRecipeDAO);
+        view.add(openCookbookView);
 
         CookbookListView cookbookListView = CookbookListUseCaseFactory.create
                 (cookbookListViewModel,
@@ -79,7 +80,7 @@ public class Main {
                 deleteCookbookDAO);
         view.add(cookbookListView);
 
-        SearchResultsView searchResultsView = SearchResultsUseCaseFactory.create
+        SearchResultView searchResultsView = SearchResultUseCaseFactory.create
                 (searchResultViewModel,
                 addRecipeViewModel,
                 mainMenuViewModel,

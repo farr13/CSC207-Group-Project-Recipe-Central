@@ -1,18 +1,18 @@
 package view.states;
 
-public class SearchResultsState {
+public class SearchResultState {
     private String recipeName = "";
     private String cookbookName = "";
     private String ingredientDesc = "";
     private String instructions = "";
 
-    public SearchResultsState(SearchResultsState copy) {
+    public SearchResultState(SearchResultState copy) {
         recipeName = copy.recipeName;
         cookbookName = copy.cookbookName;
         instructions = copy.instructions;
         ingredientDesc = copy.ingredientDesc;
     }
-    public SearchResultsState(){
+    public SearchResultState(){
     }
 
     public String getRecipeName() {return recipeName;}

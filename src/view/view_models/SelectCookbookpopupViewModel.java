@@ -2,11 +2,12 @@ package view.view_models;
 
 import view.states.SelectCookbookState;
 import view.usecase_views.SelectCookbookpopup;
+import view.view_managers.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class SelectCookbookpopupViewModel extends ViewModel{
+public class SelectCookbookpopupViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Select Cookbook";
 
     public static final String CANCEL_BUTTON = "Cancel";
