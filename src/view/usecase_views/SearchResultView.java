@@ -1,6 +1,5 @@
 package view.usecase_views;
 
-import backend.entity.Recipe;
 import backend.service.add_recipe.AddRecipeController;
 import backend.service.back_to_menu.BackToMenuController;
 import view.states.SearchResultState;
@@ -13,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Search Results";
@@ -83,11 +81,10 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        listModel.clear();
         System.out.println("Property Change");
         SearchResultState state = (SearchResultState) evt.getNewValue();
         ArrayList<String> Recipes = state.getRecipeLst();
-        for(String recipe: Recipes){
-            listModel.addElement(recipe);
-        }
+        listModel.addAll(Recipes);
     }
 }

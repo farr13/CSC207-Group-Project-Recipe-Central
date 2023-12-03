@@ -26,7 +26,15 @@ public class SearchPresenter implements SearchOutputBoundary {
         ArrayList<String> test = new ArrayList<String>();
         // Original print to Console Message:
         for (Recipe recipe: recipeResults.getRecipes()){
-            test.add(recipe.getName());
+            StringBuilder temp;
+            Ingredient[] ingredients = recipe.getIngredients();
+            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>" + recipe.getName() + "<html>" + "<br>Instructions: "
+                    + recipe.getInstructions() + "<br> Ingredients:"));
+            for (Ingredient ingredient: ingredients){
+                temp.append(" ").append(ingredient.getTextDescription()).append(",");
+            }
+            temp.append("<br> <br>");
+            test.add(temp.toString());
         }
         System.out.println("Inside Presenter");
         currState.setRecipeLst(test);
