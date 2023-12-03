@@ -1,5 +1,7 @@
 package users.entity;
 
+import users.entity.Ingredient;
+
 public class IngredientFactory {
 
     public static Ingredient createIngredient(String name, String measureType, double quantity) {
@@ -12,7 +14,7 @@ public class IngredientFactory {
         return new Ingredient(name, "<unit>", quantity);
     }
 
-    public static Ingredient createDefaultIngredient(String name) {
+    public static Ingredient createIngredientWithDefaultQuantity(String name) {
         return new Ingredient(name, "<unit>", 1.0);
     }
 
