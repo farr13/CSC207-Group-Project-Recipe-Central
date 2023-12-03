@@ -47,7 +47,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(mainMenu)) {
-                            System.out.println("Not Implemented Yet");
+                            backToMenuController.execute();
                         }
                     }
                 }

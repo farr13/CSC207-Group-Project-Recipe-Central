@@ -13,7 +13,7 @@ public class BackToMenuPresenter implements BackToMenuOutputBoundary {
     }
     @Override
     public void prepareSuccessView() {
-        MainMenuState mainMenuState = mainMenuViewModel.getState();
+        MainMenuState mainMenuState = new MainMenuState();
         this.mainMenuViewModel.setState(mainMenuState);
         mainMenuViewModel.firePropertyChanged();
 

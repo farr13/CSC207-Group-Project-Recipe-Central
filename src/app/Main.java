@@ -57,12 +57,20 @@ public class Main {
 
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create
                 (viewManagerModel,
-                        mainMenuViewModel,
-                        searchResultViewModel,
-                        cookbookListViewModel,
-                        viewCookbookDAO);
+                mainMenuViewModel,
+                searchResultViewModel,
+                cookbookListViewModel,
+                viewCookbookDAO);
         view.add(mainMenuView, mainMenuView.viewName);
 
+        SearchResultView searchResultsView = SearchResultUseCaseFactory.create
+                (searchResultViewModel,
+                addRecipeViewModel,
+                mainMenuViewModel,
+                viewManagerModel,
+                viewCookbookDAO,
+                addRecipeDAO);
+        view.add(searchResultsView, searchResultsView.viewName);
 
         /*
         OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create
@@ -74,10 +82,6 @@ public class Main {
                 deleteRecipeDAO);
         view.add(openCookbookView, openCookbookView.viewName);
 
-         */
-
-        /*
-
         CookbookListView cookbookListView = CookbookListUseCaseFactory.create
                 (cookbookListViewModel,
                 viewManagerModel,
@@ -87,14 +91,6 @@ public class Main {
         view.add(cookbookListView, cookbookListView.viewName);
         */
 
-        SearchResultView searchResultsView = SearchResultUseCaseFactory.create
-                (searchResultViewModel,
-                addRecipeViewModel,
-                mainMenuViewModel,
-                viewManagerModel,
-                viewCookbookDAO,
-                addRecipeDAO);
-        view.add(searchResultsView, searchResultsView.viewName);
         //Final Steps
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChanged();
