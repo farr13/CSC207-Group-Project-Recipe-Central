@@ -1,21 +1,21 @@
 package backend.service.add_recipe;
 
+import view.recipe_objects.Triplet;
+
+import java.util.ArrayList;
+
 public class AddRecipeInputData {
-    private final String recipeName;
     private final String cookbookName;
-    private final String ingredientDesc;
-    private final String instructions;
-    public AddRecipeInputData(String recipeName, String cookbookName, String ingredientDesc, String instructions){
-        this.recipeName = recipeName;
+    private final Triplet recipe;
+
+    public AddRecipeInputData(String cookbookName, Triplet recipe) {
         this.cookbookName = cookbookName;
-        this.ingredientDesc = ingredientDesc;
-        this.instructions = instructions;
+        this.recipe = recipe;
     }
+    public String getCookbookName() { return cookbookName; }
+    public String getRecipeName() { return (String) recipe.getName(); }
+    public String getInstructions() { return (String) recipe.getLink(); }
+    public String[] getIngredients() { return recipe.getList(); }
 
-    String getRecipeName(){return recipeName;}
-    String getCookbookName(){return cookbookName;}
 
-    String getInstructions(){return instructions;}
-
-    String getIngredientDesc(){return ingredientDesc;}
 }

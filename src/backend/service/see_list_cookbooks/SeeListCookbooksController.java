@@ -7,8 +7,8 @@ public class SeeListCookbooksController {
         this.seeListCookbooksIteractor = seeListCookbooksIteractor;
     }
 
-    public void execute(String[] cookbooks) {
-        SeeListCookbooksInputData seeListCookbooksInputData = new SeeListCookbooksInputData(cookbooks);
+    public void execute() {
+        SeeListCookbooksInputData seeListCookbooksInputData = new SeeListCookbooksInputData();
         seeListCookbooksIteractor.execute(seeListCookbooksInputData);
     }
 }
