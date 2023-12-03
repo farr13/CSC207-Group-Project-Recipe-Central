@@ -32,7 +32,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         this.mainMenuViewModel = mainMenuViewModel;
         this.searchController = searchController;
         this.seeListCookbooksController = seeListCookbooksController;
-
         mainMenuViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

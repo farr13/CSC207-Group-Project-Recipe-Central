@@ -2,8 +2,11 @@ package view.states;
 
 import backend.entity.Recipe;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 public class SearchResultState {
-    private Recipe[] recipeLst = {};
+    private ArrayList<String> recipeLst = new ArrayList<>();
 
     public SearchResultState(SearchResultState copy) {
         recipeLst = copy.recipeLst;
@@ -11,8 +14,8 @@ public class SearchResultState {
     public SearchResultState(){
     }
 
-    public Recipe[] getRecipeLst() {return recipeLst;}
+    public ArrayList<String> getRecipeLst() {return recipeLst;}
 
-    public void setRecipeLst(Recipe[] recipeLst) {this.recipeLst = recipeLst;}
+    public void setRecipeLst(ArrayList<String> recipeLst) {this.recipeLst = recipeLst;}
 
 }

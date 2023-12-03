@@ -8,6 +8,10 @@ import view.states.SearchResultState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.SearchResultViewModel;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SearchPresenter implements SearchOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final SearchResultViewModel searchResultViewModel;
@@ -18,12 +22,39 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     @Override
     public void prepareSuccessView(SearchOutputData recipeResults) {
-        SearchResultState searchResultState = searchResultViewModel.getState();
-        searchResultState.setRecipeLst(recipeResults.getRecipes());
-        this.searchResultViewModel.setState(searchResultState);
-
+        SearchResultState currState = searchResultViewModel.getState();
+        ArrayList<String> test = new ArrayList<String>();
+        // Original print to Console Message:
+        for (Recipe recipe: recipeResults.getRecipes()){
+            StringBuilder temp;
+            Ingredient[] ingredients = recipe.getIngredients();
+            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>" + recipe.getName() + "<html>" + "<br>Instructions: "
+                    + recipe.getInstructions() + "<br> Ingredients:"));
+            for (Ingredient ingredient: ingredients){
+                temp.append(" ").append(ingredient.getTextDescription()).append(",");
+            }
+            temp.append("<br> <br>");
+            test.add(temp.toString());
+        }
+        System.out.println("Inside Presenter");
+        currState.setRecipeLst(test);
+        searchResultViewModel.setState(currState);
         searchResultViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(searchResultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+
+        // New actual method:
+        /*
+                    //System.out.println(recipe.getName() + " " + recipe.getInstructions() + ":");
+            //for (Ingredient ingredient: recipe.getIngredients())
+                //System.out.println(ingredient.getTextDescription());
+        SearchResultState searchResultState = searchResultViewModel.getState();
+        // Todo: Some way to update Search Result state to have the output recipes
+        this.searchResultViewModel.setState(searchResultState);
+        searchResultViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(searchResultViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+         */
     }
 }

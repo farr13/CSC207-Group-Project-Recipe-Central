@@ -1,9 +1,7 @@
 package view.usecase_views;
 
-import backend.entity.Recipe;
 import backend.service.add_recipe.AddRecipeController;
 import backend.service.back_to_menu.BackToMenuController;
-import view.recipe_objects.Triplet;
 import view.states.SearchResultState;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
@@ -83,13 +81,10 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        listModel.clear();
         System.out.println("Property Change");
         SearchResultState state = (SearchResultState) evt.getNewValue();
-        Recipe[] recipes = state.getRecipeLst();
-        if (recipes != null){
-            for(Recipe recipe: recipes){
-                listModel.addElement(recipe.getName());
-            }
-        }
+        ArrayList<String> Recipes = state.getRecipeLst();
+        listModel.addAll(Recipes);
     }
 }
