@@ -1,7 +1,7 @@
 package view.states;
 
 public class CookbookListState {
-    private String[] cookbookNames;
+    private String[] cookbookNames = new String[]{};
     public CookbookListState(CookbookListState copy){
         this.cookbookNames = copy.getCookbookNames();
     }

@@ -1,12 +1,15 @@
 package backend.service.make_cookbook;
-public class MakeCookbookOutputData {
-    private final String title;
 
-    public MakeCookbookOutputData(String title) {
-        this.title = title;
+import backend.entity.Cookbook;
+
+public class MakeCookbookOutputData {
+    private final Cookbook[] cookbooks;
+
+    public MakeCookbookOutputData(Cookbook[] cookbooks) {
+        this.cookbooks = cookbooks;
     }
 
-    public String getTitle() {
-        return title;
+    public Cookbook[] getCookbooks() {
+        return cookbooks;
     }
 }

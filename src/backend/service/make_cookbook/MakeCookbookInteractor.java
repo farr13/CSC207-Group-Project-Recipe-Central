@@ -2,39 +2,41 @@ package backend.service.make_cookbook;
 
 import backend.entity.Cookbook;
 import backend.entity.Recipe;
+import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 
 import java.util.Objects;
 
 public class MakeCookbookInteractor implements MakeCookbookInputBoundary{
 
     final MakeCookbookAddDAI makeCookbookAddDAO;
-    final MakeCookbookViewDAI makeCookbookViewDAO;
+    final SeeListCookbooksDAI seeListCookbooksDAO;
     final MakeCookbookOutputBoundary makeCookbookPresenter;
-    public MakeCookbookInteractor(MakeCookbookAddDAI makeCookbookAddDAO,
-                                  MakeCookbookViewDAI makeCookbookViewDAO, MakeCookbookOutputBoundary makeCookbookOutputBoundary) {
+    public MakeCookbookInteractor(MakeCookbookAddDAI makeCookbookAddDAO, SeeListCookbooksDAI seeListCookbooksDAO,
+                                  MakeCookbookOutputBoundary makeCookbookOutputBoundary) {
         this.makeCookbookAddDAO = makeCookbookAddDAO;
-        this.makeCookbookViewDAO = makeCookbookViewDAO;
+        this.seeListCookbooksDAO = seeListCookbooksDAO;
         this.makeCookbookPresenter = makeCookbookOutputBoundary;
     }
-    private boolean existByTitle(String cookbookName, Cookbook[] cookbooks) {
+    private boolean existByTitle(String cookbookName, Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), cookbookName))
                 return true;
         }
-        return false;
+        throw new RuntimeException("Could not read cookbooks.");
     }
     @Override
     public void execute(MakeCookbookInputData makeCookbookInputData) {
-        Cookbook[] cookbooks = makeCookbookViewDAO.viewCookbooks();
-        if (!existByTitle(makeCookbookInputData.getTitle(), cookbooks)){
-            Cookbook newCookbook = new Cookbook(makeCookbookInputData.getTitle(), new Recipe[]{});
-            makeCookbookPresenter.prepareSuccessView(new MakeCookbookOutputData(newCookbook.getName()));
-            try {
+        Cookbook[] cookbooks = new Cookbook[0];
+        try {
+            cookbooks = seeListCookbooksDAO.viewCookbooks();
+            if (!existByTitle(makeCookbookInputData.getTitle(), cookbooks)) {
+                Cookbook newCookbook = new Cookbook(makeCookbookInputData.getTitle(), new Recipe[]{});
+                makeCookbookPresenter.prepareSuccessView(new MakeCookbookOutputData(seeListCookbooksDAO.viewCookbooks()));
                 makeCookbookAddDAO.addCookbook(newCookbook);
-            } catch (Exception e) {
-                makeCookbookPresenter.prepareFailView("Cookbook could not be made.");
+            }else {
+                throw new RuntimeException();
             }
-        }else{
+        } catch (Exception e) {
             makeCookbookPresenter.prepareFailView("Cookbook could not be made.");
         }
     }

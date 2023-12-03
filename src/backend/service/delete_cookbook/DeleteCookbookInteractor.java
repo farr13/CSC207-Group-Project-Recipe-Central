@@ -1,7 +1,7 @@
 package backend.service.delete_cookbook;
 
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
-import backend.service.view_cookbook.ViewCookbookViewDAI;
+import backend.service.view_cookbook.ViewCookbookDAI;
 
 public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
 

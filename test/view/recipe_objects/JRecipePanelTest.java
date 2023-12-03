@@ -19,10 +19,10 @@ public class JRecipePanelTest {
 
         frame.add(view, BorderLayout.CENTER);
 
-        Triplet<String, String, String[]>[] recipes = new Triplet[]{new Triplet<>("Cookies", "www.com",
+        Triplet[] recipes = new Triplet[]{new Triplet("Cookies", "www.com",
                 new String[]{"flour", "sugar"})};
 
-        for (Triplet<String, String, String[]> recipe: recipes){
+        for (Triplet recipe: recipes){
             view.add(new JRecipePanel(recipe));
         }
 
@@ -50,8 +50,8 @@ public class JRecipePanelTest {
         contentPane.setPreferredSize(new Dimension(450, 600));
         contentPane.add(scrollPane);
 
-        Triplet r1 = new Triplet<>("Cookies", "www.com", new String[]{"flour", "sugar"}),
-                r2 = new Triplet<>("Cookiessss", "www.com", new String[]{"flour", "sugar"});
+        Triplet r1 = new Triplet("Cookies", "www.com", new String[]{"flour", "sugar"}),
+                r2 = new Triplet("Cookiessss", "www.com", new String[]{"flour", "sugar"});
 
         panel.add(new JRecipePanel(r1));
         panel.add(new JRecipePanel(r2));

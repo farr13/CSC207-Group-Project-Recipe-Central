@@ -5,7 +5,7 @@ import backend.service.delete_recipe.ViewRecipeDAI;
 import backend.service.make_cookbook.MakeCookbookAddDAI;
 import backend.service.make_cookbook.MakeCookbookViewDAI;
 import backend.service.rename_cookbook.DAI.RenameCookbookViewDAI;
-import backend.service.view_cookbook.ViewCookbookViewDAI;
+import backend.service.view_cookbook.ViewCookbookDAI;
 import backend.entity.Cookbook;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 import com.google.gson.Gson;

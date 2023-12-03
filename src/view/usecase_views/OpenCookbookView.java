@@ -15,7 +15,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class OpenCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "open cookbook";
+    public final String viewName = "Open Cookbook";
     private final OpenCookbookViewModel openCookbookViewModel;
     private final SeeListCookbooksController seeListCookbooksController;
     private final DeleteRecipeController deleteRecipeController;
@@ -37,7 +37,7 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         openCookbookViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel(OpenCookbookViewModel.TITLE_LABEL);
+        JLabel title = new JLabel(openCookbookViewModel.getState().getCookbookName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
 

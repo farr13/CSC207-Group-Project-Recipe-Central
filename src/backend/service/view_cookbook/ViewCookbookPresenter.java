@@ -1,5 +1,6 @@
 package backend.service.view_cookbook;
 
+import view.states.CookbookListState;
 import view.states.OpenCookbookState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;
@@ -18,6 +19,7 @@ public class ViewCookbookPresenter implements ViewCookbookOutputBoundary {
 
     @Override
     public void prepareSuccessView(ViewCookbookOutputData viewCookbookOutputData){
+        System.out.println("Made it");
         OpenCookbookState openCookbookState = openCookbookViewModel.getState();
         openCookbookViewModel.setState(openCookbookState);
         openCookbookViewModel.firePropertyChanged();
@@ -27,6 +29,7 @@ public class ViewCookbookPresenter implements ViewCookbookOutputBoundary {
     }
     @Override
     public void prepareFailView(String error) {
+        CookbookListState cookbookListState = cookbookListViewModel.getState();
         cookbookListViewModel.firePropertyChanged();
     }
 }

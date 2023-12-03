@@ -20,28 +20,10 @@ public class SearchPresenter implements SearchOutputBoundary {
     public void prepareSuccessView(SearchOutputData recipeResults) {
         SearchResultState searchResultState = searchResultViewModel.getState();
         searchResultState.setRecipeLst(recipeResults.getRecipes());
-        // Original print to Console Message:
-        for (Recipe recipe: recipeResults.getRecipes()){
-            System.out.println(recipe.getName() + " " + recipe.getInstructions() + ":");
-            for (Ingredient ingredient: recipe.getIngredients())
-                System.out.println(ingredient.getTextDescription());
-        }
-
         this.searchResultViewModel.setState(searchResultState);
 
         searchResultViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(searchResultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-
-        // New actual method:
-        /*
-        SearchResultState searchResultState = searchResultViewModel.getState();
-        // Todo: Some way to update Search Result state to have the output recipes
-        this.searchResultViewModel.setState(searchResultState);
-        searchResultViewModel.firePropertyChanged();
-
-        viewManagerModel.setActiveView(searchResultViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-         */
     }
 }

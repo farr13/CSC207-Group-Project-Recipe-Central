@@ -4,7 +4,7 @@ import view.recipe_objects.*;
 
 public class OpenCookbookState {
     private String cookbookName;
-    private Triplet[] recipes;
+    private Triplet[] recipes = new Triplet[]{};
     public OpenCookbookState(OpenCookbookState copy){
         this.cookbookName = copy.getCookbookName();
         this.recipes = copy.getRecipes();

@@ -34,15 +34,15 @@ public class AddCookbookDAOTest {
 
     @Test
     public void addMultipleCookbooksTest() throws Exception {
-        AddCookbookDAO addCookbookDAO = createDAO("addMultipleCookbooksTest.json");
+        AddCookbookDAO addCookbookDAO = createDAO("saved_data.json");
         Recipe r1 = new Recipe("cookies", "adwadaed",
                 new Ingredient[]{new Ingredient("1 cup of flour"),
                         new Ingredient("1 bag of chocolate chips")}),
                 r2 = new Recipe("cookies", "adwadaed",
                 new Ingredient[]{new Ingredient("1 cup of flour"),
                         new Ingredient("1 bag of chocolate chips")});
-        Cookbook c1 = new Cookbook("breakfast", new Recipe[]{r2, r1}),
-                c2 = new Cookbook("lunch", new Recipe[]{r2, r1});
+        Cookbook c1 = new Cookbook("Breakfast", new Recipe[]{r2, r1}),
+                c2 = new Cookbook("Lunch", new Recipe[]{r2, r1});
         addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
     }
     @Test
