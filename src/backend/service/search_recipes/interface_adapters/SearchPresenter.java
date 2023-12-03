@@ -8,6 +8,10 @@ import view.states.SearchResultState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.SearchResultViewModel;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SearchPresenter implements SearchOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final SearchResultViewModel searchResultViewModel;
@@ -18,22 +22,24 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     @Override
     public void prepareSuccessView(SearchOutputData recipeResults) {
-        SearchResultState searchResultState = searchResultViewModel.getState();
+        SearchResultState currState = searchResultViewModel.getState();
+        ArrayList<String> test = new ArrayList<String>();
         // Original print to Console Message:
         for (Recipe recipe: recipeResults.getRecipes()){
-            System.out.println(recipe.getName() + " " + recipe.getInstructions() + ":");
-            for (Ingredient ingredient: recipe.getIngredients())
-                System.out.println(ingredient.getTextDescription());
+            test.add(recipe.getName());
         }
-
-        this.searchResultViewModel.setState(searchResultState);
-
+        System.out.println("Inside Presenter");
+        currState.setRecipeLst(test);
+        searchResultViewModel.setState(currState);
         searchResultViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(searchResultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         // New actual method:
         /*
+                    //System.out.println(recipe.getName() + " " + recipe.getInstructions() + ":");
+            //for (Ingredient ingredient: recipe.getIngredients())
+                //System.out.println(ingredient.getTextDescription());
         SearchResultState searchResultState = searchResultViewModel.getState();
         // Todo: Some way to update Search Result state to have the output recipes
         this.searchResultViewModel.setState(searchResultState);
