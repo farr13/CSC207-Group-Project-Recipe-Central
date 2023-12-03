@@ -1,6 +1,5 @@
 package view.usecase_views;
 
-import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_recipe.DeleteRecipeController;
 import backend.service.rename_cookbook.RenameCookbookController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
@@ -21,7 +20,10 @@ import java.util.ArrayList;
 
 public class OpenCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "open cookbook";
+
+    private final MainMenuViewModel mainMenuViewModel;
     private final OpenCookbookViewModel openCookbookViewModel;
+    private final CookbookListViewModel cookbookListViewModel;
     private final SeeListCookbooksController seeListCookbooksController;
     private final DeleteRecipeController deleteRecipeController;
     private final BackToMenuController backToMenuController;

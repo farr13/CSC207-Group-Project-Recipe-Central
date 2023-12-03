@@ -1,5 +1,6 @@
 package backend.service.back_to_menu;
 
+import app.Main;
 import view.states.MainMenuState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.MainMenuViewModel;
@@ -14,9 +15,10 @@ public class BackToMenuPresenter implements BackToMenuOutputBoundary {
     @Override
     public void prepareSuccessView() {
         MainMenuState mainMenuState = mainMenuViewModel.getState();
-        mainMenuViewModel.setState(mainMenuState);
-        mainMenuViewModel.firePropertyChanged();
+        this.mainMenuViewModel.setState(mainMenuState);
+        this.mainMenuViewModel.firePropertyChanged();
 
+        mainMenuViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

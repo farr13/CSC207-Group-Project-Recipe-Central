@@ -19,15 +19,7 @@ public class MainMenuViewModel extends ViewModel {
     public MainMenuViewModel() {
         super(TITLE_LABEL);
     }
-
-    public void setState(MainMenuState state) {
-        this.state = state;
-    }
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
     @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
@@ -36,7 +28,13 @@ public class MainMenuViewModel extends ViewModel {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-
+    @Override
+    public String getViewName() {
+        return TITLE_LABEL;
+    }
+    public void setState(MainMenuState state) {
+        this.state = state;
+    }
     public MainMenuState getState() {
         return state;
     }

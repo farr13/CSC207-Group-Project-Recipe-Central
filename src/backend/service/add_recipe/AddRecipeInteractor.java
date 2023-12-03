@@ -16,13 +16,13 @@ public class AddRecipeInteractor implements AddRecipeInputBoundary{
     @Override
     public void execute(AddRecipeInputData addRecipeInputData) throws Exception {
         Cookbook cookbook = addRecipeDAO.getCookbook(addRecipeInputData.getCookbookName());
-        Ingredient ingredient = new Ingredient(addRecipeInputData.getIngredientDesc());
-        Ingredient[] ingredients = {ingredient};
-        Recipe recipe = new Recipe(addRecipeInputData.getRecipeName(), addRecipeInputData.getInstructions(),
-                ingredients);
-        addRecipeDAO.addRecipe(cookbook, recipe);
+        String name = addRecipeInputData.getRecipeName();
+        String instructions = addRecipeInputData.getInstructions();
 
-        AddRecipeOutputData addRecipeOutputData = new AddRecipeOutputData(addRecipeInputData.getRecipeName());
-        addRecipePresenter.preparesuccessView(addRecipeOutputData);
+        Ingredient[] ingredients = {};
+        Recipe recipe = new Recipe(name, instructions, ingredients);
+
+        addRecipeDAO.addRecipe(cookbook, recipe);
+        addRecipePresenter.prepareSuccessView();
     }
 }

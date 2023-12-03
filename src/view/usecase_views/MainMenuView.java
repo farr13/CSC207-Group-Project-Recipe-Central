@@ -18,9 +18,10 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "main menu";
+    public final String viewName = "Main Menu";
 
     private final MainMenuViewModel mainMenuViewModel;
+    private final CookbookListViewModel cookbookListViewModel;
     private final SearchController searchController;
     private final SeeListCookbooksController seeListCookbooksController;
     private final JTextField searchInputField = new JTextField(30);
@@ -109,6 +110,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 }
         );
 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(searchInductions);
         this.add(searchSection);

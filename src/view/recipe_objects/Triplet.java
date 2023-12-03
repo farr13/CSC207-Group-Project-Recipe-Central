@@ -1,26 +1,24 @@
 package view.recipe_objects;
 
-public class Triplet<T, U, V> {
+import java.util.ArrayList;
 
-    private final T first;
-    private final U second;
-    private final V third;
+public class Triplet {
+    private final String name;
+    private final String link;
+    private final String[] list;
 
-    public Triplet(T first, U second, V third) {
-        this.first = first;
-        this.second = second;
-        this.third = third;
+    public Triplet(String first, String second, String[] third) {
+        this.name = first;
+        this.link = second;
+        this.list = third;
     }
-
-    public T getFirst() {
-        return first;
+    public String getName() {
+        return name;
     }
-
-    public U getSecond() {
-        return second;
+    public String getLink() {
+        return link;
     }
-
-    public V getThird() {
-        return third;
+    public String[] getList() {
+        return list;
     }
 }

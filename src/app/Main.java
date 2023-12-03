@@ -8,12 +8,15 @@ import view.recipe_objects.Triplet;
 import view.states.CookbookListState;
 import view.usecase_views.CookbookListView;
 import view.usecase_views.MainMenuView;
+import view.usecase_views.SearchResultView;
 import view.usecase_views.OpenCookbookView;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
+import view.view_models.AddRecipeViewModel;
 import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 import view.view_models.OpenCookbookViewModel;
+import view.view_models.SearchResultViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +29,8 @@ public class Main {
 
         CardLayout cardLayout = new CardLayout();
         JPanel view = new JPanel(cardLayout);
+        view.setLayout(cardLayout);
+        //frame.add(view);
         view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         frame.add(view, BorderLayout.CENTER);
@@ -44,6 +49,16 @@ public class Main {
 
         //Making View Models
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        CookbookListViewModel cookbookListViewModel = new CookbookListViewModel("Cookbook List");
+        OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel("Open Cookbook View");
+        SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
+        AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel("Add Recipes");
+
+        // Testing
+        openCookbookViewModel.getState().setCookbookName("Breakfast");
+        openCookbookViewModel.getState().setRecipes(new Triplet[]{new Triplet("Cookies", "www.com",
+                new String[]{"flour", "sugar"})});
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         CookbookListViewModel cookbookListViewModel = new CookbookListViewModel();
         cookbookListViewModel.getState().setCookbookNames(new String[]{"Breakfast", "Lunch", "Dinner"});
         OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel();
@@ -58,6 +73,44 @@ public class Main {
         OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create(viewManagerModel, openCookbookViewModel,
                 cookbookListViewModel, mainMenuViewModel, viewCookbookDAO, deleteRecipeDAO, viewRecipeDAO);
         view.add(openCookbookView, openCookbookView.viewName);
+
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create
+                (viewManagerModel,
+                mainMenuViewModel,
+                searchResultViewModel,
+                cookbookListViewModel,
+                viewCookbookDAO);
+        view.add(mainMenuView, mainMenuView.viewName);
+        System.out.println(mainMenuView.viewName);
+
+        SearchResultView searchResultsView = SearchResultUseCaseFactory.create
+                (searchResultViewModel,
+                addRecipeViewModel,
+                mainMenuViewModel,
+                viewManagerModel,
+                viewCookbookDAO,
+                addRecipeDAO);
+        view.add(searchResultsView, searchResultsView.viewName);
+        System.out.println(searchResultsView.viewName);
+
+        /*
+        OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create
+                (viewManagerModel,
+                openCookbookViewModel,
+                cookbookListViewModel,
+                mainMenuViewModel,
+                viewCookbookDAO,
+                deleteRecipeDAO);
+        view.add(openCookbookView, openCookbookView.viewName);
+
+        CookbookListView cookbookListView = CookbookListUseCaseFactory.create
+                (cookbookListViewModel,
+                viewManagerModel,
+                mainMenuViewModel,
+                viewCookbookDAO,
+                deleteCookbookDAO);
+        view.add(cookbookListView, cookbookListView.viewName);
+        */
 
         //Final Steps
         viewManagerModel.setActiveView(mainMenuView.viewName);
