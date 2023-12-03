@@ -45,7 +45,7 @@ public class Main {
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
         CookbookListViewModel cookbookListViewModel = new CookbookListViewModel("Cookbook List");
         OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel("Open Cookbook View");
-        SearchResultViewModel searchResultViewModel = new SearchResultViewModel("Search Results");
+        SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
         AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel("Add Recipes");
 
         // Testing
