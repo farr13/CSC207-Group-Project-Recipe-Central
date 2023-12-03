@@ -16,25 +16,21 @@ public class MainMenuViewModel extends ViewModel {
             FILTER_1_OPTIONS = new String[]{"Breakfast", "Dinner", "Lunch", "Snack"};
 
     private MainMenuState state = new MainMenuState();
-    public MainMenuViewModel() {super(TITLE_LABEL);}
-
-    public void setState(MainMenuState state) {
-        this.state = state;
+    public MainMenuViewModel(String viewName) {
+        super(viewName);
     }
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
-
+    @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
-
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-
+    public void setState(MainMenuState state) {
+        this.state = state;
+    }
     public MainMenuState getState() {
         return state;
     }
