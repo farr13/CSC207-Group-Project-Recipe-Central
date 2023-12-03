@@ -24,9 +24,10 @@ public class Main {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
-        JPanel view = new JPanel(cardLayout);
-        view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        JPanel view = new JPanel(cardLayout);
+        //frame.add(view);
+        view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.add(view, BorderLayout.CENTER);
 
         //This keeps track of and manages which view is currently showing.
@@ -60,9 +61,10 @@ public class Main {
                         searchResultViewModel,
                         cookbookListViewModel,
                         viewCookbookDAO);
-        view.add(mainMenuView);
+        view.add(mainMenuView, mainMenuView.viewName);
 
 
+        /*
         OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create
                 (viewManagerModel,
                 openCookbookViewModel,
@@ -70,7 +72,11 @@ public class Main {
                 mainMenuViewModel,
                 viewCookbookDAO,
                 deleteRecipeDAO);
-        view.add(openCookbookView);
+        view.add(openCookbookView, openCookbookView.viewName);
+
+         */
+
+        /*
 
         CookbookListView cookbookListView = CookbookListUseCaseFactory.create
                 (cookbookListViewModel,
@@ -78,7 +84,8 @@ public class Main {
                 mainMenuViewModel,
                 viewCookbookDAO,
                 deleteCookbookDAO);
-        view.add(cookbookListView);
+        view.add(cookbookListView, cookbookListView.viewName);
+        */
 
         SearchResultView searchResultsView = SearchResultUseCaseFactory.create
                 (searchResultViewModel,
@@ -87,10 +94,9 @@ public class Main {
                 viewManagerModel,
                 viewCookbookDAO,
                 addRecipeDAO);
-        view.add(searchResultsView);
-
+        view.add(searchResultsView, searchResultsView.viewName);
         //Final Steps
-        viewManagerModel.setActiveView(openCookbookView.viewName);
+        viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChanged();
 
         frame.pack();

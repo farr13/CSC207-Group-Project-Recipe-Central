@@ -1,5 +1,6 @@
 package view.view_models;
 
+import backend.entity.Recipe;
 import view.states.SearchResultState;
 
 import java.beans.PropertyChangeListener;
@@ -11,6 +12,8 @@ public class SearchResultViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Results";
     public static final String ADD_COOKBOOK_BUTTON_LABEL = "Add to Cookbook";
     public static final String MAIN_BUTTON_LABEL = "Main Menu";
+
+    public static final Recipe[] RECIPES = {};
 
     private SearchResultState state = new SearchResultState();
     public SearchResultViewModel(String viewName) {

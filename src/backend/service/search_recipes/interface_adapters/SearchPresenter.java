@@ -19,6 +19,14 @@ public class SearchPresenter implements SearchOutputBoundary {
     @Override
     public void prepareSuccessView(SearchOutputData recipeResults) {
         // Original Prints to Console Message:
+        SearchResultState searchResultState = searchResultViewModel.getState();
+        searchResultState.setRecipeLst(recipeResults.getRecipes());
+        this.searchResultViewModel.setState(searchResultState);
+        searchResultViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(searchResultViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+
         for (Recipe recipe: recipeResults.getRecipes()){
             System.out.println(recipe.getName() + " " + recipe.getInstructions() + ": \n");
             for (Ingredient ingredient: recipe.getIngredients())
@@ -26,6 +34,7 @@ public class SearchPresenter implements SearchOutputBoundary {
         }
 
         // New actual method:
+        /*
         SearchResultState searchResultState = searchResultViewModel.getState();
         // Todo: Some way to update Search Result state to have the output recipes
         this.searchResultViewModel.setState(searchResultState);
@@ -33,5 +42,6 @@ public class SearchPresenter implements SearchOutputBoundary {
 
         viewManagerModel.setActiveView(searchResultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+         */
     }
 }

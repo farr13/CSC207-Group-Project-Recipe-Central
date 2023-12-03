@@ -1,29 +1,18 @@
 package view.states;
 
+import backend.entity.Recipe;
+
 public class SearchResultState {
-    private String recipeName = "";
-    private String cookbookName = "";
-    private String ingredientDesc = "";
-    private String instructions = "";
+    private Recipe[] recipeLst = {};
 
     public SearchResultState(SearchResultState copy) {
-        recipeName = copy.recipeName;
-        cookbookName = copy.cookbookName;
-        instructions = copy.instructions;
-        ingredientDesc = copy.ingredientDesc;
+        recipeLst = copy.recipeLst;
     }
     public SearchResultState(){
     }
 
-    public String getRecipeName() {return recipeName;}
-    public String getInstructions() {return instructions;}
-    public String getIngredientDesc() {return ingredientDesc;}
-    public String getCookbookName() {return cookbookName;}
+    public Recipe[] getRecipeLst() {return recipeLst;}
 
-    public void setRecipeName(String recipeName) {this.recipeName = recipeName;}
-    public void setCookbookName(String cookbookName) {this.cookbookName = cookbookName;}
-
-    public void setIngredientDesc(String ingredientDesc) {this.ingredientDesc = ingredientDesc;}
-    public void setInstructions(String instructions) {this.instructions = instructions;}
+    public void setRecipeLst(Recipe[] recipeLst) {this.recipeLst = recipeLst;}
 
 }

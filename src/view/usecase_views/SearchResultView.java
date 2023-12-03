@@ -1,5 +1,6 @@
 package view.usecase_views;
 
+import backend.entity.Recipe;
 import backend.service.add_recipe.AddRecipeController;
 import backend.service.back_to_menu.BackToMenuController;
 import view.view_models.AddRecipeViewModel;
@@ -31,8 +32,8 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // JList<String> recipeLst = new JList<>(SearchResultViewModel.RECIPES);
-        // JScrollPane scrollPane = new JScrollPane(recipeLst);
+        JList<Recipe> recipeLst = new JList<>(SearchResultViewModel.RECIPES);
+        JScrollPane scrollPane = new JScrollPane(recipeLst);
 
         AddtoCookbook = new JButton(SearchResultViewModel.ADD_COOKBOOK_BUTTON_LABEL);
         mainMenu = new JButton(SearchResultViewModel.MAIN_BUTTON_LABEL);
@@ -64,7 +65,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
-        // this.add(scrollPane);
+        this.add(scrollPane);
         this.add(flowLayoutPanel, BorderLayout.NORTH);
     }
 
