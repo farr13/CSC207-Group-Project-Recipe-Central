@@ -1,13 +1,9 @@
 package view.usecase_views;
 
+import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_recipe.DeleteRecipeController;
-import backend.service.rename_cookbook.RenameCookbookController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
-import view.recipe_objects.JRecipePanel;
 import view.recipe_objects.Triplet;
-import view.states.OpenCookbookState;
-import view.view_models.CookbookListViewModel;
-import view.view_models.MainMenuViewModel;
 import view.view_models.OpenCookbookViewModel;
 
 import javax.swing.*;
@@ -20,10 +16,7 @@ import java.util.ArrayList;
 
 public class OpenCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "open cookbook";
-
-    private final MainMenuViewModel mainMenuViewModel;
     private final OpenCookbookViewModel openCookbookViewModel;
-    private final CookbookListViewModel cookbookListViewModel;
     private final SeeListCookbooksController seeListCookbooksController;
     private final DeleteRecipeController deleteRecipeController;
     private final BackToMenuController backToMenuController;
@@ -62,12 +55,12 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         // Make Recipe Scroll panel
         ArrayList<String> recipesDescription = new ArrayList<String>();
 
-        for (Triplet<String, String, String[]> recipe: openCookbookViewModel.getState().getRecipes()){
-            recipesDescription.add("***" + recipe.getFirst() + "***");
-            recipesDescription.add("Instructions Link: "+ recipe.getSecond());
+        for (Triplet recipe: openCookbookViewModel.getState().getRecipes()){
+            recipesDescription.add("***" + recipe.getName() + "***");
+            recipesDescription.add("Instructions Link: "+ recipe.getLink());
 
             StringBuilder ingredients = new StringBuilder("Ingredients: ");
-            for (String ingredientDescription: recipe.getThird())
+            for (String ingredientDescription: recipe.getList())
                 ingredients.append(ingredientDescription).append(",");
             recipesDescription.add(ingredients.toString());
         }
@@ -102,8 +95,8 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(deleteRecipe)) {
-                            deleteRecipeController.execute(openCookbookViewModel.getState().getCookbookName(),
-                                    convertToTriplet(recipesFinal.getSelectedValuesList().toArray(String[]::new)));
+                            Triplet[] triplets = convertToTriplet(recipesFinal.getSelectedValuesList().toArray(new String[0]));
+                            deleteRecipeController.execute(openCookbookViewModel.getState().getCookbookName(), triplets);
                         }
                     }
                 }
@@ -115,8 +108,8 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         this.add(navigationPanel);
     }
 
-    private Triplet<String, String, String[]>[] convertToTriplet(String[] selected){
-        ArrayList<Triplet<String, String, String[]>> results = new ArrayList<Triplet<String, String, String[]>>();
+    private Triplet[] convertToTriplet(String[] selected){
+        ArrayList<Triplet> results = new ArrayList<Triplet>();
 
         for (int i = 0; i < selected.length; i += 3){
             String line = selected[i];
@@ -125,11 +118,11 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
                 String link = selected[i+1];
                 String ingredientComma = selected[i+2];
                 String[] ingredients = ingredientComma.split(",");
-                results.add(new Triplet<>(name, link, ingredients));
+                results.add(new Triplet(name, link, ingredients));
             }
         }
 
-        return results.toArray(Triplet[]::new);
+        return results.toArray(new Triplet[0]);
     }
     @Override
     public void actionPerformed(ActionEvent evt) {

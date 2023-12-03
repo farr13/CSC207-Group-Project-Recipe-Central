@@ -9,9 +9,9 @@ import backend.service.delete_cookbook.DeleteCookbookInteractor;
 import backend.service.delete_cookbook.DeleteCookbookPresenter;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 import backend.service.view_cookbook.ViewCookbookController;
+import backend.service.view_cookbook.ViewCookbookDAI;
 import backend.service.view_cookbook.ViewCookbookInteractor;
 import backend.service.view_cookbook.ViewCookbookPresenter;
-import backend.service.view_cookbook.ViewCookbookViewDAI;
 import view.usecase_views.CookbookListView;
 import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;
@@ -23,7 +23,7 @@ public class CookbookListUseCaseFactory {
 
     public static CookbookListView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel,
                                           CookbookListViewModel cookbookListViewModel, OpenCookbookViewModel openCookbookViewModel,
-                                          ViewCookbookViewDAI viewCookbookDAO, DeleteCookbookDAI deleteCookbookDAO){
+                                          ViewCookbookDAI viewCookbookDAO, DeleteCookbookDAI deleteCookbookDAO){
         ViewCookbookController viewCookbookController = CookbookListUseCaseFactory.createViewCookbookUsecase(viewManagerModel,
                 cookbookListViewModel, openCookbookViewModel, viewCookbookDAO);
         DeleteCookbookController deleteCookbookController = CookbookListUseCaseFactory.createDeleteCookbookUsecase(viewManagerModel,
@@ -32,7 +32,7 @@ public class CookbookListUseCaseFactory {
         return new CookbookListView(cookbookListViewModel, viewCookbookController, deleteCookbookController, backToMenuController);
     }
     private static ViewCookbookController createViewCookbookUsecase(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
-                                                                    OpenCookbookViewModel openCookbookViewModel,ViewCookbookViewDAI viewCookbookDAO){
+                                                                    OpenCookbookViewModel openCookbookViewModel,ViewCookbookDAI viewCookbookDAO){
         ViewCookbookPresenter viewCookbookPresenter = new ViewCookbookPresenter(viewManagerModel, openCookbookViewModel, cookbookListViewModel);
         ViewCookbookInteractor viewCookbookInteractor = new ViewCookbookInteractor(viewCookbookDAO, viewCookbookPresenter);
         ViewCookbookController viewCookbookController = new ViewCookbookController(viewCookbookInteractor);

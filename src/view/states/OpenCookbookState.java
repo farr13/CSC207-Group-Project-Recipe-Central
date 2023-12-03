@@ -1,13 +1,13 @@
 package view.states;
 
-import view.recipe_objects.Triplet;
+import view.recipe_objects.*;
 
 public class OpenCookbookState {
     private String cookbookName;
     private Triplet[] recipes;
     public OpenCookbookState(OpenCookbookState copy){
         this.cookbookName = copy.getCookbookName();
-        this.recipes = copy.recipes;
+        this.recipes = copy.getRecipes();
     }
     public OpenCookbookState(){}
 

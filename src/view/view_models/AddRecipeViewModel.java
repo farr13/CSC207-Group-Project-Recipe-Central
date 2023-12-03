@@ -8,8 +8,8 @@ public class AddRecipeViewModel extends ViewModel {
     public static final String CONFIRM_BUTTON_LABEL = "Confirm";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    public AddRecipeViewModel(String viewName) {
-        super(viewName);
+    public AddRecipeViewModel() {
+        super(TITLE_LABEL);
     }
 
     @Override

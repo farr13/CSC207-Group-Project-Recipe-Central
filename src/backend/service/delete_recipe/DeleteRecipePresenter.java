@@ -2,7 +2,7 @@ package backend.service.delete_recipe;
 
 import backend.entity.Ingredient;
 import backend.entity.Recipe;
-import view.recipe_objects.Triplet;
+import view.recipe_objects.*;
 import view.states.OpenCookbookState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.OpenCookbookViewModel;
@@ -18,16 +18,18 @@ public class DeleteRecipePresenter implements DeleteRecipeOutputBoundary {
         this.openCookbookViewModel = openCookbookViewModel;
     }
     private Triplet[] convertToTriplets(Recipe[] recipes){
-        ArrayList<Triplet<String, String, String[]>> storedTriplets = new ArrayList<>();
+        ArrayList<Triplet> storedTriplets = new ArrayList<Triplet>();
         for (Recipe recipe: recipes){
             ArrayList<String> descriptions = new ArrayList<String>();
             for (Ingredient ingredient: recipe.getIngredients())
                 descriptions.add(ingredient.getTextDescription());
-            Triplet<String, String, String[]> tripletTemp = new Triplet<String, String, String[]>(recipe.getName(),
+
+            Triplet tripletTemp = new Triplet(recipe.getName(),
                     recipe.getInstructions(), descriptions.toArray(descriptions.toArray(new String[0])));
+
             storedTriplets.add(tripletTemp);
         }
-        return storedTriplets.toArray(Triplet[]::new);
+        return storedTriplets.toArray(new Triplet[0]);
     }
     @Override
     public void prepareSuccessView(DeleteRecipeOutputData deleteRecipeOutputData) {
