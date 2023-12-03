@@ -3,11 +3,11 @@ package backend.service.see_list_cookbooks;
 import backend.entity.Cookbook;
 
 public class SeeListCookbooksOutputData {
-    private final Cookbook[] cookbooks;
+    private final String[] cookbookNames;
 
-    public SeeListCookbooksOutputData(Cookbook[] cookbooks) {
-        this.cookbooks = cookbooks;
+    public SeeListCookbooksOutputData(String[] cookbookNames) {
+        this.cookbookNames = cookbookNames;
     }
 
-    public Cookbook[] getCookbooks() {return cookbooks;}
+    public String[] getCookbookNames() {return cookbookNames;}
 }

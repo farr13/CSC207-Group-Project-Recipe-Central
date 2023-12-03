@@ -1,5 +1,6 @@
 package view.usecase_views;
 
+import backend.entity.Recipe;
 import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_cookbook.DeleteCookbookController;
 import backend.service.go_add_cookbook.GoAddCookbookController;
@@ -25,8 +26,7 @@ public class CookbookListView extends JPanel implements ActionListener, Property
     private final JButton openCookbook;
     private final JButton deleteCookbook;
     private final JButton addCookbook;
-    JList<String> cookbookNames;
-    //JScrollPane scrollPane;
+    DefaultListModel<String> listModel = new DefaultListModel<>();
 
     public CookbookListView(CookbookListViewModel cookbookListViewModel, ViewCookbookController viewCookbookController,
                             DeleteCookbookController deleteCookbookController, BackToMenuController backToMenuController,
@@ -58,7 +58,9 @@ public class CookbookListView extends JPanel implements ActionListener, Property
         cookbookEditButtons.add(addCookbook);
 
         // Make Cookbook Scroll panel
+        JList<String> cookbookNames = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(cookbookNames);
+
 
         //Create active listeners
         mainMenu.addActionListener(
@@ -120,7 +122,12 @@ public class CookbookListView extends JPanel implements ActionListener, Property
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         CookbookListState state = (CookbookListState) evt.getNewValue();
-        cookbookNames.setListData(state.getCookbookNames());
-        System.out.println(state.getCookbookNames()[0]);
+        String[] newCookbookNames = state.getCookbookNames();
+        if (newCookbookNames != null){
+            listModel.clear();
+            for(String cookbookName: newCookbookNames){
+                listModel.addElement(cookbookName);
+            }
+        }
     }
 }

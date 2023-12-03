@@ -81,6 +81,7 @@ public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookboo
                     if (Objects.equals(cookbook.getName(), cookbookName)){
                         cookbooks.remove(cookbook);
                         writeFile();
+                        break;
                     }
                 }
             }

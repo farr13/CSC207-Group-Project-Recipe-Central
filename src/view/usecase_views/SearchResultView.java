@@ -3,6 +3,8 @@ package view.usecase_views;
 import backend.entity.Recipe;
 import backend.service.add_recipe.AddRecipeController;
 import backend.service.back_to_menu.BackToMenuController;
+import view.recipe_objects.Triplet;
+import view.states.SearchResultState;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 import javax.swing.*;
@@ -11,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class SearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Search Results";
@@ -21,18 +24,22 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final JButton AddToCookbook;
     private final JButton MainMenu;
 
+    JList<String> recipeLst;
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+
+
     public SearchResultView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
                             AddRecipeController addRecipeController, BackToMenuController backToMenuController ) {
         this.searchResultViewModel = searchResultViewModel;
         this.backToMenuController = backToMenuController;
         this.addRecipeViewModel = addRecipeViewModel;
         this.addRecipeController = addRecipeController;
-        searchResultViewModel.addPropertyChangeListener(this);
+        this.searchResultViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JList<Recipe> recipeLst = new JList<>(SearchResultViewModel.RECIPES);
+        SearchResultState currState = searchResultViewModel.getState();
+        recipeLst = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(recipeLst);
 
         MainMenu = new JButton(SearchResultViewModel.MAIN_BUTTON_LABEL);
@@ -76,6 +83,13 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property Name: " + evt.getPropertyName() + ", Property change call (SearchResults view)");
+        System.out.println("Property Change");
+        SearchResultState state = (SearchResultState) evt.getNewValue();
+        Recipe[] recipes = state.getRecipeLst();
+        if (recipes != null){
+            for(Recipe recipe: recipes){
+                listModel.addElement(recipe.getName());
+            }
+        }
     }
 }

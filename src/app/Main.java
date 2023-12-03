@@ -77,7 +77,8 @@ public class Main {
                         addRecipeDAO);
         view.add(searchResultsView, searchResultsView.viewName);
 
-        AddCookbookView addCookbookView = AddCookbookUseCaseFactory.create(viewManagerModel,
+        AddCookbookView addCookbookView = AddCookbookUseCaseFactory.create(
+                viewManagerModel,
                 cookbookListViewModel,
                 addCookbookViewModel,
                 addCookbookDAO,

@@ -4,13 +4,13 @@ import backend.entity.Cookbook;
 
 public class DeleteCookbookOutputData {
 
-    private final Cookbook[] storedCookbooks;
+    private final String[] cookbooksNames;
 
-    public DeleteCookbookOutputData(Cookbook[] storedCookbooks) {
-        this.storedCookbooks = storedCookbooks;
+    public DeleteCookbookOutputData(String[] cookbooksNames) {
+        this.cookbooksNames = cookbooksNames;
     }
 
-    public Cookbook[] getStoredCookbooks() {
-        return storedCookbooks;
+    public String[] getCookbookNames() {
+        return cookbooksNames;
     }
 }

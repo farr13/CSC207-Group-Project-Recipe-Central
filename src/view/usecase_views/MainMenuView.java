@@ -102,7 +102,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         viewCookbooks.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        System.out.println("Reached 1");
                         if (evt.getSource().equals(viewCookbooks)) {
                             seeListCookbooksController.execute();
                         }

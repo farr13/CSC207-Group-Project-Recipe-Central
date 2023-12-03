@@ -69,6 +69,8 @@ public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksD
         return false;
     }
     private ArrayList<Cookbook> convertCookbook(String jsonStr){
+        if (Objects.equals(jsonStr, "[]"))
+            return new ArrayList<Cookbook>(){};
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
@@ -90,6 +92,7 @@ public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksD
     }
     @Override
     public Cookbook[] viewCookbooks(){
-        return cookbooks.toArray(new Cookbook[cookbooks.size()]);
+        cookbooks = convertCookbook(readFile());
+        return cookbooks.toArray(new Cookbook[0]);
     }
 }

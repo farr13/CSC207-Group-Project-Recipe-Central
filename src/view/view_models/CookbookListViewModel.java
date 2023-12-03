@@ -9,7 +9,7 @@ import java.beans.PropertyChangeSupport;
 public class CookbookListViewModel extends ViewModel {
     public static final String TITLE_LABEL = "All Cookbooks";
     public static final String MAIN_MENU_BUTTON_LABEL = "Main Menu";
-    public static final String ADD_COOKBOOK_BUTTON_LABEL = "Add Cookbook";
+    public static final String ADD_COOKBOOK_BUTTON_LABEL = "New Cookbook";
     public static final String DELETE_COOKBOOK_BUTTON_LABEL = "Delete Cookbook";
     public static final String OPEN_COOKBOOK_BUTTON_LABEL = "View Cookbook";
 

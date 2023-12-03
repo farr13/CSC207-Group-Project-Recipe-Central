@@ -1,7 +1,10 @@
 package backend.service.delete_cookbook;
 
+import backend.entity.Cookbook;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 import backend.service.view_cookbook.ViewCookbookDAI;
+
+import java.util.ArrayList;
 
 public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
 
@@ -16,13 +19,22 @@ public class DeleteCookbookInteractor implements DeleteCookbookInputBoundary{
         this.deleteCookbookDAO = deleteCookbookDAO;
     }
 
+    private String[] getCookbookNames(Cookbook[] cookbooks){
+        ArrayList<String> cookbookNames = new ArrayList<String>();
+        for (Cookbook cookbook: cookbooks)
+            cookbookNames.add(cookbook.getName());
+        return cookbookNames.toArray(new String[0]);
+    }
+
     @Override
     public void execute(DeleteCookbookInputData deleteCookbookInputData) {
         try {
             deleteCookbookDAO.deleteCookbooks(deleteCookbookInputData.getStoredCookbooks());
-            DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(viewCookbookDAO.viewCookbooks());
+            String[] newCookbookNames = getCookbookNames(viewCookbookDAO.viewCookbooks());
+            DeleteCookbookOutputData deleteCookbookOutputData = new DeleteCookbookOutputData(newCookbookNames);
             deletePresenter.prepareSuccessView(deleteCookbookOutputData);
         } catch (Exception e) {
+            e.printStackTrace();
             deletePresenter.prepareFailView("Could not delete all selected cookbooks.");
         }
     }
