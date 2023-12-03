@@ -24,7 +24,7 @@ public class SearchPresenter implements SearchOutputBoundary {
     public void prepareSuccessView(SearchOutputData recipeResults) {
         SearchResultState currState = searchResultViewModel.getState();
         ArrayList<String> test = new ArrayList<String>();
-        // Original print to Console Message:
+
         for (Recipe recipe: recipeResults.getRecipes()){
             StringBuilder temp;
             Ingredient[] ingredients = recipe.getIngredients();
@@ -36,25 +36,11 @@ public class SearchPresenter implements SearchOutputBoundary {
             temp.append("<br> <br>");
             test.add(temp.toString());
         }
-        System.out.println("Inside Presenter");
+
         currState.setRecipeLst(test);
         searchResultViewModel.setState(currState);
         searchResultViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(searchResultViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-
-        // New actual method:
-        /*
-                    //System.out.println(recipe.getName() + " " + recipe.getInstructions() + ":");
-            //for (Ingredient ingredient: recipe.getIngredients())
-                //System.out.println(ingredient.getTextDescription());
-        SearchResultState searchResultState = searchResultViewModel.getState();
-        // Todo: Some way to update Search Result state to have the output recipes
-        this.searchResultViewModel.setState(searchResultState);
-        searchResultViewModel.firePropertyChanged();
-
-        viewManagerModel.setActiveView(searchResultViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-         */
     }
 }

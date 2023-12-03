@@ -21,10 +21,8 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final AddRecipeController addRecipeController;
     private final JButton AddToCookbook;
     private final JButton MainMenu;
-
     JList<String> recipeLst;
     DefaultListModel<String> listModel = new DefaultListModel<>();
-
 
     public SearchResultView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
                             AddRecipeController addRecipeController, BackToMenuController backToMenuController ) {
@@ -82,7 +80,6 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         listModel.clear();
-        System.out.println("Property Change");
         SearchResultState state = (SearchResultState) evt.getNewValue();
         ArrayList<String> Recipes = state.getRecipeLst();
         listModel.addAll(Recipes);

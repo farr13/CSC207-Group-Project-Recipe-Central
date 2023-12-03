@@ -13,20 +13,24 @@ public class DeleteRecipeController {
     public DeleteRecipeController(DeleteRecipeInputBoundary deleteRecipeInteractor){
         this.deleteRecipeInteractor = deleteRecipeInteractor;
     }
-    private Recipe[] convertTripletToRecipes(Triplet[] triplets){
-        ArrayList<Recipe> storedRecipes = new ArrayList<>();
-        for (Triplet triplet: triplets){
-            ArrayList<Ingredient> storedIngredients= new ArrayList<Ingredient>();
-            for (String description: triplet.getList())
-                storedIngredients.add(new Ingredient(description));
-            Recipe recipeTemp = new Recipe(triplet.getName(), triplet.getLink(), storedIngredients.toArray(new Ingredient[0]));
-            storedRecipes.add(recipeTemp);
+
+    private Triplet[] convertToTriplet(String[] recipeBlocks){
+        ArrayList<Triplet> triplets = new ArrayList<Triplet>();
+        for (String recipeBlock: recipeBlocks){
+            String[] sectioned = recipeBlock.split("_");
+            String name = sectioned[1];
+            String link = sectioned[3];
+            String[] listTemp = sectioned[5].split(",");
+            ArrayList<String> listFinal = new ArrayList<String>();
+            for(String ingredient: listTemp)
+                listFinal.add(ingredient.trim());
+            triplets.add(new Triplet(name, link, listFinal.toArray(new String[0])));
         }
 
-        return storedRecipes.toArray(new Recipe[0]);
+        return triplets.toArray(new Triplet[0]);
     }
-    public void execute(String cookbookName, Triplet[] recipes) {
-        DeleteRecipeInputData deleteRecipeInputData = new DeleteRecipeInputData(cookbookName, convertTripletToRecipes(recipes));
+    public void execute(String cookbookName, String[] recipeBlocks) {
+        DeleteRecipeInputData deleteRecipeInputData = new DeleteRecipeInputData(cookbookName, convertToTriplet(recipeBlocks));
 
         deleteRecipeInteractor.execute(deleteRecipeInputData);
     }
