@@ -17,7 +17,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "main menu";
+    public final String viewName = "Main Menu";
 
     private final MainMenuViewModel mainMenuViewModel;
     private final CookbookListViewModel cookbookListViewModel;
@@ -90,6 +90,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
+                            System.out.println("Search Button");
                             String searchText = searchInputField.getText();
                             String[] selectedFilter1 = filter1Lst.getSelectedValuesList().toArray(new String[0]);
                             String[] selectedFilter2 = filter2Lst.getSelectedValuesList().toArray(new String[0]);
@@ -105,13 +106,13 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(viewCookbooks)) {
                             seeListCookbooksController.execute();
+                            System.out.println("View Cookbook Button");
                         }
                     }
                 }
         );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         this.add(title);
         this.add(searchInductions);
         this.add(searchSection);
@@ -124,7 +125,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property changed method called");
+        System.out.println("Property Name: " + evt.getPropertyName() + ", Property change call (Main Menu View)");
     }
 }
 
