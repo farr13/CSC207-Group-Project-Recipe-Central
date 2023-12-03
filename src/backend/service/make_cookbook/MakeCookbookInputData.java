@@ -2,12 +2,12 @@ package backend.service.make_cookbook;
 
 public class MakeCookbookInputData {
 
-    private final String title;
-    public MakeCookbookInputData(String title) {
+    private final String newCookbookName;
+    public MakeCookbookInputData(String newCookbookName) {
 
-        this.title = title;
+        this.newCookbookName = newCookbookName;
     }
-    String getTitle() {
-        return title;
+    String getNewCookbookName() {
+        return newCookbookName;
     }
 }

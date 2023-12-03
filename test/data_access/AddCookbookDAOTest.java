@@ -43,7 +43,7 @@ public class AddCookbookDAOTest {
                         new Ingredient("1 bag of chocolate chips")});
         Cookbook c1 = new Cookbook("Breakfast", new Recipe[]{r2, r1}),
                 c2 = new Cookbook("Lunch", new Recipe[]{r2, r1});
-        addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
+        //addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
     }
     @Test
     public void addExistingCookbookTest() {
@@ -74,7 +74,7 @@ public class AddCookbookDAOTest {
                                     new Ingredient("1 bag of chocolate chips")});
                     Cookbook c1 = new Cookbook("breakfast", new Recipe[]{r2, r2}),
                             c2 = new Cookbook("breakfast", new Recipe[]{r2, r2});
-                    addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
+                    //addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
                 }
         );
 

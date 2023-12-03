@@ -87,6 +87,7 @@ public class AddRecipeDAO implements AddRecipeDAI {
     }
     @Override
     public Cookbook getCookbook(String cookbookName) throws Exception {
+        this.cookbooks = convertCookbook(readFile());
         Cookbook savecookbook = null;
         if (existByTitle(cookbookName)) {
             throw new Exception("Cookbook doesn't exist.");
@@ -102,6 +103,7 @@ public class AddRecipeDAO implements AddRecipeDAI {
 
     @Override
     public void addRecipe(Cookbook cookbook, Recipe recipe) throws Exception {
+        this.cookbooks = convertCookbook(readFile());
         if (existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist.");
         } else {
@@ -111,7 +113,8 @@ public class AddRecipeDAO implements AddRecipeDAI {
             writeFile();
         }
     }
-    public void addRecipe(Cookbook cookbook, Recipe[] recipes) throws Exception {
+    private void addRecipe(Cookbook cookbook, Recipe[] recipes) throws Exception {
+        this.cookbooks = convertCookbook(readFile());
         if (existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist.");
         } else {

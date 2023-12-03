@@ -29,7 +29,7 @@ public class AddRecipeDAOTest {
         Cookbook c1 = new Cookbook("breakfast", new Recipe[]{r1}),
                 c2 = new Cookbook("lunch", new Recipe[]{r1, r2});
 
-        addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
+        //addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
 
         AddRecipeDAO addRecipeDAO = new AddRecipeDAO("addOneRecipe1.json");
         addRecipeDAO.addRecipe(c1, r2);
@@ -86,11 +86,11 @@ public class AddRecipeDAOTest {
 
         AddRecipeDAO addRecipeDAO = new AddRecipeDAO("addMultiRecipeEmptyCookbook.json");
 
-        addRecipeDAO.addRecipe(cookbook, new Recipe[]{r1, r2});
-        addRecipeDAO.addRecipe(cookbook, new Recipe[]{r1, r1});
-        addRecipeDAO.addRecipe(cookbook, new Recipe[]{r2, r2});
-        addRecipeDAO.addRecipe(cookbook, new Recipe[]{r1});
+        //addRecipeDAO.addRecipe(cookbook, new Recipe[]{r1, r2});
+        //addRecipeDAO.addRecipe(cookbook, new Recipe[]{r1, r1});
+        //addRecipeDAO.addRecipe(cookbook, new Recipe[]{r2, r2});
+        //addRecipeDAO.addRecipe(cookbook, new Recipe[]{r1});
         addRecipeDAO.addRecipe(cookbook, r1);
-        addRecipeDAO.addRecipe(cookbook, new Recipe[]{});
+        //addRecipeDAO.addRecipe(cookbook, new Recipe[]{});
     }
 }

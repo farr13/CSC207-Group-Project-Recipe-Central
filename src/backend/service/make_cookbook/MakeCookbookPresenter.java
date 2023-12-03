@@ -20,17 +20,10 @@ public class MakeCookbookPresenter implements MakeCookbookOutputBoundary {
         this.cookbookListViewModel = cookbookListViewModel;
         this.addCookbookViewModel = addCookbookViewModel;
     }
-    private String[] convertCookbookNames(Cookbook[] cookbooks){
-        ArrayList<String> cookbookNames = new ArrayList<String>();
-        for (Cookbook cookbook: cookbooks)
-            cookbookNames.add(cookbook.getName());
-        return cookbookNames.toArray(new String[0]);
-    }
     @Override
     public void prepareSuccessView(MakeCookbookOutputData makeCookbookOutputData) {
-        String[] cookbookNames = convertCookbookNames(makeCookbookOutputData.getCookbooks());
         CookbookListState cookbookListState = cookbookListViewModel.getState();
-        cookbookListState.setCookbookNames(cookbookNames);
+        cookbookListState.setCookbookNames(makeCookbookOutputData.getCookbookNames());
         this.cookbookListViewModel.setState(cookbookListState);
         this.cookbookListViewModel.firePropertyChanged();
 
@@ -41,6 +34,7 @@ public class MakeCookbookPresenter implements MakeCookbookOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         AddCookbookState addCookbookState = addCookbookViewModel.getState();
+        addCookbookState.setErrorMessage("Invalid Name");
         addCookbookViewModel.firePropertyChanged();
     }
 }

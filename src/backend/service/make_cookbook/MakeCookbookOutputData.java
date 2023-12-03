@@ -3,13 +3,13 @@ package backend.service.make_cookbook;
 import backend.entity.Cookbook;
 
 public class MakeCookbookOutputData {
-    private final Cookbook[] cookbooks;
+    private final String[] cookbookNames;
 
-    public MakeCookbookOutputData(Cookbook[] cookbooks) {
-        this.cookbooks = cookbooks;
+    public MakeCookbookOutputData(String[] cookbookNames) {
+        this.cookbookNames = cookbookNames;
     }
 
-    public Cookbook[] getCookbooks() {
-        return cookbooks;
+    public String[] getCookbookNames() {
+        return cookbookNames;
     }
 }

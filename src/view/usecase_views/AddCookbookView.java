@@ -3,6 +3,8 @@ package view.usecase_views;
 import backend.service.back_to_menu.BackToMenuController;
 import backend.service.make_cookbook.MakeCookbookController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
+import view.states.AddCookbookState;
+import view.states.OpenCookbookState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.AddCookbookViewModel;
 import view.view_models.CookbookListViewModel;
@@ -14,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Objects;
 
 public class AddCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Add Cookbook";
@@ -23,6 +26,7 @@ public class AddCookbookView extends JPanel implements ActionListener, PropertyC
     public final SeeListCookbooksController seeListCookbooksController;
     private final JButton cancel;
     private final JButton add;
+    private JTextField nameInputField = new JTextField(30);
 
     public AddCookbookView(ViewManagerModel viewManagerModel, AddCookbookViewModel addCookbookViewModel,
                            MakeCookbookController makeCookbookController, SeeListCookbooksController seeListCookbooksController) {
@@ -37,20 +41,25 @@ public class AddCookbookView extends JPanel implements ActionListener, PropertyC
         JLabel title = new JLabel(AddCookbookViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //Make input cookname panel
+        JPanel inputNameSection = new JPanel();
+        JLabel inputNameLabel = new JLabel("Cookbook Name: ");
+        inputNameSection.add(inputNameLabel);
+        inputNameSection.add(nameInputField);
+
         //Make buttons
         JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         add = new JButton(AddCookbookViewModel.ADD_COOKBOOK_BUTTON_LABEL);
+        flowLayoutPanel.add(add);
         cancel = new JButton(AddCookbookViewModel.VIEW_COOKBOOKS_BUTTON_LABEL);
-
-        //Make input text field
-        JTextField nameField = new JTextField(20);
+        flowLayoutPanel.add(cancel);
 
         //Create active listeners
         add.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(add)) {
-                            makeCookbookController.execute(nameField.getText());
+                            makeCookbookController.execute(nameInputField.getText());
                         }
                     }
                 }
@@ -68,7 +77,7 @@ public class AddCookbookView extends JPanel implements ActionListener, PropertyC
 
         //Adding all components to this Jpanel
         this.add(title);
-        this.add(nameField);
+        this.add(inputNameSection);
         this.add(flowLayoutPanel);
     }
 
@@ -78,6 +87,12 @@ public class AddCookbookView extends JPanel implements ActionListener, PropertyC
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property changed method called");
+        AddCookbookState state = (AddCookbookState) evt.getNewValue();
+
+        nameInputField.setText("");
+
+        JFrame frame = new JFrame(state.getErrorMessage());
+        if (Objects.equals(state.getErrorMessage(), "Invalid Name"))
+            JOptionPane.showMessageDialog(frame, ("Please use a different name for the new cookbook."));
     }
 }

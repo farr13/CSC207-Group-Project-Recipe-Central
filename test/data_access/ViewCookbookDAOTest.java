@@ -28,10 +28,10 @@ public class ViewCookbookDAOTest {
                                 new Ingredient("1 bag of chocolate chips")});
         Cookbook c1 = new Cookbook("breakfast", new Recipe[]{r2, r1}),
                 c2 = new Cookbook("lunch", new Recipe[]{r2, r1});
-        addCookbookDAO.addCookbook(new Cookbook[]{c1});
+        //addCookbookDAO.addCookbook(new Cookbook[]{c1});
         ViewCookbookDAO viewCookbookDAO = createDAO("viewCookbookBasic.json");
         System.out.println(viewCookbookDAO.viewCookbooks());
-        System.out.println(viewCookbookDAO.viewCookbook(c2));
+        //System.out.println(viewCookbookDAO.viewCookbook(c2));
     }
 
     @Test

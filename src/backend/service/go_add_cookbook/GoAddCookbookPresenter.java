@@ -16,6 +16,7 @@ public class GoAddCookbookPresenter implements GoAddCookbookOutputBoundary {
     @Override
     public void prepareSuccessView() {
         AddCookbookState addCookbookState = addCookbookViewModel.getState();
+        addCookbookState.setErrorMessage("");
         this.addCookbookViewModel.setState(addCookbookState);
         this.addCookbookViewModel.firePropertyChanged();
 

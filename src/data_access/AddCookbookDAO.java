@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class AddCookbookDAO implements RenameCookbookAddDAI, MakeCookbookAddDAI {
     private final String jsonPath;
-    private final ArrayList<Cookbook> cookbooks;
+    private ArrayList<Cookbook> cookbooks;
     private final File file;
 
     public AddCookbookDAO(String fileName){
@@ -72,6 +72,7 @@ public class AddCookbookDAO implements RenameCookbookAddDAI, MakeCookbookAddDAI 
     }
     @Override
     public void addCookbook(Cookbook cookbook) throws Exception {
+        this.cookbooks = convertCookbook(readFile());
         if (!existByTitle(cookbook.getName())) {
             cookbooks.add(cookbook);
             writeFile();
@@ -79,7 +80,7 @@ public class AddCookbookDAO implements RenameCookbookAddDAI, MakeCookbookAddDAI 
             throw new RuntimeException("Cookbook name already exists.");
         }
     }
-    public void addCookbook(Cookbook[] cookbooks) throws Exception {
+    private void addCookbookObj(Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (existByTitle(cookbook.getName())) {
                 throw new RuntimeException("Cookbook name already exists.");

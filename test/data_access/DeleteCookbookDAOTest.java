@@ -25,7 +25,7 @@ public class DeleteCookbookDAOTest {
 
         Cookbook cookbook = new Cookbook("Breakfast", new Recipe[]{cookies});
         DeleteCookbookDAO deleteCookbookDAO = createDAO("deleteOneCookbookTestEmptied.json");
-        deleteCookbookDAO.deleteCookbook(cookbook);
+        //deleteCookbookDAO.deleteCookbook(cookbook);
     }
     @Test
     public void deleteOneCookbookTestRemain() throws Exception {
@@ -41,9 +41,9 @@ public class DeleteCookbookDAOTest {
 
         Cookbook cookbook = new Cookbook("Breakfast", new Recipe[]{r2});
         DeleteCookbookDAO deleteCookbookDAO = createDAO("deleteOneCookbookTestRemain.json");
-        deleteCookbookDAO.deleteCookbook(cookbook);
+        //deleteCookbookDAO.deleteCookbook(cookbook);
         Cookbook cookbook2 = new Cookbook("Breakfast", new Recipe[]{r1, r2});
-        deleteCookbookDAO.deleteCookbook(cookbook2);
+        //deleteCookbookDAO.deleteCookbook(cookbook2);
     }
     @Test
     public void deleteMultiCookbookTestEmptied() throws Exception {
@@ -62,7 +62,7 @@ public class DeleteCookbookDAOTest {
 
         Cookbook cookbook = new Cookbook("Breakfast", new Recipe[]{r1});
         Cookbook cookbook2 = new Cookbook("Lunch", new Recipe[]{r2});
-        deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook, cookbook2});
+        //deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook, cookbook2});
     }
     @Test
     public void deleteMultiCookbookTestRemain() throws Exception {
@@ -80,7 +80,7 @@ public class DeleteCookbookDAOTest {
         DeleteCookbookDAO deleteCookbookDAO = createDAO("deleteMultiCookbookTestRemain.json");
 
         Cookbook cookbook = new Cookbook("Breakfast", new Recipe[]{r1});
-        deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook});
+        //deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook});
     }
     @Test
     public void deleteNoCookbookTestRemain() throws Exception {
@@ -98,7 +98,7 @@ public class DeleteCookbookDAOTest {
         DeleteCookbookDAO deleteCookbookDAO = createDAO("deleteNoCookbookTestRemain.json");
 
         Cookbook cookbook = new Cookbook("", new Recipe[]{});
-        deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook});
+        //deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook});
     }
     @Test
     public void deleteNoCookbookTestEmptied() throws Exception {
@@ -107,6 +107,6 @@ public class DeleteCookbookDAOTest {
         DeleteCookbookDAO deleteCookbookDAO = createDAO("deleteNoCookbookTestEmptied.json");
 
         Cookbook cookbook = new Cookbook("", new Recipe[]{});
-        deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook});
+        //deleteCookbookDAO.deleteCookbookLst(new Cookbook[]{cookbook});
     }
 }

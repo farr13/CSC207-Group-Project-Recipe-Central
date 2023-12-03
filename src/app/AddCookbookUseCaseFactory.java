@@ -4,10 +4,7 @@ import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_cookbook.DeleteCookbookController;
 import backend.service.delete_cookbook.DeleteCookbookDAI;
 import backend.service.go_add_cookbook.GoAddCookbookController;
-import backend.service.make_cookbook.MakeCookbookAddDAI;
-import backend.service.make_cookbook.MakeCookbookController;
-import backend.service.make_cookbook.MakeCookbookInteractor;
-import backend.service.make_cookbook.MakeCookbookPresenter;
+import backend.service.make_cookbook.*;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 import backend.service.see_list_cookbooks.SeeListCookbooksInteractor;
@@ -43,7 +40,7 @@ public class AddCookbookUseCaseFactory {
                                                                     MakeCookbookAddDAI addCookbookDAO,
                                                                     SeeListCookbooksDAI seeListCookbooksDAO){
         MakeCookbookPresenter makeCookbookPresenter = new MakeCookbookPresenter(viewManagerModel, cookbookListViewModel, addCookbookViewModel);
-        MakeCookbookInteractor makeCookbookInteractor = new MakeCookbookInteractor(addCookbookDAO, seeListCookbooksDAO, makeCookbookPresenter);
+        MakeCookbookInteractor makeCookbookInteractor = new MakeCookbookInteractor(addCookbookDAO, (MakeCookbookViewDAI) seeListCookbooksDAO, makeCookbookPresenter);
         return new MakeCookbookController(makeCookbookInteractor);
     }
 

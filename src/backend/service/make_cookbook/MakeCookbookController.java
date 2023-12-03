@@ -8,8 +8,8 @@ public class MakeCookbookController {
         this.makeCookbookUseCaseInteractor = makeCookbookUseCaseInteractor;
     }
 
-    public void execute(String title) {
-        MakeCookbookInputData makeCookbookInputData = new MakeCookbookInputData(title);
+    public void execute(String newCookbookName) {
+        MakeCookbookInputData makeCookbookInputData = new MakeCookbookInputData(newCookbookName);
 
         makeCookbookUseCaseInteractor.execute(makeCookbookInputData);
     }

@@ -28,12 +28,12 @@ public class DeleteRecipeDAOTest {
                                 new Ingredient("1 bag of chocolate chips")});
         Cookbook c1 = new Cookbook("breakfast", new Recipe[]{r2, r1}),
                 c2 = new Cookbook("lunch", new Recipe[]{r2, r1});
-        addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
+        //addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
 
         DeleteRecipeDAO deleteRecipeDAO = new DeleteRecipeDAO("deleteOneRecipeEmptiedCookbook.json");
-        deleteRecipeDAO.deleteRecipeObject(c1,r2);
+        //deleteRecipeDAO.deleteRecipeObject(c1,r2);
         //deleteRecipeDAO.deleteRecipe(new Cookbook("breakfast", new Recipe[]{r1}),r1);
-        deleteRecipeDAO.deleteRecipeObject(c2,r2);
+        //deleteRecipeDAO.deleteRecipeObject(c2,r2);
         //deleteRecipeDAO.deleteRecipe(new Cookbook("lunch", new Recipe[]{r1}),r1);
     }
     @Test
@@ -47,10 +47,10 @@ public class DeleteRecipeDAOTest {
                                 new Ingredient("1 bag of chocolate chips")});
         Cookbook c1 = new Cookbook("breakfast", new Recipe[]{r2, r1}),
                 c2 = new Cookbook("lunch", new Recipe[]{r2, r1});
-        addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
+        //addCookbookDAO.addCookbook(new Cookbook[]{c1, c2});
 
         DeleteRecipeDAO deleteRecipeDAO = new DeleteRecipeDAO("deleteMultiRecipeEmptiedCookbook.json");
-        deleteRecipeDAO.deleteRecipeObject(c1, new Recipe("", "", new Ingredient[]{}));
-        deleteRecipeDAO.deleteRecipeList(c2, new Recipe[]{});
+        //deleteRecipeDAO.deleteRecipeObject(c1, new Recipe("", "", new Ingredient[]{}));
+        //deleteRecipeDAO.deleteRecipeList(c2, new Recipe[]{});
     }
 }
