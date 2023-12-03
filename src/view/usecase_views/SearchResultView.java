@@ -3,6 +3,7 @@ package view.usecase_views;
 import backend.entity.Recipe;
 import backend.service.add_recipe.AddRecipeController;
 import backend.service.back_to_menu.BackToMenuController;
+import view.states.MainMenuState;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 import javax.swing.*;
@@ -22,12 +23,12 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final JButton mainMenu;
 
     public SearchResultView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
-                            AddRecipeController addRecipeController, BackToMenuController backToMenuController ) {
+                            AddRecipeController addRecipeController, BackToMenuController backToMenuController) {
         this.searchResultViewModel = searchResultViewModel;
         this.addRecipeViewModel = addRecipeViewModel;
         this.addRecipeController = addRecipeController;
         this.backToMenuController = backToMenuController;
-        searchResultViewModel.addPropertyChangeListener(this);
+        this.searchResultViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -47,7 +48,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(mainMenu)) {
-                            System.out.println("Not Implemented Yet");
+                            backToMenuController.execute();
                         }
                     }
                 }

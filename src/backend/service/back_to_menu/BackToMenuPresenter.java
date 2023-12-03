@@ -5,7 +5,7 @@ import view.view_managers.ViewManagerModel;
 import view.view_models.MainMenuViewModel;
 
 public class BackToMenuPresenter implements BackToMenuOutputBoundary {
-    private final ViewManagerModel viewManagerModel;
+    private ViewManagerModel viewManagerModel;
     private final MainMenuViewModel mainMenuViewModel;
     public BackToMenuPresenter(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel) {
         this.viewManagerModel = viewManagerModel;
@@ -13,11 +13,12 @@ public class BackToMenuPresenter implements BackToMenuOutputBoundary {
     }
     @Override
     public void prepareSuccessView() {
+        System.out.println("here");
         MainMenuState mainMenuState = mainMenuViewModel.getState();
         this.mainMenuViewModel.setState(mainMenuState);
-        mainMenuViewModel.firePropertyChanged();
+        this.mainMenuViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        this.viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 }

@@ -9,6 +9,5 @@ public class BackToMenuInteractor implements BackToMenuInputBoundary {
     @Override
     public void execute() {
         backToMenuPresenter.prepareSuccessView();
-
     }
 }

@@ -8,8 +8,10 @@ import view.states.SearchResultState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.SearchResultViewModel;
 
+import java.util.ArrayList;
+
 public class SearchPresenter implements SearchOutputBoundary {
-    private final ViewManagerModel viewManagerModel;
+    private ViewManagerModel viewManagerModel;
     private final SearchResultViewModel searchResultViewModel;
     public SearchPresenter(ViewManagerModel viewManagerModel, SearchResultViewModel searchResultViewModel) {
         this.viewManagerModel = viewManagerModel;
@@ -19,13 +21,16 @@ public class SearchPresenter implements SearchOutputBoundary {
     @Override
     public void prepareSuccessView(SearchOutputData recipeResults) {
         // Original Prints to Console Message:
+        ArrayList<String> recipes = new ArrayList<>();
+        for (Recipe recipe: recipeResults.getRecipes()){
+            recipes.add(recipe.getName());
+        }
         SearchResultState searchResultState = searchResultViewModel.getState();
-        searchResultState.setRecipeLst(recipeResults.getRecipes());
         this.searchResultViewModel.setState(searchResultState);
-        searchResultViewModel.firePropertyChanged();
+        this.searchResultViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(searchResultViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        this.viewManagerModel.setActiveView(searchResultViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
 
         for (Recipe recipe: recipeResults.getRecipes()){
             System.out.println(recipe.getName() + " " + recipe.getInstructions() + ": \n");

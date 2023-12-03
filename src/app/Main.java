@@ -20,14 +20,14 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         // The main application window.
-        JFrame frame = new JFrame("Main Menu");
+        JFrame frame = new JFrame("Recipe Central");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
 
         JPanel view = new JPanel(cardLayout);
-        //frame.add(view);
-        view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        //view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.add(view, BorderLayout.CENTER);
 
         //This keeps track of and manages which view is currently showing.
@@ -42,10 +42,10 @@ public class Main {
         ViewCookbookDAO viewCookbookDAO = new ViewCookbookDAO("saved_data.json");
 
         //Making View Models
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel("Main Screen");
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         CookbookListViewModel cookbookListViewModel = new CookbookListViewModel("Cookbook List");
         OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel("Open Cookbook View");
-        SearchResultViewModel searchResultViewModel = new SearchResultViewModel("Search Results");
+        SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
         AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel("Add Recipes");
 
         // Testing
@@ -62,7 +62,6 @@ public class Main {
                         cookbookListViewModel,
                         viewCookbookDAO);
         view.add(mainMenuView, mainMenuView.viewName);
-
 
         /*
         OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create

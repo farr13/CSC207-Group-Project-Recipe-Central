@@ -16,15 +16,15 @@ public class SearchResultViewModel extends ViewModel {
     public static final Recipe[] RECIPES = {};
 
     private SearchResultState state = new SearchResultState();
-    public SearchResultViewModel(String viewName) {
-        super(viewName);
+    public SearchResultViewModel() {
+        super(TITLE_LABEL);
     }
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    @Override
+
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
-    @Override
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
