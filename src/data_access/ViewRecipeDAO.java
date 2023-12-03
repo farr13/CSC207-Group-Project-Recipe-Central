@@ -88,6 +88,7 @@ public class ViewRecipeDAO implements ViewRecipeDAI {
 
     @Override
     public Recipe[] viewRecipes(String cookbookName) {
+        cookbooks = convertCookbook(readFile());
         return viewCookbook(cookbookName).getRecipes();
     }
 }

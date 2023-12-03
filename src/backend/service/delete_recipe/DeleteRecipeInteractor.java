@@ -29,14 +29,26 @@ public class DeleteRecipeInteractor implements DeleteRecipeInputBoundary {
 
         return storedRecipes.toArray(new Recipe[0]);
     }
+
+    private Triplet[] convertTriplet(Recipe[] recipes){
+        ArrayList<Triplet> triplets = new ArrayList<Triplet>();
+        for (Recipe recipe: recipes){
+            String name = recipe.getName();
+            String link = recipe.getInstructions();
+            ArrayList<String> arrayList = new ArrayList<String>();
+            for (Ingredient ingredient: recipe.getIngredients())
+                arrayList.add(ingredient.getTextDescription());
+            triplets.add(new Triplet(name, link, arrayList.toArray(new String[0])));
+        }
+        return triplets.toArray(new Triplet[0]);
+    }
     @Override
     public void execute(DeleteRecipeInputData deleteRecipeInputData){
         try {
             deleteRecipeDAO.deleteRecipe(deleteRecipeInputData.getCookbookName(),
                     convertTripletToRecipes(deleteRecipeInputData.getRecipes()));
-
-            DeleteRecipeOutputData deleteRecipeOutputData =
-                    new DeleteRecipeOutputData(viewRecipeDAO.viewRecipes(deleteRecipeInputData.getCookbookName()));
+            Triplet[] recipes = convertTriplet(viewRecipeDAO.viewRecipes(deleteRecipeInputData.getCookbookName()));
+            DeleteRecipeOutputData deleteRecipeOutputData = new DeleteRecipeOutputData(recipes);
 
             deleteRecipePresenter.prepareSuccessView(deleteRecipeOutputData);
         } catch (Exception e) {

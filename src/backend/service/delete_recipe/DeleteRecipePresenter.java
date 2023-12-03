@@ -17,29 +17,28 @@ public class DeleteRecipePresenter implements DeleteRecipeOutputBoundary {
         this.viewManagerModel = viewManagerModel;
         this.openCookbookViewModel = openCookbookViewModel;
     }
-    private Triplet[] convertToTriplets(Recipe[] recipes){
-        ArrayList<Triplet> storedTriplets = new ArrayList<Triplet>();
-        for (Recipe recipe: recipes){
-            ArrayList<String> descriptions = new ArrayList<String>();
-            for (Ingredient ingredient: recipe.getIngredients())
-                descriptions.add(ingredient.getTextDescription());
-
-            Triplet tripletTemp = new Triplet(recipe.getName(),
-                    recipe.getInstructions(), descriptions.toArray(descriptions.toArray(new String[0])));
-
-            storedTriplets.add(tripletTemp);
+    private String[] createRecipeBlocks(Triplet[] recipes){
+        ArrayList<String> recipeBlocks = new ArrayList<String>();
+        for (Triplet recipe: recipes){
+            StringBuilder temp;
+            String[] ingredients = recipe.getList();
+            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>_" + recipe.getName() + "_<html>" + "<br>Instructions: _"
+                    + recipe.getLink() + "_<br> Ingredients:_"));
+            for (String ingredient: ingredients){
+                temp.append(" ").append(ingredient).append(",");
+            }
+            temp.append("_<br> <br>");
+            recipeBlocks.add(temp.toString());
         }
-        return storedTriplets.toArray(new Triplet[0]);
+
+        return recipeBlocks.toArray(new String[0]);
     }
     @Override
     public void prepareSuccessView(DeleteRecipeOutputData deleteRecipeOutputData) {
         OpenCookbookState openCookbookState = openCookbookViewModel.getState();
-        openCookbookState.setRecipes(convertToTriplets(deleteRecipeOutputData.getRecipes()));
+        openCookbookState.setRecipeBlocks(createRecipeBlocks(deleteRecipeOutputData.getRecipes()));
         this.openCookbookViewModel.setState(openCookbookState);
         this.openCookbookViewModel.firePropertyChanged();
-
-        this.viewManagerModel.setActiveView(openCookbookViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();
     }
 
     @Override

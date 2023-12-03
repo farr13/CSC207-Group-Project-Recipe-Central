@@ -26,7 +26,6 @@ public class DeleteCookbookPresenter implements DeleteCookbookOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        System.out.println("Fail");
         CookbookListState cookbookListState = cookbookListViewModel.getState();
         cookbookListViewModel.firePropertyChanged();
     }

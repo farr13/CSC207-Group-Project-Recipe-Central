@@ -6,6 +6,7 @@ import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_recipe.DeleteRecipeController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import view.recipe_objects.Triplet;
+import view.states.CookbookListState;
 import view.states.OpenCookbookState;
 import view.states.SearchResultState;
 import view.view_models.OpenCookbookViewModel;
@@ -111,10 +112,14 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        listModel.clear();
         OpenCookbookState state = (OpenCookbookState) evt.getNewValue();
-        String[] recipes = state.getRecipeBlocks();
-        listModel.addAll(Arrays.asList(recipes));
         cookbookName.setText(state.getCookbookName());
+        String[] recipes = state.getRecipeBlocks();
+        if (recipes != null){
+            listModel.clear();
+            for(String recipe: recipes){
+                listModel.addElement(recipe);
+            }
+        }
     }
 }
