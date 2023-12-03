@@ -25,7 +25,8 @@ public class CookbookListView extends JPanel implements ActionListener, Property
     private final ViewCookbookController viewCookbookController;
     private final DeleteCookbookController deleteCookbookController;
     private final JButton mainMenu;
-    //private final JButton viewCookbooks;
+    private final JButton openCookbook;
+    private final JButton deleteCookbook;
 
     public CookbookListView(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
                             MainMenuViewModel mainMenuViewModel, ViewCookbookController viewCookbookController,
@@ -37,19 +38,29 @@ public class CookbookListView extends JPanel implements ActionListener, Property
         this.deleteCookbookController = deleteCookbookController;
 
         cookbookListViewModel.addPropertyChangeListener(this);
-        //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(CookbookListViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //Make the buttons
+        JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         mainMenu = new JButton(CookbookListViewModel.MAIN_MENU_BUTTON_LABEL);
+        openCookbook = new JButton(CookbookListViewModel.OPEN_COOKBOOK_BUTTON_LABEL);
+        deleteCookbook = new JButton(CookbookListViewModel.DELETE_COOKBOOK_BUTTON_LABEL);
+
+        flowLayoutPanel.add(mainMenu);
+        flowLayoutPanel.add(openCookbook);
+        flowLayoutPanel.add(deleteCookbook);
+
+        //Create active listeners
+        mainMenu.addActionListener();
 
         // Make Cookbook Scroll panel
         JList<String> cookbookNames = new JList<>(cookbookListViewModel.getState().getCookbookNames());
         JScrollPane scrollPane = new JScrollPane(cookbookNames);
 
-        JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        flowLayoutPanel.add(mainMenu);
+        //
 
         //Adding all components to this Jpanel
         this.add(title);

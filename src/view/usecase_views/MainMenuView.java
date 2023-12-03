@@ -36,7 +36,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         this.seeListCookbooksController = seeListCookbooksController;
 
         mainMenuViewModel.addPropertyChangeListener(this);
-        //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(MainMenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -110,8 +110,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                     }
                 }
         );
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(searchInductions);
