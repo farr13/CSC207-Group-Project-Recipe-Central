@@ -42,7 +42,7 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         openCookbookViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel(openCookbookViewModel.getState().getCookbookName());
+        JLabel title = new JLabel(OpenCookbookViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
 
