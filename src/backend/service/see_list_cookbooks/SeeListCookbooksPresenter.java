@@ -24,7 +24,6 @@ public class SeeListCookbooksPresenter implements SeeListCookbooksOutputBoundary
     }
     @Override
     public void prepareSuccessView(SeeListCookbooksOutputData seeListCookbooksOutputData) {
-
         CookbookListState cookbookListState = cookbookListViewModel.getState();
         cookbookListState.setCookbookNames(getCookbookNames(seeListCookbooksOutputData.getCookbooks()));
         this.cookbookListViewModel.setState(cookbookListState);

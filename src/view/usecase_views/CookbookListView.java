@@ -37,6 +37,7 @@ public class CookbookListView extends JPanel implements ActionListener, Property
         this.deleteCookbookController = deleteCookbookController;
 
         cookbookListViewModel.addPropertyChangeListener(this);
+        //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(CookbookListViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -47,16 +48,13 @@ public class CookbookListView extends JPanel implements ActionListener, Property
         JList<String> cookbookNames = new JList<>(cookbookListViewModel.getState().getCookbookNames());
         JScrollPane scrollPane = new JScrollPane(cookbookNames);
 
-        JPanel flowLayoutPanel = new JPanel(new FlowLayout());
+        JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         flowLayoutPanel.add(mainMenu);
 
         //Adding all components to this Jpanel
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         this.add(title);
-        this.add(mainMenu);
         this.add(scrollPane);
-        this.add(flowLayoutPanel, BorderLayout.NORTH);
+        this.add(flowLayoutPanel);
     }
     private static void createCheckBoxes(JPanel panel, String[] options) {
         for (String option : options) {

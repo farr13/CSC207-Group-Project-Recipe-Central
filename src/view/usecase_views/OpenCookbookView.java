@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class OpenCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "open cookbook";
@@ -42,9 +43,11 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         //this.renameCookbookController = renameCookbookController;
 
         openCookbookViewModel.addPropertyChangeListener(this);
+        //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(openCookbookViewModel.getState().getCookbookName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
 
         //Creating buttons and placing them is specific panels
         JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
@@ -60,12 +63,22 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         editCookbookPanel.add(renameCookbook);
 
         // Make Recipe Scroll panel
-        JScrollPane recipeScrollPanel = new JScrollPane();
-        for (Triplet<String, String, String[]> recipe: openCookbookViewModel.getState().getRecipes())
-            recipeScrollPanel.add(new JRecipePanel(recipe));
+        ArrayList<String> recipesDescription = new ArrayList<String>();
 
-        this.add(title);
-        this.add(recipeScrollPanel);
+        for (Triplet<String, String, String[]> recipe: openCookbookViewModel.getState().getRecipes()){
+            recipesDescription.add("*******" + recipe.getFirst() + "*******");
+            recipesDescription.add("Instructions Link: "+ recipe.getSecond());
+
+            recipesDescription.add("Ingredients:");
+            for (String ingredientDescription: recipe.getThird())
+                recipesDescription.add(" - " + ingredientDescription);
+        }
+
+        JList<String> recipesFinal = new JList<String>(recipesDescription.toArray(new String[recipesDescription.size()]));
+        JScrollPane scrollPane = new JScrollPane(recipesFinal);
+
+        //Adding components to this Jpanel
+        this.add(scrollPane);
         this.add(editCookbookPanel);
         this.add(navigationPanel);
     }
