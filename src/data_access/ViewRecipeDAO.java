@@ -18,17 +18,13 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class ViewRecipeDAO implements ViewRecipeDAI {
-    private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
 
     public ViewRecipeDAO(String fileName){
-        jsonPath = fileName;
         file = new File(fileName);
-
         if (!file.exists())
             createFile();
-
         cookbooks = convertCookbook(readFile());
     }
     private void createFile(){
@@ -54,17 +50,6 @@ public class ViewRecipeDAO implements ViewRecipeDAI {
             throw new RuntimeException(e);
         }
     }
-
-    private void writeFile(){
-        try {
-            PrintWriter cookbookWriter = new PrintWriter(file);
-            cookbookWriter.print("");
-            cookbookWriter.print(new Gson().toJson(cookbooks));
-            cookbookWriter.close();
-        }catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     private boolean existByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), identifier))
@@ -85,7 +70,6 @@ public class ViewRecipeDAO implements ViewRecipeDAI {
         }
         throw new NoSuchElementException();
     }
-
     @Override
     public Recipe[] viewRecipes(String cookbookName) {
         cookbooks = convertCookbook(readFile());

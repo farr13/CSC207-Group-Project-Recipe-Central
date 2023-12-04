@@ -70,11 +70,11 @@ public class Main {
 
         SearchResultView searchResultsView = SearchResultUseCaseFactory.create
                 (searchResultViewModel,
-                        addRecipeViewModel,
-                        mainMenuViewModel,
-                        viewManagerModel,
-                        viewCookbookDAO,
-                        addRecipeDAO);
+                addRecipeViewModel,
+                mainMenuViewModel,
+                viewManagerModel,
+                viewCookbookDAO,
+                addRecipeDAO);
         view.add(searchResultsView, searchResultsView.viewName);
 
         AddCookbookView addCookbookView = AddCookbookUseCaseFactory.create(

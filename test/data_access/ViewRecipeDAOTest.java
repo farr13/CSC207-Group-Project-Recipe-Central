@@ -8,9 +8,7 @@ import org.junit.Test;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class DeleteRecipeDAOTest {
+public class ViewRecipeDAOTest {
     private final Ingredient i1 = new Ingredient("1 cup of flour");
     private final Ingredient i2 = new Ingredient("1 bag of chocolate chips");
     private final Ingredient[] ingLst = new Ingredient[]{i1, i2};

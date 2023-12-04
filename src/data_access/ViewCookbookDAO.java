@@ -15,17 +15,13 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksDAI, ViewCookbookDAI, MakeCookbookViewDAI {
-    private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
 
     public ViewCookbookDAO(String fileName){
-        jsonPath = fileName;
         file = new File(fileName);
-
         if (!file.exists())
             createFile();
-
         cookbooks = convertCookbook(readFile());
     }
     private void createFile(){
@@ -39,26 +35,14 @@ public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksD
     }
     private String readFile(){
         try (BufferedReader reader = new BufferedReader(new FileReader(file.getName()))) {
-            String result = "";
+            StringBuilder result = new StringBuilder();
             String nextLine = reader.readLine();
             while (nextLine != null) {
-                result = result + nextLine;
+                result.append(nextLine);
                 nextLine = reader.readLine();
             }
-
-            return result;
+            return result.toString();
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void writeFile(){
-        try {
-            PrintWriter cookbookWriter = new PrintWriter(file);
-            cookbookWriter.print("");
-            cookbookWriter.print(new Gson().toJson(cookbooks));
-            cookbookWriter.close();
-        }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -74,12 +58,6 @@ public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksD
             return new ArrayList<Cookbook>(){};
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
         return new Gson().fromJson(jsonStr, cookbookListType);
-    }
-    private Cookbook viewCookbook(Cookbook cookbook) {
-        if (cookbooks.contains(cookbook)){
-            return cookbooks.get(cookbooks.indexOf(cookbook));
-        }
-        throw new NoSuchElementException();
     }
     @Override
     public Cookbook viewCookbook(String cookbookName) {
