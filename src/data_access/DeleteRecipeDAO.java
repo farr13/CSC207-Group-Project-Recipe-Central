@@ -14,14 +14,12 @@ import java.util.Objects;
 
 public class DeleteRecipeDAO implements DeleteRecipeDAI {
     private ArrayList<Cookbook> cookbooks;
-    private final File file;
+    private File file;
 
     public DeleteRecipeDAO(String fileName){
         file = new File(fileName);
-
         if (!file.exists())
             createFile();
-
         cookbooks = convertCookbook(readFile());
     }
     private void createFile(){
@@ -41,7 +39,6 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
                 result = result + nextLine;
                 nextLine = reader.readLine();
             }
-
             return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -82,26 +79,6 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
         Cookbook newCookbook = new Cookbook(oldCookbook.getName(), recipesModified);
         cookbooks.set(idx, newCookbook);
     }
-    @Override
-    public void deleteRecipe(String cookbookName, Recipe[] recipes) throws Exception {
-        cookbooks = convertCookbook(readFile());
-        for (Cookbook cookbook: cookbooks){
-            if (Objects.equals(cookbook.getName(), cookbookName)){
-                deleteRecipeList(cookbook, recipes);
-                break;
-            }
-        }
-    }
-    private void deleteRecipeObject(Cookbook cookbook, Recipe recipe) throws Exception {
-        if (!existByTitle(cookbook.getName())) {
-            throw new Exception("Cookbook doesn't exist");
-        } else {
-            if (cookbooks.contains(cookbook)){
-                changeCookbook(cookbook, recipe);
-            }
-            writeFile();
-        }
-    }
     private void deleteRecipeList(Cookbook cookbook, Recipe[] recipes) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist");
@@ -114,6 +91,21 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
                 }
             }
             writeFile();
+        }
+    }
+    @Override
+    public void deleteRecipe(String cookbookName, Recipe[] recipes) throws Exception {
+        cookbooks = convertCookbook(readFile());
+        int i = 0;
+        for (Cookbook cookbook: cookbooks){
+            if (Objects.equals(cookbook.getName(), cookbookName)){
+                deleteRecipeList(cookbook, recipes);
+                i ++;
+                break;
+            }
+        }
+        if (i == 0) {
+            throw new Exception("Cookbook doesn't exist");
         }
     }
 }

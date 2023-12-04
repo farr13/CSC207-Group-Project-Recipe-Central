@@ -12,17 +12,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddCookbookDAO implements RenameCookbookAddDAI, MakeCookbookAddDAI {
-    private final String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private final File file;
 
     public AddCookbookDAO(String fileName){
-        jsonPath = fileName;
         file = new File(fileName);
-
         if (!file.exists())
             createFile();
-
         cookbooks = convertCookbook(readFile());
     }
     private void createFile(){
@@ -73,14 +69,14 @@ public class AddCookbookDAO implements RenameCookbookAddDAI, MakeCookbookAddDAI 
     @Override
     public void addCookbook(Cookbook cookbook) throws Exception {
         this.cookbooks = convertCookbook(readFile());
-        if (!existByTitle(cookbook.getName())) {
+        if (existByTitle(cookbook.getName())) {
+            throw new RuntimeException("Cookbook name already exists.");
+        } else{
             cookbooks.add(cookbook);
             writeFile();
-        }else{
-            throw new RuntimeException("Cookbook name already exists.");
         }
     }
-    private void addCookbookObj(Cookbook[] cookbooks) throws Exception {
+    public void addCookbookLst(Cookbook[] cookbooks) {
         for (Cookbook cookbook: cookbooks){
             if (existByTitle(cookbook.getName())) {
                 throw new RuntimeException("Cookbook name already exists.");

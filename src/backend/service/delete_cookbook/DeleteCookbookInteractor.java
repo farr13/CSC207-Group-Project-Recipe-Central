@@ -2,7 +2,6 @@ package backend.service.delete_cookbook;
 
 import backend.entity.Cookbook;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
-import backend.service.view_cookbook.ViewCookbookDAI;
 
 import java.util.ArrayList;
 

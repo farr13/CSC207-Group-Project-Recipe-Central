@@ -20,10 +20,9 @@ public class MainMenuUseCaseFactory {
     private MainMenuUseCaseFactory(){}
 
     public static MainMenuView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel, SearchResultViewModel searchResultViewModel,
-                                      CookbookListViewModel cookbookListViewModel, SeeListCookbooksDAI seeListCookbooksDAO){
+                                      CookbookListViewModel cookbookListViewModel, SeeListCookbooksDAI seeListCookbooksDAO) {
         SearchController searchController = MainMenuUseCaseFactory.createSearchUseCase(viewManagerModel, searchResultViewModel);
-        SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel,
-                cookbookListViewModel,seeListCookbooksDAO);
+        SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel, cookbookListViewModel,seeListCookbooksDAO);
         return new MainMenuView(mainMenuViewModel, searchController, seeListCookbooksController);
     }
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchResultViewModel searchResultViewModel){
@@ -36,7 +35,7 @@ public class MainMenuUseCaseFactory {
     }
     private static SeeListCookbooksController createSeeListCookbooksUseCase(ViewManagerModel viewManagerModel,
                                                                             CookbookListViewModel cookbookListViewModel,
-                                                                            SeeListCookbooksDAI seeListCookbooksDAO){
+                                                                            SeeListCookbooksDAI seeListCookbooksDAO) {
         SeeListCookbooksPresenter seeListCookbooksPresenter = new SeeListCookbooksPresenter(viewManagerModel, cookbookListViewModel);
         SeeListCookbooksInteractor seeListCookbooksInteractor = new SeeListCookbooksInteractor(seeListCookbooksDAO,
                 seeListCookbooksPresenter);

@@ -12,17 +12,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class DeleteCookbookDAO implements DeleteCookbookDAI {
-    private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
 
     public DeleteCookbookDAO(String fileName){
-        jsonPath = fileName;
         file = new File(fileName);
-
         if (!file.exists())
             createFile();
-
         cookbooks = convertCookbook(readFile());
     }
 
@@ -60,12 +56,12 @@ public class DeleteCookbookDAO implements DeleteCookbookDAI {
             throw new RuntimeException(e);
         }
     }
-    private boolean existByTitle(String identifier) {
+    private boolean notExistByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), identifier))
-                return true;
+                return false;
         }
-        return false;
+        return true;
     }
     private ArrayList<Cookbook> convertCookbook(String jsonStr){
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
@@ -75,7 +71,7 @@ public class DeleteCookbookDAO implements DeleteCookbookDAI {
     public void deleteCookbooks(String[] cookbookNames) throws Exception {
         cookbooks = convertCookbook(readFile());
         for (String cookbookName: cookbookNames){
-            if (!existByTitle(cookbookName)) {
+            if (notExistByTitle(cookbookName)) {
                 throw new Exception("Cookbook Does Not Exist");
             } else {
                 for (Cookbook cookbook: cookbooks){
@@ -87,25 +83,5 @@ public class DeleteCookbookDAO implements DeleteCookbookDAI {
                 }
             }
         }
-    }
-
-    private void deleteCookbook(Cookbook cookbook) throws Exception {
-        if (!existByTitle(cookbook.getName())) {
-            throw new Exception("Cookbook Does Not Exist");
-        } else {
-            cookbooks.remove(cookbook);
-            writeFile();
-        }
-    }
-
-    private void deleteCookbookLst(Cookbook[] cookbooks) throws Exception {
-        for (Cookbook cookbook: cookbooks){
-            if (!existByTitle(cookbook.getName())) {
-                throw new Exception("Cookbook Does Not Exist");
-            } else {
-                this.cookbooks.remove(cookbook);
-            }
-        }
-        writeFile();
     }
 }
