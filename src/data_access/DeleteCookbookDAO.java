@@ -2,7 +2,6 @@ package data_access;
 
 import backend.entity.Cookbook;
 import backend.service.delete_cookbook.DeleteCookbookDAI;
-import backend.service.rename_cookbook.DAI.RenameCookbookDeleteDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
