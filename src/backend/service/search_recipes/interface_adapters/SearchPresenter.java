@@ -4,6 +4,7 @@ import backend.entity.Ingredient;
 import backend.entity.Recipe;
 import backend.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchOutputBoundary;
 import backend.service.search_recipes.application_business_rules.DataTypes.SearchOutputData;
+import view.recipe_objects.Triplet;
 import view.states.SearchResultState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.SearchResultViewModel;
@@ -20,24 +21,32 @@ public class SearchPresenter implements SearchOutputBoundary {
         this.searchResultViewModel = searchResultViewModel;
     }
 
+    private String[] createRecipeBlocks(Triplet[] recipes){
+        ArrayList<String> recipeBlocks = new ArrayList<String>();
+        for (Triplet recipe: recipes){
+            StringBuilder temp;
+            String[] ingredients = recipe.getList();
+            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>_" + recipe.getName() + "_<html>" + "<br>Instructions: _"
+                    + recipe.getLink() + "_<br> Ingredients:_"));
+            for (String ingredient: ingredients){
+                temp.append(" ").append(ingredient).append(",");
+            }
+            temp.append("_<br> <br>");
+            recipeBlocks.add(temp.toString());
+        }
+
+        return recipeBlocks.toArray(new String[0]);
+    }
+
+
     @Override
     public void prepareSuccessView(SearchOutputData recipeResults) {
         SearchResultState currState = searchResultViewModel.getState();
-        ArrayList<String> test = new ArrayList<String>();
 
-        for (Recipe recipe: recipeResults.getRecipes()){
-            StringBuilder temp;
-            Ingredient[] ingredients = recipe.getIngredients();
-            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>" + recipe.getName() + "<html>" + "<br>Instructions: "
-                    + recipe.getInstructions() + "<br> Ingredients:"));
-            for (Ingredient ingredient: ingredients){
-                temp.append(" ").append(ingredient.getTextDescription()).append(",");
-            }
-            temp.append("<br> <br>");
-            test.add(temp.toString());
-        }
+        String[] recipeBlocks = createRecipeBlocks(recipeResults.getRecipes());
 
-        currState.setRecipeLst(test);
+        currState.setRecipeLst(recipeBlocks);
+
         searchResultViewModel.setState(currState);
         searchResultViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(searchResultViewModel.getViewName());

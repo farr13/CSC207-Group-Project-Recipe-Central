@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class JsonRecipeGenerator implements JsonOutputDataConverter {
     @Override
-    public SearchOutputData convertRecipes(String requestResponse) {
+    public Recipe[] convertRecipes(String requestResponse) {
         Gson gson = new Gson();
         JsonCallResponseObj jsonCallResponseObj = gson.fromJson(requestResponse, JsonCallResponseObj.class);
         Recipe[] recipesResponse = getRecipesResponses(jsonCallResponseObj);
-        return new SearchOutputData(recipesResponse);
+        return recipesResponse;
     }
 
     private Recipe[] getRecipesResponses(JsonCallResponseObj jsonCallResponseObj){

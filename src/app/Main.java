@@ -70,11 +70,10 @@ public class Main {
 
         SearchResultView searchResultsView = SearchResultUseCaseFactory.create
                 (searchResultViewModel,
-                addRecipeViewModel,
-                mainMenuViewModel,
-                viewManagerModel,
-                viewCookbookDAO,
-                addRecipeDAO);
+                        addRecipeViewModel,
+                        mainMenuViewModel,
+                        viewManagerModel,
+                        viewCookbookDAO);
         view.add(searchResultsView, searchResultsView.viewName);
 
         AddCookbookView addCookbookView = AddCookbookUseCaseFactory.create(
@@ -84,6 +83,13 @@ public class Main {
                 addCookbookDAO,
                 viewCookbookDAO);
         view.add(addCookbookView, addCookbookView.viewName);
+
+        AddRecipeView addRecipeView = AddRecipeUseCaseFactory.create(
+                viewManagerModel,
+                addRecipeViewModel,
+                searchResultViewModel,
+                addRecipeDAO);
+        view.add(addRecipeView, addRecipeView.viewName);
 
         //Final Steps
         viewManagerModel.setActiveView(mainMenuView.viewName);
