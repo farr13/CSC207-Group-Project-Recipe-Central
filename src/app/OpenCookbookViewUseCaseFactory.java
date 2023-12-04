@@ -1,13 +1,9 @@
 package app;
 
-import backend.service.delete_cookbook.DeleteCookbookController;
-import backend.service.delete_cookbook.DeleteCookbookDAI;
-import backend.service.delete_cookbook.DeleteCookbookInteractor;
-import backend.service.delete_cookbook.DeleteCookbookPresenter;
-import backend.service.delete_recipe.DeleteRecipeController;
-import backend.service.delete_recipe.DeleteRecipeDAI;
-import backend.service.delete_recipe.DeleteRecipeInteractor;
-import backend.service.delete_recipe.DeleteRecipePresenter;
+import backend.service.back_to_menu.BackToMenuController;
+import backend.service.back_to_menu.BackToMenuInteractor;
+import backend.service.back_to_menu.BackToMenuPresenter;
+import backend.service.delete_recipe.*;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 import backend.service.see_list_cookbooks.SeeListCookbooksInteractor;
@@ -23,20 +19,25 @@ public class OpenCookbookViewUseCaseFactory {
 
     public static OpenCookbookView create(ViewManagerModel viewManagerModel, OpenCookbookViewModel openCookbookViewModel,
                                           CookbookListViewModel cookbookListViewModel, MainMenuViewModel mainMenuViewModel,
-                                          SeeListCookbooksDAI viewCookbookDAO, DeleteRecipeDAI deleteRecipeDAO){
-        DeleteRecipeController deleteRecipeController = OpenCookbookViewUseCaseFactory.createDeleteRecipeUseCase(deleteRecipeDAO);
+                                          SeeListCookbooksDAI viewCookbookDAO, DeleteRecipeDAI deleteRecipeDAO,ViewRecipeDAI viewRecipeDAO){
+        DeleteRecipeController deleteRecipeController = OpenCookbookViewUseCaseFactory.createDeleteRecipeUseCase(viewManagerModel,
+                openCookbookViewModel, deleteRecipeDAO, viewRecipeDAO);
         SeeListCookbooksController seeListCookbooksController = OpenCookbookViewUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel,
                 cookbookListViewModel, viewCookbookDAO);
-        return new OpenCookbookView(mainMenuViewModel, openCookbookViewModel, cookbookListViewModel, seeListCookbooksController,deleteRecipeController);
+        BackToMenuController backToMenuController = OpenCookbookViewUseCaseFactory.createBackToMenuUsecase(viewManagerModel,mainMenuViewModel);
+        return new OpenCookbookView(openCookbookViewModel, seeListCookbooksController, deleteRecipeController,
+                backToMenuController);
     }
 
-    private static DeleteRecipeController createDeleteRecipeUseCase(DeleteRecipeDAI deleteRecipeDAO){
-        DeleteRecipePresenter deleteCookbookPresenter = new DeleteRecipePresenter();
-        DeleteRecipeInteractor deleteRecipeInteractor = new DeleteRecipeInteractor(deleteRecipeDAO, deleteCookbookPresenter);
+    private static DeleteRecipeController createDeleteRecipeUseCase(ViewManagerModel viewManagerModel,
+                                                                    OpenCookbookViewModel openCookbookViewModel,
+                                                                    DeleteRecipeDAI deleteRecipeDAO,
+                                                                    ViewRecipeDAI viewRecipeDAO){
+        DeleteRecipePresenter deleteCookbookPresenter = new DeleteRecipePresenter(viewManagerModel, openCookbookViewModel);
+        DeleteRecipeInteractor deleteRecipeInteractor = new DeleteRecipeInteractor(deleteRecipeDAO, viewRecipeDAO, deleteCookbookPresenter);
         DeleteRecipeController deleteRecipeController = new DeleteRecipeController(deleteRecipeInteractor);
         return deleteRecipeController;
     }
-
     private static SeeListCookbooksController createSeeListCookbooksUseCase(ViewManagerModel viewManagerModel,
                                                                             CookbookListViewModel cookbookListViewModel,
                                                                             SeeListCookbooksDAI viewCookbookDAO){
@@ -45,4 +46,11 @@ public class OpenCookbookViewUseCaseFactory {
         SeeListCookbooksController seeListCookbooksController = new SeeListCookbooksController(seeListCookbooksInteractor);
         return seeListCookbooksController;
     }
+    private static BackToMenuController createBackToMenuUsecase(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel){
+        BackToMenuPresenter backToMenuPresenter = new BackToMenuPresenter(viewManagerModel, mainMenuViewModel);
+        BackToMenuInteractor backToMenuInteractor = new BackToMenuInteractor(backToMenuPresenter);
+        BackToMenuController backToMenuController = new BackToMenuController(backToMenuInteractor);
+        return backToMenuController;
+    }
+
 }

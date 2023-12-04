@@ -1,13 +1,12 @@
 package view.usecase_views;
 
+import backend.entity.Recipe;
+import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_cookbook.DeleteCookbookController;
-import backend.service.make_cookbook.MakeCookbookController;
-import backend.service.rename_cookbook.RenameCookbookController;
-import backend.service.search_recipes.interface_adapters.SearchController;
+import backend.service.go_add_cookbook.GoAddCookbookController;
 import backend.service.view_cookbook.ViewCookbookController;
-import view.view_managers.ViewManagerModel;
+import view.states.CookbookListState;
 import view.view_models.CookbookListViewModel;
-import view.view_models.MainMenuViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,48 +14,100 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class CookbookListView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "cookbook list";
-    private final ViewManagerModel viewManagerModel;
+    public final String viewName = "All Cookbooks";
     private final CookbookListViewModel cookbookListViewModel;
-    private final MainMenuViewModel mainMenuViewModel;
     private final ViewCookbookController viewCookbookController;
     private final DeleteCookbookController deleteCookbookController;
+    private final BackToMenuController backToMenuController;
+    private final GoAddCookbookController goAddCookbookController;
     private final JButton mainMenu;
-    //private final JButton viewCookbooks;
+    private final JButton openCookbook;
+    private final JButton deleteCookbook;
+    private final JButton addCookbook;
+    DefaultListModel<String> listModel = new DefaultListModel<>();
 
-    public CookbookListView(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
-                            MainMenuViewModel mainMenuViewModel, ViewCookbookController viewCookbookController,
-                            DeleteCookbookController deleteCookbookController) {
-        this.viewManagerModel = viewManagerModel;
+    public CookbookListView(CookbookListViewModel cookbookListViewModel, ViewCookbookController viewCookbookController,
+                            DeleteCookbookController deleteCookbookController, BackToMenuController backToMenuController,
+                            GoAddCookbookController goAddCookbookController) {
         this.cookbookListViewModel = cookbookListViewModel;
-        this.mainMenuViewModel = mainMenuViewModel;
         this.viewCookbookController = viewCookbookController;
         this.deleteCookbookController = deleteCookbookController;
+        this.backToMenuController = backToMenuController;
+        this.goAddCookbookController = goAddCookbookController;
 
         cookbookListViewModel.addPropertyChangeListener(this);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(CookbookListViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //Make the buttons
+        JPanel navigationButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         mainMenu = new JButton(CookbookListViewModel.MAIN_MENU_BUTTON_LABEL);
+        navigationButtons.add(mainMenu);
+
+        JPanel cookbookEditButtons = new JPanel(new FlowLayout((FlowLayout.CENTER)));
+        openCookbook = new JButton(CookbookListViewModel.OPEN_COOKBOOK_BUTTON_LABEL);
+        deleteCookbook = new JButton(CookbookListViewModel.DELETE_COOKBOOK_BUTTON_LABEL);
+        addCookbook = new JButton(CookbookListViewModel.ADD_COOKBOOK_BUTTON_LABEL);
+
+        cookbookEditButtons.add(openCookbook);
+        cookbookEditButtons.add(deleteCookbook);
+        cookbookEditButtons.add(addCookbook);
 
         // Make Cookbook Scroll panel
-        JList<String> cookbookNames = new JList<>(cookbookListViewModel.getState().getCookbookNames());
+        JList<String> cookbookNames = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(cookbookNames);
 
-        JPanel flowLayoutPanel = new JPanel(new FlowLayout());
-        flowLayoutPanel.add(mainMenu);
+
+        //Create active listeners
+        mainMenu.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(mainMenu)) {
+                            backToMenuController.execute();
+                        }
+                    }
+                }
+        );
+
+        openCookbook.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(openCookbook)) {
+                            viewCookbookController.execute(cookbookNames.getSelectedValue());
+                        }
+                    }
+                }
+        );
+
+        deleteCookbook.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(deleteCookbook)) {
+                            deleteCookbookController.execute(cookbookNames.getSelectedValuesList().toArray(new String[0]));
+                        }
+                    }
+                }
+        );
+
+        addCookbook.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(addCookbook)) {
+                            goAddCookbookController.execute();
+                        }
+                    }
+                }
+        );
 
         //Adding all components to this Jpanel
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         this.add(title);
-        this.add(mainMenu);
         this.add(scrollPane);
-        this.add(flowLayoutPanel, BorderLayout.NORTH);
+        this.add(cookbookEditButtons);
+        this.add(navigationButtons);
     }
     private static void createCheckBoxes(JPanel panel, String[] options) {
         for (String option : options) {
@@ -70,6 +121,13 @@ public class CookbookListView extends JPanel implements ActionListener, Property
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property changed method called");
+        CookbookListState state = (CookbookListState) evt.getNewValue();
+        String[] newCookbookNames = state.getCookbookNames();
+        if (newCookbookNames != null){
+            listModel.clear();
+            for(String cookbookName: newCookbookNames){
+                listModel.addElement(cookbookName);
+            }
+        }
     }
 }

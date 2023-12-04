@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookbookDAI {
+public class DeleteCookbookDAO implements DeleteCookbookDAI {
     private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
@@ -73,6 +73,7 @@ public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookboo
     }
     @Override
     public void deleteCookbooks(String[] cookbookNames) throws Exception {
+        cookbooks = convertCookbook(readFile());
         for (String cookbookName: cookbookNames){
             if (!existByTitle(cookbookName)) {
                 throw new Exception("Cookbook Does Not Exist");
@@ -81,13 +82,14 @@ public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookboo
                     if (Objects.equals(cookbook.getName(), cookbookName)){
                         cookbooks.remove(cookbook);
                         writeFile();
+                        break;
                     }
                 }
             }
         }
     }
-    @Override
-    public void deleteCookbook(Cookbook cookbook) throws Exception {
+
+    private void deleteCookbook(Cookbook cookbook) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook Does Not Exist");
         } else {
@@ -96,7 +98,7 @@ public class DeleteCookbookDAO implements RenameCookbookDeleteDAI, DeleteCookboo
         }
     }
 
-    public void deleteCookbookLst(Cookbook[] cookbooks) throws Exception {
+    private void deleteCookbookLst(Cookbook[] cookbooks) throws Exception {
         for (Cookbook cookbook: cookbooks){
             if (!existByTitle(cookbook.getName())) {
                 throw new Exception("Cookbook Does Not Exist");

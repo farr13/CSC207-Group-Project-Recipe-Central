@@ -1,13 +1,14 @@
 package view.usecase_views;
 
+import backend.entity.Ingredient;
+import backend.entity.Recipe;
+import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_recipe.DeleteRecipeController;
-import backend.service.rename_cookbook.RenameCookbookController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
-import view.recipe_objects.JRecipePanel;
 import view.recipe_objects.Triplet;
+import view.states.CookbookListState;
 import view.states.OpenCookbookState;
-import view.view_models.CookbookListViewModel;
-import view.view_models.MainMenuViewModel;
+import view.states.SearchResultState;
 import view.view_models.OpenCookbookViewModel;
 
 import javax.swing.*;
@@ -16,35 +17,42 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class OpenCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "open cookbook";
-
-    private final MainMenuViewModel mainMenuViewModel;
+    public final String viewName = "Open Cookbook";
     private final OpenCookbookViewModel openCookbookViewModel;
-    private final CookbookListViewModel cookbookListViewModel;
     private final SeeListCookbooksController seeListCookbooksController;
     private final DeleteRecipeController deleteRecipeController;
+    private final BackToMenuController backToMenuController;
     //private final RenameCookbookController renameCookbookController;
     private final JButton mainMenu;
     private final JButton viewCookbooks;
-    private final JButton renameCookbook;
+    //private final JButton renameCookbook;
     private final JButton deleteRecipe;
 
-    public OpenCookbookView(MainMenuViewModel mainMenuViewModel, OpenCookbookViewModel openCookbookViewModel,
-                            CookbookListViewModel cookbookListViewModel, SeeListCookbooksController seeListCookbooksController,
-                            DeleteRecipeController deleteRecipeController) {
-        this.mainMenuViewModel = mainMenuViewModel;
+    JLabel cookbookName;
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+
+    public OpenCookbookView(OpenCookbookViewModel openCookbookViewModel, SeeListCookbooksController seeListCookbooksController,
+                            DeleteRecipeController deleteRecipeController, BackToMenuController backToMenuController) {
         this.openCookbookViewModel = openCookbookViewModel;
-        this.cookbookListViewModel = cookbookListViewModel;
         this.seeListCookbooksController = seeListCookbooksController;
         this.deleteRecipeController = deleteRecipeController;
+        this.backToMenuController = backToMenuController;
         //this.renameCookbookController = renameCookbookController;
 
         openCookbookViewModel.addPropertyChangeListener(this);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel(openCookbookViewModel.getState().getCookbookName());
+        JLabel title = new JLabel(openCookbookViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+
+        cookbookName = new JLabel(openCookbookViewModel.getState().getCookbookName());
+        cookbookName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(cookbookName);
 
         //Creating buttons and placing them is specific panels
         JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
@@ -56,26 +64,62 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         JPanel editCookbookPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         deleteRecipe = new JButton(OpenCookbookViewModel.DELETE_RECIPE_BUTTON_LABEL);
         editCookbookPanel.add(deleteRecipe);
-        renameCookbook = new JButton(OpenCookbookViewModel.RENAME_RECIPE_BUTTON_LABEL);
-        editCookbookPanel.add(renameCookbook);
 
         // Make Recipe Scroll panel
-        JScrollPane recipeScrollPanel = new JScrollPane();
-        for (Triplet recipe: openCookbookViewModel.getState().getRecipes())
-            recipeScrollPanel.add(new JRecipePanel(recipe));
+        JList<String> recipeLst = new JList<>(listModel);
+        JScrollPane recipeScrollPane = new JScrollPane(recipeLst);
 
-        this.add(title);
-        this.add(recipeScrollPanel);
+        //Create active listeners
+        mainMenu.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(mainMenu)) {
+                            backToMenuController.execute();
+                        }
+                    }
+                }
+        );
+
+        viewCookbooks.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(viewCookbooks)) {
+                            seeListCookbooksController.execute();
+                        }
+                    }
+                }
+        );
+
+        deleteRecipe.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(deleteRecipe)) {
+                            deleteRecipeController.execute(openCookbookViewModel.getState().getCookbookName(),
+                                    recipeLst.getSelectedValuesList().toArray(new String[0]));
+                        }
+                    }
+                }
+        );
+
+        //Adding components to this Jpanel
+        this.add(recipeScrollPane);
         this.add(editCookbookPanel);
         this.add(navigationPanel);
     }
-
     @Override
     public void actionPerformed(ActionEvent evt) {
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property changed method called");
+        OpenCookbookState state = (OpenCookbookState) evt.getNewValue();
+        cookbookName.setText(state.getCookbookName());
+        String[] recipes = state.getRecipeBlocks();
+        if (recipes != null){
+            listModel.clear();
+            for(String recipe: recipes){
+                listModel.addElement(recipe);
+            }
+        }
     }
 }

@@ -1,8 +1,9 @@
 package view.usecase_views;
 
-import backend.entity.Recipe;
-import backend.service.add_recipe.AddRecipeController;
 import backend.service.back_to_menu.BackToMenuController;
+import backend.service.go_add_cookbook.GoAddCookbookController;
+import backend.service.go_add_recipe.GoAddRecipeController;
+import view.states.SearchResultState;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 import javax.swing.*;
@@ -16,39 +17,41 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     public final String viewName = "Search Results";
     private final SearchResultViewModel searchResultViewModel;
     private final BackToMenuController backToMenuController;
-    private final AddRecipeViewModel addRecipeViewModel;
-    private final AddRecipeController addRecipeController;
+    private final GoAddRecipeController goAddRecipeController;
     private final JButton AddToCookbook;
     private final JButton MainMenu;
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
 
-    public SearchResultView(SearchResultViewModel searchResultViewModel, AddRecipeViewModel addRecipeViewModel,
-                            AddRecipeController addRecipeController, BackToMenuController backToMenuController ) {
+    public SearchResultView(SearchResultViewModel searchResultViewModel, BackToMenuController backToMenuController,
+                            GoAddRecipeController goAddRecipeController) {
         this.searchResultViewModel = searchResultViewModel;
+        this.goAddRecipeController = goAddRecipeController;
         this.backToMenuController = backToMenuController;
-        this.addRecipeViewModel = addRecipeViewModel;
-        this.addRecipeController = addRecipeController;
-        searchResultViewModel.addPropertyChangeListener(this);
+        this.searchResultViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(SearchResultViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JList<Recipe> recipeLst = new JList<>(SearchResultViewModel.RECIPES);
+        //Adding scroll panels
+        JList<String> recipeLst = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(recipeLst);
 
+        //Making buttons
+        JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         MainMenu = new JButton(SearchResultViewModel.MAIN_BUTTON_LABEL);
+        navigationPanel.add(MainMenu);
+
+        JPanel editCookbookPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         AddToCookbook = new JButton(SearchResultViewModel.ADD_COOKBOOK_BUTTON_LABEL);
+        editCookbookPanel.add(AddToCookbook);
 
-        JPanel flowLayoutPanel = new JPanel(new FlowLayout());
-        flowLayoutPanel.add(MainMenu);
-        flowLayoutPanel.add(AddToCookbook);
-
+        //Adding action listener
         MainMenu.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(MainMenu)) {
                             backToMenuController.execute();
-                            System.out.println("Main Menu Button");
                         }
                     }
                 }
@@ -59,7 +62,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(AddToCookbook)) {
-                            System.out.println("ATC Button");
+                            goAddRecipeController.execute(recipeLst.getSelectedValuesList().toArray(new String[0]));
                         }
                     }
                 }
@@ -67,7 +70,8 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(scrollPane);
-        this.add(flowLayoutPanel, BorderLayout.NORTH);
+        this.add(editCookbookPanel);
+        this.add(navigationPanel);
     }
 
     @Override
@@ -76,6 +80,14 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property Name: " + evt.getPropertyName() + ", Property change call (SearchResults view)");
+        SearchResultState state = (SearchResultState) evt.getNewValue();
+
+        String[] recipes = state.getRecipeLst();
+        if (recipes != null){
+            listModel.clear();
+            for(String recipe: recipes){
+                listModel.addElement(recipe);
+            }
+        }
     }
 }

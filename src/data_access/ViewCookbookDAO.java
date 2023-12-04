@@ -1,5 +1,6 @@
 package data_access;
 
+import backend.service.make_cookbook.MakeCookbookViewDAI;
 import backend.service.rename_cookbook.DAI.RenameCookbookViewDAI;
 import backend.service.view_cookbook.ViewCookbookDAI;
 import backend.entity.Cookbook;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksDAI, ViewCookbookDAI {
+public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksDAI, ViewCookbookDAI, MakeCookbookViewDAI {
     private String jsonPath;
     private ArrayList<Cookbook> cookbooks;
     private File file;
@@ -69,10 +70,12 @@ public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksD
         return false;
     }
     private ArrayList<Cookbook> convertCookbook(String jsonStr){
+        if (Objects.equals(jsonStr, "[]"))
+            return new ArrayList<Cookbook>(){};
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
-    public Cookbook viewCookbook(Cookbook cookbook) {
+    private Cookbook viewCookbook(Cookbook cookbook) {
         if (cookbooks.contains(cookbook)){
             return cookbooks.get(cookbooks.indexOf(cookbook));
         }
@@ -80,6 +83,7 @@ public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksD
     }
     @Override
     public Cookbook viewCookbook(String cookbookName) {
+        cookbooks = convertCookbook(readFile());
         if (existByTitle(cookbookName)){
             for (Cookbook cookbook: cookbooks){
                 if (Objects.equals(cookbook.getName(), cookbookName))
@@ -90,6 +94,7 @@ public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksD
     }
     @Override
     public Cookbook[] viewCookbooks(){
-        return cookbooks.toArray(new Cookbook[cookbooks.size()]);
+        cookbooks = convertCookbook(readFile());
+        return cookbooks.toArray(new Cookbook[0]);
     }
 }

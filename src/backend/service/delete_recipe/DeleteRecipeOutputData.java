@@ -1,10 +1,15 @@
 package backend.service.delete_recipe;
 
-public class DeleteRecipeOutputData {
-    private final String recipeName;
+import view.recipe_objects.Triplet;
 
-    public DeleteRecipeOutputData(String recipeName) {
-        this.recipeName = recipeName;
+public class DeleteRecipeOutputData {
+    private final Triplet[] recipes;
+
+    public DeleteRecipeOutputData(Triplet[] recipes) {
+        this.recipes = recipes;
     }
-    public String getRecipeName() {return recipeName;}
+
+    public Triplet[] getRecipes() {
+        return recipes;
+    }
 }

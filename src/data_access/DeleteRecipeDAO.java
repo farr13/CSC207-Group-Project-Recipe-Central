@@ -83,20 +83,16 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
         cookbooks.set(idx, newCookbook);
     }
     @Override
-    public void deleteRecipe(String cookbookName, String recipeName) throws Exception {
+    public void deleteRecipe(String cookbookName, Recipe[] recipes) throws Exception {
+        cookbooks = convertCookbook(readFile());
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), cookbookName)){
-                for (Recipe recipe: cookbook.getRecipes()){
-                    if (Objects.equals(recipe.getName(), recipeName)){
-                        deleteRecipeObject(cookbook, recipe);
-                        break;
-                    }
-                }
+                deleteRecipeList(cookbook, recipes);
                 break;
             }
         }
     }
-    public void deleteRecipeObject(Cookbook cookbook, Recipe recipe) throws Exception {
+    private void deleteRecipeObject(Cookbook cookbook, Recipe recipe) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist");
         } else {
@@ -106,7 +102,7 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
             writeFile();
         }
     }
-    public void deleteRecipeList(Cookbook cookbook, Recipe[] recipes) throws Exception {
+    private void deleteRecipeList(Cookbook cookbook, Recipe[] recipes) throws Exception {
         if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist");
         } else {
@@ -120,26 +116,4 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
             writeFile();
         }
     }
-
-// ** Alternate Code, keeping just in case implementation fails
-//    @Override
-//    public void removeRecipe(String cookbookName, String recipeName) throws Exception {
-//        Recipe recipe = null;
-//        for (Cookbook cookbook: cookbooks){
-//            if (Objects.equals(cookbook.getName(), cookbookName)){
-//                recipe = getRecipe(cookbook.getRecipes(), recipeName);
-//                changeCookbook(cookbook, recipe);
-//            }
-//            writeFile();
-//        }
-//    }
-//
-//    public Recipe getRecipe(Recipe[] recipes, String recipeName) throws Exception {
-//        Recipe saveRecipe = null;
-//        for (Recipe recipe: recipes){
-//            if (Objects.equals(recipe.getName(), recipeName))
-//                saveRecipe = recipe;
-//        }
-//        return saveRecipe;
-//    }
 }

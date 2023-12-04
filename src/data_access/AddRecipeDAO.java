@@ -64,7 +64,7 @@ public class AddRecipeDAO implements AddRecipeDAI {
     private boolean existByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), identifier.trim()))
-                return false;
+                return true;
         }
         return true;
     }
@@ -72,23 +72,11 @@ public class AddRecipeDAO implements AddRecipeDAI {
         Type cookbookListType = new TypeToken<ArrayList<Cookbook>>(){}.getType();
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
-    private Recipe[] addRecipeLst(Recipe[] oldRecipes, Recipe addRecipe){
-        ArrayList<Recipe> modifiedRecipes = new ArrayList<Recipe>(Arrays.asList(oldRecipes));
-        if (!modifiedRecipes.contains(addRecipe))
-            modifiedRecipes.add(addRecipe);
-        return modifiedRecipes.toArray(new Recipe[modifiedRecipes.size()]);
-    }
-    private void changeCookbook(Cookbook cookbook, Recipe recipeRemove){
-        int idx = cookbooks.indexOf(cookbook);                              //idx = -1 is not possible
-        Cookbook oldCookbook = cookbooks.get(idx);
-        Recipe[] recipesModified = addRecipeLst(oldCookbook.getRecipes(), recipeRemove);
-        Cookbook newCookbook = new Cookbook(oldCookbook.getName(), recipesModified);
-        cookbooks.set(idx, newCookbook);
-    }
-    @Override
-    public Cookbook getCookbook(String cookbookName) throws Exception {
+
+    private Cookbook findCookbook(String cookbookName) throws Exception {
+        cookbooks = convertCookbook(readFile());
         Cookbook savecookbook = null;
-        if (existByTitle(cookbookName)) {
+        if (!existByTitle(cookbookName)) {
             throw new Exception("Cookbook doesn't exist.");
         } else {
             for (Cookbook cookbook: cookbooks){
@@ -100,29 +88,44 @@ public class AddRecipeDAO implements AddRecipeDAI {
         return savecookbook;
     }
 
-    @Override
-    public void addRecipe(Cookbook cookbook, Recipe recipe) throws Exception {
-        if (existByTitle(cookbook.getName())) {
+    private Cookbook[] findCookbooks(String[] cookbookNames) throws Exception {
+        ArrayList<Cookbook> result = new ArrayList<Cookbook>();
+        for (String cookbookName: cookbookNames){
+            result.add(findCookbook(cookbookName));
+        }
+        return result.toArray(new Cookbook[0]);
+    }
+    private Recipe[] addRecipeLst(Recipe[] oldRecipes, Recipe addRecipe){
+        ArrayList<Recipe> modifiedRecipes = new ArrayList<Recipe>(Arrays.asList(oldRecipes));
+        if (!modifiedRecipes.contains(addRecipe))
+            modifiedRecipes.add(addRecipe);
+        return modifiedRecipes.toArray(new Recipe[modifiedRecipes.size()]);
+    }
+    private void changeCookbook(Cookbook cookbook, Recipe recipeAdd) throws Exception {
+        Recipe[] recipesModified = addRecipeLst(cookbook.getRecipes(), recipeAdd);
+        Cookbook newCookbook = new Cookbook(cookbook.getName(), recipesModified);
+        int idx = cookbooks.indexOf(findCookbook(cookbook.getName()));
+        cookbooks.set(idx, newCookbook);
+    }
+
+    private void addRecipeCookbookObj(Cookbook cookbook, Recipe recipe) throws Exception {
+        if (!existByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist.");
         } else {
-            if (cookbooks.contains(cookbook)){
-                changeCookbook(cookbook, recipe);
-            }
+            changeCookbook(cookbook, recipe);
             writeFile();
         }
     }
-    public void addRecipe(Cookbook cookbook, Recipe[] recipes) throws Exception {
-        if (existByTitle(cookbook.getName())) {
-            throw new Exception("Cookbook doesn't exist.");
-        } else {
-            if (cookbooks.contains(cookbook)){
-                for (Recipe recipe: recipes){
-                    int idx = cookbooks.indexOf(cookbook);
-                    changeCookbook(cookbook, recipe);
-                    cookbook = cookbooks.get(idx);
-                }
+
+    @Override
+    public void addRecipe(String[] cookbookNames, Recipe[] recipes) throws Exception {
+        Cookbook[] modifyCookbooks = findCookbooks(cookbookNames);
+        for (Cookbook modifyCookbook: modifyCookbooks){
+            for (Recipe addRecipe: recipes){
+                cookbooks = convertCookbook(readFile());
+                if (!Arrays.asList(modifyCookbook.getRecipes()).contains(addRecipe))
+                    addRecipeCookbookObj(modifyCookbook, addRecipe);
             }
-            writeFile();
         }
     }
 }
