@@ -7,10 +7,10 @@ public class Triplet {
     private final String link;
     private final String[] list;
 
-    public Triplet(String first, String second, String[] third) {
-        this.name = first;
-        this.link = second;
-        this.list = third;
+    public Triplet(String name, String link, String[] list) {
+        this.name = name;
+        this.link = link;
+        this.list = list;
     }
     public String getName() {
         return name;
