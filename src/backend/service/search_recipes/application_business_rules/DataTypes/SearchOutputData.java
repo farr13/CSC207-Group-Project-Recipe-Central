@@ -1,15 +1,16 @@
 package backend.service.search_recipes.application_business_rules.DataTypes;
 
 import backend.entity.Recipe;
+import view.recipe_objects.Triplet;
 
 public class SearchOutputData {
-    private Recipe[] recipes;
+    private Triplet[] recipes;
 
-    public SearchOutputData(Recipe[] recipes){
+    public SearchOutputData(Triplet[] recipes){
         this.recipes = recipes;
     }
 
-    public Recipe[] getRecipes() {
+    public Triplet[] getRecipes() {
         return recipes;
     }
 }

@@ -62,7 +62,8 @@ public class SearchResultView extends JPanel implements ActionListener, Property
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(AddToCookbook)) {
-                            System.out.println("ATC Button");
+                            System.out.println(recipeLst.getSelectedValue());
+                            addRecipeController.execute();
                         }
                     }
                 }
@@ -79,9 +80,13 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        listModel.clear();
         SearchResultState state = (SearchResultState) evt.getNewValue();
-        ArrayList<String> Recipes = state.getRecipeLst();
-        listModel.addAll(Recipes);
+        String[] recipes = state.getRecipeLst();
+        if (recipes != null){
+            listModel.clear();
+            for(String recipe: recipes){
+                listModel.addElement(recipe);
+            }
+        }
     }
 }
