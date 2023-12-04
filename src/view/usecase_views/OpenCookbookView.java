@@ -117,9 +117,7 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         String[] recipes = state.getRecipeBlocks();
         if (recipes != null){
             listModel.clear();
-            for(String recipe: recipes){
-                listModel.addElement(recipe);
-            }
+            listModel.addAll(Arrays.asList(recipes));
         }
     }
 }

@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 
 public class SearchResultView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Search Results";
@@ -85,9 +86,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
         String[] recipes = state.getRecipeLst();
         if (recipes != null){
             listModel.clear();
-            for(String recipe: recipes){
-                listModel.addElement(recipe);
-            }
+            listModel.addAll(Arrays.asList(recipes));
         }
     }
 }
