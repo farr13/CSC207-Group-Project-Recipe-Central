@@ -1,16 +1,15 @@
-package backend.service.add_recipe;
-import backend.entity.Recipe;
-import backend.entity.Ingredient;
+package backend.service.go_add_recipe;
+
 import view.recipe_objects.Triplet;
 
 import java.util.ArrayList;
 
-public class AddRecipeController {
-    private final AddRecipeInputBoundary addRecipeUseCaseInteractor;
-    public AddRecipeController(AddRecipeInputBoundary addRecipeUseCaseInteractor) {
-        this.addRecipeUseCaseInteractor = addRecipeUseCaseInteractor;
-    }
+public class GoAddRecipeController {
+    final GoAddRecipeInputBoundary goAddCookbookInteractor;
 
+    public GoAddRecipeController(GoAddRecipeInputBoundary goAddCookbookInteractor){
+        this.goAddCookbookInteractor = goAddCookbookInteractor;
+    }
     private Triplet[] convertToTriplet(String[] recipeBlocks){
         ArrayList<Triplet> triplets = new ArrayList<Triplet>();
         for (String recipeBlock: recipeBlocks){
@@ -26,9 +25,7 @@ public class AddRecipeController {
 
         return triplets.toArray(new Triplet[0]);
     }
-
-    public void execute(String[] cookbookName, String[] recipes) {
-        AddRecipeInputData addRecipeInputData = new AddRecipeInputData(cookbookName, convertToTriplet(recipes));
-        addRecipeUseCaseInteractor.execute(addRecipeInputData);
+    public void execute(String[] recipeBlocks) {
+        goAddCookbookInteractor.execute(new GoAddRecipeInputData(convertToTriplet(recipeBlocks)));
     }
 }

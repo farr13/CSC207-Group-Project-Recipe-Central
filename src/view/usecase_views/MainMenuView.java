@@ -3,6 +3,7 @@ package view.usecase_views;
 import backend.service.search_recipes.interface_adapters.SearchController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import backend.service.view_cookbook.ViewCookbookController;
+import view.states.AddCookbookState;
 import view.states.CookbookListState;
 import view.states.MainMenuState;
 import view.view_managers.ViewManagerModel;
@@ -121,5 +122,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        MainMenuState state = (MainMenuState) evt.getNewValue();
+        searchInputField.setText("");
     }
 }
