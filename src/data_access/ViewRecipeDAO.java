@@ -67,8 +67,7 @@ public class ViewRecipeDAO implements ViewRecipeDAI {
                 if (Objects.equals(cookbook.getName(), cookbookName))
                     return cookbook;
             }
-        }
-        throw new NoSuchElementException();
+        } throw new NoSuchElementException();
     }
     @Override
     public Recipe[] viewRecipes(String cookbookName) {

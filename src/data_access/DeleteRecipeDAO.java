@@ -96,11 +96,16 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
     @Override
     public void deleteRecipe(String cookbookName, Recipe[] recipes) throws Exception {
         cookbooks = convertCookbook(readFile());
+        int i = 0;
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), cookbookName)){
                 deleteRecipeList(cookbook, recipes);
+                i ++;
                 break;
             }
+        }
+        if (i == 0) {
+            throw new Exception("Cookbook doesn't exist");
         }
     }
 }

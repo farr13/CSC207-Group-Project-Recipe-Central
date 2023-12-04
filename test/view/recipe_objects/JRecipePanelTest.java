@@ -58,24 +58,6 @@ public class JRecipePanelTest {
         panel.add(new JRecipePanel(r2));
 
 
-        /*Triplet[] recipes = new Triplet[]{new Triplet<>("Cookies", "www.com",
-                new String[]{"flour", "sugar"}), new Triplet<>("Cookies", "www.com",
-                new String[]{"flour", "sugar"})};
-
-        for (Triplet<String, String, String[]> recipe: recipes){
-            JPanel panel = new JPanel();
-            panel.setBorder(BorderFactory.createTitledBorder(recipe.getFirst()));
-
-            JLabel instructionsURL = new JLabel("Recipe Link: " + recipe.getSecond());
-            panel.add(instructionsURL);
-
-            JList<String> ingredients = new JList<>(recipe.getThird());
-
-            panel.add(ingredients);
-
-            frame.add(panel);
-        }*/
-
         frame.add(contentPane, BorderLayout.CENTER);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -93,7 +75,7 @@ public class JRecipePanelTest {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        JLabel m1 = new JLabel("safsd");
+        JLabel m1 = new JLabel("sd");
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
