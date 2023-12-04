@@ -8,6 +8,7 @@ import view.states.SearchResultState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.AddCookbookViewModel;
 import view.view_models.AddRecipeViewModel;
+import view.view_models.MainMenuViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,25 +42,25 @@ public class AddRecipeView extends JPanel implements ActionListener, PropertyCha
         JLabel title = new JLabel(AddRecipeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        //Shows view
+        //Show selected recipes and cookbooks
         JPanel editCookbooks = new JPanel();
-        editCookbooks.setLayout(new GridLayout(1,2));
 
+        // Create the panel for recipes selected
         JPanel viewRecipePanel = new JPanel();
-        JLabel recipeLabel = new JLabel("Recipes Selected:");
+        viewRecipePanel.setBorder(BorderFactory.createTitledBorder(AddRecipeViewModel.RECIPE_LABEL));
         JList<String> selectedRecipesJlist = new JList<>(selectedRecipesLst);
         JScrollPane recipesScrollPane = new JScrollPane(selectedRecipesJlist);
-        viewRecipePanel.add(recipeLabel);
+        recipesScrollPane.setPreferredSize(new Dimension(200,250));
         viewRecipePanel.add(recipesScrollPane);
+        editCookbooks.add(viewRecipePanel);
 
+        // Create the cookbook panel
         JPanel viewCookbookPanel = new JPanel();
-        JLabel cookbookLabel = new JLabel("Cookbooks:");
+        viewCookbookPanel.setBorder(BorderFactory.createTitledBorder(AddRecipeViewModel.COOKBOOK_LABEL));
         JList<String> cookbookJlist = new JList<>(cookbookLst);
         JScrollPane cookbookScrollPane = new JScrollPane(cookbookJlist);
-        viewCookbookPanel.add(cookbookLabel);
+        cookbookScrollPane.setPreferredSize(new Dimension(200,250));
         viewCookbookPanel.add(cookbookScrollPane);
-
-        editCookbooks.add(viewRecipePanel);
         editCookbooks.add(viewCookbookPanel);
 
         //Make buttons

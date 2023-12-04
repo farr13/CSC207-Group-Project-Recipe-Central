@@ -1,5 +1,6 @@
 package backend.service.search_recipes.application_business_rules;
 
+import backend.adapters.RecipesToTriplets;
 import backend.entity.Ingredient;
 import backend.entity.Recipe;
 import backend.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchOutputBoundary;
@@ -26,19 +27,6 @@ public class SearchInteractor implements SearchInputBoundary {
         this.searchPresenter = searchPresenter;
     }
 
-    private Triplet[] convertTriplet(Recipe[] recipes){
-        ArrayList<Triplet> triplets = new ArrayList<Triplet>();
-        for (Recipe recipe: recipes){
-            String name = recipe.getName();
-            String link = recipe.getInstructions();
-            ArrayList<String> arrayList = new ArrayList<String>();
-            for (Ingredient ingredient: recipe.getIngredients())
-                arrayList.add(ingredient.getTextDescription());
-            triplets.add(new Triplet(name, link, arrayList.toArray(new String[0])));
-        }
-        return triplets.toArray(new Triplet[0]);
-    }
-
     @Override
     public void execute(SearchInputData searchInputData) {
         // Convert inputdata data to a tuple with strings
@@ -47,7 +35,7 @@ public class SearchInteractor implements SearchInputBoundary {
         String requestResponce = apiCaller.execute(pullRequestURL);
         // Convert Json String to Recipe output data
         Recipe[] recipes = outputDataConverter.convertRecipes(requestResponce);
-        SearchOutputData searchOutputData = new SearchOutputData(convertTriplet(recipes));
+        SearchOutputData searchOutputData = new SearchOutputData(RecipesToTriplets.convert(recipes));
         // Call the presenter
         searchPresenter.prepareSuccessView(searchOutputData);
     }

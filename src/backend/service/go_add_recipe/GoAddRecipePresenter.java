@@ -1,5 +1,6 @@
 package backend.service.go_add_recipe;
 
+import backend.adapters.TripletsToRecipeBlocks;
 import view.recipe_objects.Triplet;
 import view.states.AddCookbookState;
 import view.states.AddRecipeState;
@@ -23,26 +24,10 @@ public class GoAddRecipePresenter implements GoAddRecipeOutputBoundary {
         this.searchResultViewModel = searchResultViewModel;
     }
 
-    private String[] createRecipeBlocks(Triplet[] recipes){
-        ArrayList<String> recipeBlocks = new ArrayList<String>();
-        for (Triplet recipe: recipes){
-            StringBuilder temp;
-            String[] ingredients = recipe.getList();
-            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>_" + recipe.getName() + "_<html>" + "<br>Instructions: _"
-                    + recipe.getLink() + "_<br> Ingredients:_"));
-            for (String ingredient: ingredients){
-                temp.append(" ").append(ingredient).append(",");
-            }
-            temp.append("_<br> <br>");
-            recipeBlocks.add(temp.toString());
-        }
-
-        return recipeBlocks.toArray(new String[0]);
-    }
     @Override
     public void prepareSuccessView(GoAddRecipeOutputData goAddRecipeOutputData) {
         AddRecipeState addRecipeState = addRecipeViewModel.getState();
-        addRecipeState.setRecipesSelected(createRecipeBlocks(goAddRecipeOutputData.getRecipes()));
+        addRecipeState.setRecipesSelected(TripletsToRecipeBlocks.convert(goAddRecipeOutputData.getRecipes()));
         addRecipeState.setCookbookNames(goAddRecipeOutputData.getCookbookNames());
         this.addRecipeViewModel.setState(addRecipeState);
         this.addRecipeViewModel.firePropertyChanged();

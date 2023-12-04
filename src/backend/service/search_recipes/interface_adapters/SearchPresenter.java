@@ -1,5 +1,6 @@
 package backend.service.search_recipes.interface_adapters;
 
+import backend.adapters.TripletsToRecipeBlocks;
 import backend.entity.Ingredient;
 import backend.entity.Recipe;
 import backend.service.search_recipes.application_business_rules.Boundary_Interfaces.SearchOutputBoundary;
@@ -21,29 +22,11 @@ public class SearchPresenter implements SearchOutputBoundary {
         this.searchResultViewModel = searchResultViewModel;
     }
 
-    private String[] createRecipeBlocks(Triplet[] recipes){
-        ArrayList<String> recipeBlocks = new ArrayList<String>();
-        for (Triplet recipe: recipes){
-            StringBuilder temp;
-            String[] ingredients = recipe.getList();
-            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>_" + recipe.getName() + "_<html>" + "<br>Instructions: _"
-                    + recipe.getLink() + "_<br> Ingredients:_"));
-            for (String ingredient: ingredients){
-                temp.append(" ").append(ingredient).append(",");
-            }
-            temp.append("_<br> <br>");
-            recipeBlocks.add(temp.toString());
-        }
-
-        return recipeBlocks.toArray(new String[0]);
-    }
-
-
     @Override
     public void prepareSuccessView(SearchOutputData recipeResults) {
         SearchResultState currState = searchResultViewModel.getState();
 
-        String[] recipeBlocks = createRecipeBlocks(recipeResults.getRecipes());
+        String[] recipeBlocks = TripletsToRecipeBlocks.convert(recipeResults.getRecipes());
 
         currState.setRecipeLst(recipeBlocks);
 

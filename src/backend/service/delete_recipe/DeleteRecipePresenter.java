@@ -1,5 +1,6 @@
 package backend.service.delete_recipe;
 
+import backend.adapters.TripletsToRecipeBlocks;
 import backend.entity.Ingredient;
 import backend.entity.Recipe;
 import view.recipe_objects.*;
@@ -17,26 +18,10 @@ public class DeleteRecipePresenter implements DeleteRecipeOutputBoundary {
         this.viewManagerModel = viewManagerModel;
         this.openCookbookViewModel = openCookbookViewModel;
     }
-    private String[] createRecipeBlocks(Triplet[] recipes){
-        ArrayList<String> recipeBlocks = new ArrayList<String>();
-        for (Triplet recipe: recipes){
-            StringBuilder temp;
-            String[] ingredients = recipe.getList();
-            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>_" + recipe.getName() + "_<html>" + "<br>Instructions: _"
-                    + recipe.getLink() + "_<br> Ingredients:_"));
-            for (String ingredient: ingredients){
-                temp.append(" ").append(ingredient).append(",");
-            }
-            temp.append("_<br> <br>");
-            recipeBlocks.add(temp.toString());
-        }
-
-        return recipeBlocks.toArray(new String[0]);
-    }
     @Override
     public void prepareSuccessView(DeleteRecipeOutputData deleteRecipeOutputData) {
         OpenCookbookState openCookbookState = openCookbookViewModel.getState();
-        openCookbookState.setRecipeBlocks(createRecipeBlocks(deleteRecipeOutputData.getRecipes()));
+        openCookbookState.setRecipeBlocks(TripletsToRecipeBlocks.convert(deleteRecipeOutputData.getRecipes()));
         this.openCookbookViewModel.setState(openCookbookState);
         this.openCookbookViewModel.firePropertyChanged();
     }

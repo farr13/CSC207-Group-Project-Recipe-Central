@@ -36,7 +36,7 @@ public class MakeCookbookInteractor implements MakeCookbookInputBoundary{
         try {
             Cookbook[] cookbooks = makeCookbookViewDAO.viewCookbooks();
             String[] cookbookNames = convertCookbookNames(makeCookbookViewDAO.viewCookbooks());
-            if (!Objects.equals(makeCookbookInputData.getNewCookbookName(), "") &&
+            if (!Objects.equals(makeCookbookInputData.getNewCookbookName().trim(), "") &&
                     !existByTitle(makeCookbookInputData.getNewCookbookName(), cookbookNames)) {
 
                 Cookbook newCookbook = new Cookbook(makeCookbookInputData.getNewCookbookName(), new Recipe[]{});

@@ -10,6 +10,8 @@ public class AddRecipeViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Add Recipe";
     public static final String ADD_BUTTON_LABEL = "Add";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
+    public static final String RECIPE_LABEL = "Recipes Selected";
+    public static final String COOKBOOK_LABEL = "Cookbooks";
     private AddRecipeState state = new AddRecipeState();
     public AddRecipeViewModel() {
         super(TITLE_LABEL);
