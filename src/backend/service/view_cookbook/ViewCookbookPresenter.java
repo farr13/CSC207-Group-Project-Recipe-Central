@@ -1,5 +1,6 @@
 package backend.service.view_cookbook;
 
+import backend.adapters.TripletsToRecipeBlocks;
 import backend.entity.Ingredient;
 import backend.entity.Recipe;
 import view.recipe_objects.Triplet;
@@ -21,29 +22,13 @@ public class ViewCookbookPresenter implements ViewCookbookOutputBoundary {
         this.openCookbookViewModel = openCookbookViewModel;
         this.cookbookListViewModel = cookbookListViewModel;
     }
-    private String[] createRecipeBlocks(Triplet[] recipes){
-        ArrayList<String> recipeBlocks = new ArrayList<String>();
-        for (Triplet recipe: recipes){
-            StringBuilder temp;
-            String[] ingredients = recipe.getList();
-            temp = new StringBuilder(("<html>Recipe:<html>  " + "<html>_" + recipe.getName() + "_<html>" + "<br>Instructions: _"
-                    + recipe.getLink() + "_<br> Ingredients:_"));
-            for (String ingredient: ingredients){
-                temp.append(" ").append(ingredient).append(",");
-            }
-            temp.append("_<br> <br>");
-            recipeBlocks.add(temp.toString());
-        }
-
-        return recipeBlocks.toArray(new String[0]);
-    }
     @Override
     public void prepareSuccessView(ViewCookbookOutputData viewCookbookOutputData){
         OpenCookbookState openCookbookState = openCookbookViewModel.getState();
         openCookbookState.setCookbookName(viewCookbookOutputData.getCookbookName());
 
         Triplet[] recipes = viewCookbookOutputData.getRecipes();
-        openCookbookState.setRecipeBlocks(createRecipeBlocks(recipes));
+        openCookbookState.setRecipeBlocks(TripletsToRecipeBlocks.convert(recipes));
         openCookbookViewModel.setState(openCookbookState);
         openCookbookViewModel.firePropertyChanged();
 

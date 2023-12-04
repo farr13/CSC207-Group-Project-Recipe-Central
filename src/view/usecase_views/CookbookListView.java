@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 
 public class CookbookListView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "All Cookbooks";
@@ -125,9 +126,7 @@ public class CookbookListView extends JPanel implements ActionListener, Property
         String[] newCookbookNames = state.getCookbookNames();
         if (newCookbookNames != null){
             listModel.clear();
-            for(String cookbookName: newCookbookNames){
-                listModel.addElement(cookbookName);
-            }
+            listModel.addAll(Arrays.asList(newCookbookNames));
         }
     }
 }

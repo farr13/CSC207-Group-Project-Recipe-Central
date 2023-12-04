@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Main Menu";
@@ -27,6 +28,9 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     private final JTextField searchInputField = new JTextField(30);
     private final JButton search;
     private final JButton viewCookbooks;
+    private DefaultListModel<String> filter1Lst = new DefaultListModel<>();
+    private DefaultListModel<String> filter2Lst = new DefaultListModel<>();
+    private DefaultListModel<String> filter3Lst = new DefaultListModel<>();
 
     public MainMenuView(MainMenuViewModel mainMenuViewModel, SearchController searchController,
                         SeeListCookbooksController seeListCookbooksController) {
@@ -45,24 +49,27 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         // Create the first menu category for first filter
         JPanel filter1Panel = new JPanel();
         filter1Panel.setBorder(BorderFactory.createTitledBorder(MainMenuViewModel.FILTER_1_LABEL));
-        JList<String> filter1Lst = new JList<>(MainMenuViewModel.FILTER_1_OPTIONS);
-        JScrollPane scrollPane1 = new JScrollPane(filter1Lst);
+        filter1Lst.addAll(Arrays.asList(MainMenuViewModel.FILTER_1_OPTIONS));
+        JList<String> filter1Jlst = new JList<>(filter1Lst);
+        JScrollPane scrollPane1 = new JScrollPane(filter1Jlst);
         filter1Panel.add(scrollPane1);
         filterPanel.add(filter1Panel);
 
         // Create the second menu category for second filter
         JPanel filter2Panel = new JPanel();
         filter2Panel.setBorder(BorderFactory.createTitledBorder(MainMenuViewModel.FILTER_2_LABEL));
-        JList<String> filter2Lst = new JList<>(MainMenuViewModel.FILTER_2_OPTIONS);
-        JScrollPane scrollPane2 = new JScrollPane(filter2Lst);
+        filter2Lst.addAll(Arrays.asList(MainMenuViewModel.FILTER_2_OPTIONS));
+        JList<String> filter2Jlst = new JList<>(filter2Lst);
+        JScrollPane scrollPane2 = new JScrollPane(filter2Jlst);
         filter2Panel.add(scrollPane2);
         filterPanel.add(filter2Panel);
 
         // Create the third menu category for third filter
         JPanel filter3Panel = new JPanel();
         filter3Panel.setBorder(BorderFactory.createTitledBorder(MainMenuViewModel.FILTER_3_LABEL));
-        JList<String> filter3Lst = new JList<>(MainMenuViewModel.FILTER_3_OPTIONS);
-        JScrollPane scrollPane3 = new JScrollPane(filter3Lst);
+        filter3Lst.addAll(Arrays.asList(MainMenuViewModel.FILTER_3_OPTIONS));
+        JList<String> filter3Jlst = new JList<>(filter3Lst);
+        JScrollPane scrollPane3 = new JScrollPane(filter3Jlst);
         filter3Panel.add(scrollPane3);
         filterPanel.add(filter3Panel);
 
@@ -90,9 +97,9 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             String searchText = searchInputField.getText();
-                            String[] selectedFilter1 = filter1Lst.getSelectedValuesList().toArray(new String[0]);
-                            String[] selectedFilter2 = filter2Lst.getSelectedValuesList().toArray(new String[0]);
-                            String[] selectedFilter3 = filter3Lst.getSelectedValuesList().toArray(new String[0]);
+                            String[] selectedFilter1 = filter1Jlst.getSelectedValuesList().toArray(new String[0]);
+                            String[] selectedFilter2 = filter2Jlst.getSelectedValuesList().toArray(new String[0]);
+                            String[] selectedFilter3 = filter3Jlst.getSelectedValuesList().toArray(new String[0]);
                             searchController.execute(searchText, selectedFilter1, selectedFilter2, selectedFilter3);
                         }
                     }
@@ -124,5 +131,11 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     public void propertyChange(PropertyChangeEvent evt) {
         MainMenuState state = (MainMenuState) evt.getNewValue();
         searchInputField.setText("");
+        filter1Lst.clear();
+        filter1Lst.addAll(Arrays.asList(MainMenuViewModel.FILTER_1_OPTIONS));
+        filter2Lst.clear();
+        filter2Lst.addAll(Arrays.asList(MainMenuViewModel.FILTER_2_OPTIONS));
+        filter3Lst.clear();
+        filter3Lst.addAll(Arrays.asList(MainMenuViewModel.FILTER_3_OPTIONS));
     }
 }

@@ -114,12 +114,12 @@ public class AddRecipeDAO implements AddRecipeDAI {
 
     @Override
     public void addRecipe(String[] cookbookNames, Recipe[] recipes) throws Exception {
-        Cookbook[] modifyCookbooks = findCookbooks(cookbookNames);
-        for (Cookbook modifyCookbook: modifyCookbooks){
+        for (String cookbookName: cookbookNames){
             for (Recipe addRecipe: recipes){
-                cookbooks = convertCookbook(readFile());
+                Cookbook modifyCookbook = findCookbook(cookbookName);
                 if (!Arrays.asList(modifyCookbook.getRecipes()).contains(addRecipe))
                     addRecipeCookbookObj(modifyCookbook, addRecipe);
+                cookbooks = convertCookbook(readFile());
             }
         }
     }
