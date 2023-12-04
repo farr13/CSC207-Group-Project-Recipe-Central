@@ -2,13 +2,12 @@ package backend.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class Recipe {
-    private String name;
-    private Ingredient[] ingredients;
-    private String instructionsURL; // Instructions as url link
+    private final String name;
+    private final Ingredient[] ingredients;
+    private final String instructionsURL; // Instructions as url link
 
     public Recipe(String name, String instructionsURL, Ingredient[] ingredients) {
         this.name = name;

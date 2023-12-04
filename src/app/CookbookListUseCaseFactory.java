@@ -29,21 +29,19 @@ public class CookbookListUseCaseFactory {
                                           CookbookListViewModel cookbookListViewModel, OpenCookbookViewModel openCookbookViewModel,
                                           AddCookbookViewModel addCookbookViewModel,
                                           ViewCookbookDAI viewCookbookDAO, DeleteCookbookDAI deleteCookbookDAO){
-        ViewCookbookController viewCookbookController = CookbookListUseCaseFactory.createViewCookbookUsecase(viewManagerModel,
-                cookbookListViewModel, openCookbookViewModel, viewCookbookDAO);
-        DeleteCookbookController deleteCookbookController = CookbookListUseCaseFactory.createDeleteCookbookUsecase(viewManagerModel,
-                cookbookListViewModel, deleteCookbookDAO, (SeeListCookbooksDAI) viewCookbookDAO);
-        BackToMenuController backToMenuController = CookbookListUseCaseFactory.createBackToMenuUsecase(viewManagerModel, mainMenuViewModel);
-        GoAddCookbookController goAddCookbookController = CookbookListUseCaseFactory.createGoAddCookbookUsecase(viewManagerModel, addCookbookViewModel);
+        ViewCookbookController viewCookbookController = CookbookListUseCaseFactory.createViewCookbookUseCase(viewManagerModel, cookbookListViewModel, openCookbookViewModel, viewCookbookDAO);
+        DeleteCookbookController deleteCookbookController = CookbookListUseCaseFactory.createDeleteCookbookUseCase(viewManagerModel, cookbookListViewModel, deleteCookbookDAO, (SeeListCookbooksDAI) viewCookbookDAO);
+        BackToMenuController backToMenuController = CookbookListUseCaseFactory.createBackToMenuUseCase(viewManagerModel, mainMenuViewModel);
+        GoAddCookbookController goAddCookbookController = CookbookListUseCaseFactory.createGoAddCookbookUseCase(viewManagerModel, addCookbookViewModel);
         return new CookbookListView(cookbookListViewModel, viewCookbookController, deleteCookbookController, backToMenuController, goAddCookbookController);
     }
-    private static ViewCookbookController createViewCookbookUsecase(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
+    private static ViewCookbookController createViewCookbookUseCase(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
                                                                     OpenCookbookViewModel openCookbookViewModel,ViewCookbookDAI viewCookbookDAO){
         ViewCookbookPresenter viewCookbookPresenter = new ViewCookbookPresenter(viewManagerModel, openCookbookViewModel, cookbookListViewModel);
         ViewCookbookInteractor viewCookbookInteractor = new ViewCookbookInteractor(viewCookbookDAO, viewCookbookPresenter);
         return new ViewCookbookController(viewCookbookInteractor);
     }
-    private static DeleteCookbookController createDeleteCookbookUsecase(ViewManagerModel viewManagerModel,
+    private static DeleteCookbookController createDeleteCookbookUseCase(ViewManagerModel viewManagerModel,
                                                                         CookbookListViewModel cookbookListViewModel,
                                                                         DeleteCookbookDAI deleteCookbookDAO,
                                                                         SeeListCookbooksDAI viewCookbookDAO){
@@ -52,12 +50,12 @@ public class CookbookListUseCaseFactory {
                 deleteCookbookPresenter);
         return new DeleteCookbookController(deleteCookbookInteractor);
     }
-    private static BackToMenuController createBackToMenuUsecase(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel){
+    private static BackToMenuController createBackToMenuUseCase(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel){
         BackToMenuPresenter backToMenuPresenter = new BackToMenuPresenter(viewManagerModel, mainMenuViewModel);
         BackToMenuInteractor backToMenuInteractor = new BackToMenuInteractor(backToMenuPresenter);
         return new BackToMenuController(backToMenuInteractor);
     }
-    private static GoAddCookbookController createGoAddCookbookUsecase(ViewManagerModel viewManagerModel,
+    private static GoAddCookbookController createGoAddCookbookUseCase(ViewManagerModel viewManagerModel,
                                                                       AddCookbookViewModel addCookbookViewModel){
         GoAddCookbookPresenter goAddCookbookPresenter = new GoAddCookbookPresenter(viewManagerModel, addCookbookViewModel);
         GoAddCookbookInteractor goAddCookbookInteractor = new GoAddCookbookInteractor(goAddCookbookPresenter);

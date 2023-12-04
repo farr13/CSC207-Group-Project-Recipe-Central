@@ -31,11 +31,9 @@ public class Ingredient{
     public String getMeasureType(){
         return measureType;
     }
-
     public double getQuantity(){
         return quantity;
     }
-
     public String giveAmount(){
         if (measureType.equals("<unit>"))
             return Double.toString(quantity); // removes count from output

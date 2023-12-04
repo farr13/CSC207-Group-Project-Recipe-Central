@@ -13,18 +13,13 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class AddRecipeDAO implements AddRecipeDAI {
-    private String jsonPath;
-    private String json;
     private ArrayList<Cookbook> cookbooks;
     private File file;
 
     public AddRecipeDAO(String fileName){
-        jsonPath = fileName;
         file = new File(fileName);
-
         if (!file.exists())
             createFile();
-
         cookbooks = convertCookbook(readFile());
     }
     private void createFile(){
@@ -61,10 +56,10 @@ public class AddRecipeDAO implements AddRecipeDAI {
             throw new RuntimeException(e);
         }
     }
-    private boolean existByTitle(String identifier) {
+    private boolean notExistByTitle(String identifier) {
         for (Cookbook cookbook: cookbooks){
             if (Objects.equals(cookbook.getName(), identifier.trim()))
-                return true;
+                return false;
         }
         return true;
     }
@@ -76,7 +71,7 @@ public class AddRecipeDAO implements AddRecipeDAI {
     private Cookbook findCookbook(String cookbookName) throws Exception {
         cookbooks = convertCookbook(readFile());
         Cookbook savecookbook = null;
-        if (!existByTitle(cookbookName)) {
+        if (notExistByTitle(cookbookName)) {
             throw new Exception("Cookbook doesn't exist.");
         } else {
             for (Cookbook cookbook: cookbooks){
@@ -109,7 +104,7 @@ public class AddRecipeDAO implements AddRecipeDAI {
     }
 
     private void addRecipeCookbookObj(Cookbook cookbook, Recipe recipe) throws Exception {
-        if (!existByTitle(cookbook.getName())) {
+        if (notExistByTitle(cookbook.getName())) {
             throw new Exception("Cookbook doesn't exist.");
         } else {
             changeCookbook(cookbook, recipe);

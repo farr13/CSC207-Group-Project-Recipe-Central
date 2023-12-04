@@ -1,13 +1,7 @@
 package app;
 
-import backend.entity.Cookbook;
-import backend.service.delete_cookbook.DeleteCookbookDAI;
-import backend.service.delete_recipe.ViewRecipeDAI;
-import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
-import backend.service.view_cookbook.ViewCookbookDAI;
+
 import data_access.*;
-import view.recipe_objects.*;
-import view.states.CookbookListState;
 import view.usecase_views.*;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
