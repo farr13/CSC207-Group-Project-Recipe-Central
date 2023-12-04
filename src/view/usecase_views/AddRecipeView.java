@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class AddRecipeView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -49,6 +50,8 @@ public class AddRecipeView extends JPanel implements ActionListener, PropertyCha
         JPanel viewRecipePanel = new JPanel();
         viewRecipePanel.setBorder(BorderFactory.createTitledBorder(AddRecipeViewModel.RECIPE_LABEL));
         JList<String> selectedRecipesJlist = new JList<>(selectedRecipesLst);
+        selectedRecipesJlist.setEnabled(false);
+        selectedRecipesJlist.setBackground(Color.DARK_GRAY);
         JScrollPane recipesScrollPane = new JScrollPane(selectedRecipesJlist);
         recipesScrollPane.setPreferredSize(new Dimension(200,250));
         viewRecipePanel.add(recipesScrollPane);
@@ -108,16 +111,12 @@ public class AddRecipeView extends JPanel implements ActionListener, PropertyCha
         String[] recipes = state.getRecipesSelected();
         if (recipes != null){
             selectedRecipesLst.clear();
-            for(String recipe: recipes){
-                selectedRecipesLst.addElement(recipe);
-            }
+            selectedRecipesLst.addAll(Arrays.asList(recipes));
         }
         String[] cookbookNames = state.getCookbookNames();
         if (cookbookNames != null){
             cookbookLst.clear();
-            for(String cookbookName: cookbookNames){
-                cookbookLst.addElement(cookbookName);
-            }
+            cookbookLst.addAll(Arrays.asList(cookbookNames));
         }
     }
 }

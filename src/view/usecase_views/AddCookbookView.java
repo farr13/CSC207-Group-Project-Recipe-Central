@@ -88,7 +88,6 @@ public class AddCookbookView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         AddCookbookState state = (AddCookbookState) evt.getNewValue();
-
         nameInputField.setText("");
 
         JFrame frame = new JFrame(state.getErrorMessage());
