@@ -1,14 +1,10 @@
 package view.usecase_views;
 
-import backend.service.back_to_menu.BackToMenuController;
 import backend.service.make_cookbook.MakeCookbookController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
 import view.states.AddCookbookState;
-import view.states.OpenCookbookState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.AddCookbookViewModel;
-import view.view_models.CookbookListViewModel;
-import view.recipe_objects.JLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;

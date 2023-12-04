@@ -1,5 +1,5 @@
 package data_access;
-/*
+
 import backend.entity.Cookbook;
 import backend.entity.Ingredient;
 import backend.entity.Recipe;
@@ -30,7 +30,7 @@ public class AddRecipeDAOTest {
                 c2 = new Cookbook("lunch", new Recipe[]{r1, r2});
 
         AddRecipeDAO addRecipeDAO = new AddRecipeDAO("addOneRecipe1.json");
-        addRecipeDAO.addRecipe(c1, r2);
+        //addRecipeDAO.addRecipe(c1, r2);
     }
     @Test
     public void addOneRecipeRepeat() throws Exception {
@@ -47,7 +47,7 @@ public class AddRecipeDAOTest {
                 new Ingredient[]{new Ingredient("1 cup of flour"),
                         new Ingredient("1 bag of chocolate chips")});
 
-        addRecipeDAO.addRecipe(cookbook, cookies2);
+        addRecipeDAO.addRecipe(new String[]{cookbook.getName()}, new Recipe[]{cookies2});
     }
     @Test
     public void addRecipeEmptyCookbook() throws Exception {
@@ -65,7 +65,7 @@ public class AddRecipeDAOTest {
                         new Ingredient("1 bag of chocolate chips")});
         AddRecipeDAO addRecipeDAO = new AddRecipeDAO("addRecipeEmptyCookbook.json");
 
-        addRecipeDAO.addRecipe(cookbook, cookies);
+        //addRecipeDAO.addRecipe(cookbook, cookies);
     }
 
     @Test
@@ -80,8 +80,6 @@ public class AddRecipeDAOTest {
         Cookbook cookbook = new Cookbook("Breakfast", new Recipe[]{r1,r2});
 
         AddRecipeDAO addRecipeDAO = new AddRecipeDAO("addMultiRecipeEmptyCookbook.json");
-        addRecipeDAO.addRecipe(cookbook, r1);
+        //addRecipeDAO.addRecipe(cookbook, r1);
     }
 }
-
- */

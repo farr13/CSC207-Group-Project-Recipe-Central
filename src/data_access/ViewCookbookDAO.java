@@ -1,7 +1,6 @@
 package data_access;
 
 import backend.service.make_cookbook.MakeCookbookViewDAI;
-import backend.service.rename_cookbook.DAI.RenameCookbookViewDAI;
 import backend.service.view_cookbook.ViewCookbookDAI;
 import backend.entity.Cookbook;
 import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ViewCookbookDAO implements RenameCookbookViewDAI, SeeListCookbooksDAI, ViewCookbookDAI, MakeCookbookViewDAI {
+public class ViewCookbookDAO implements SeeListCookbooksDAI, ViewCookbookDAI, MakeCookbookViewDAI {
     private ArrayList<Cookbook> cookbooks;
     private File file;
 

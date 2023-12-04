@@ -1,8 +1,11 @@
 package backend.service;
 
-import backend.service.back_to_search.BackToSearchController;
-import backend.service.back_to_search.BackToSearchInteractor;
-import backend.service.back_to_search.BackToSearchPresenter;
+import backend.service.back_to_menu.BackToMenuController;
+import backend.service.back_to_menu.BackToMenuInteractor;
+import backend.service.back_to_menu.BackToMenuPresenter;
+import backend.service.go_add_cookbook.GoAddCookbookController;
+import backend.service.go_add_cookbook.GoAddCookbookInteractor;
+import backend.service.go_add_cookbook.GoAddCookbookPresenter;
 import org.junit.Test;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
@@ -11,8 +14,8 @@ import view.view_models.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class BackToSearchTest {
-    private static BackToSearchController setUp() {
+public class GoAddCookbookTest {
+    private static GoAddCookbookController setUp() {
         JFrame frame = new JFrame("Recipe Central");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -30,14 +33,15 @@ public class BackToSearchTest {
         SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
         AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
         AddCookbookViewModel addCookbookViewModel = new AddCookbookViewModel();
-        BackToSearchPresenter backToSearchPresenter = new BackToSearchPresenter(viewManagerModel, searchResultViewModel);
-        BackToSearchInteractor backToSearchInteractor = new BackToSearchInteractor(backToSearchPresenter);
-        return new BackToSearchController(backToSearchInteractor);
+
+        GoAddCookbookPresenter goAddCookbookPresenter = new GoAddCookbookPresenter(viewManagerModel, addCookbookViewModel);
+        GoAddCookbookInteractor goAddCookbookInteractor = new GoAddCookbookInteractor(goAddCookbookPresenter);
+        return new GoAddCookbookController(goAddCookbookInteractor);
     }
 
     @Test
     public void BasicTest(){
-        BackToSearchController backToSearchController = setUp();
-        backToSearchController.execute();
+        GoAddCookbookController goAddCookbookController = setUp();
+        goAddCookbookController.execute();
     }
 }
