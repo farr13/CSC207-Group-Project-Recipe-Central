@@ -1,6 +1,5 @@
 package view.view_models;
 
-import view.states.AddCookbookState;
 import view.states.AddRecipeState;
 import view.view_managers.ViewModel;
 import java.beans.PropertyChangeListener;
@@ -16,15 +15,10 @@ public class AddRecipeViewModel extends ViewModel {
     public AddRecipeViewModel() {
         super(TITLE_LABEL);
     }
-
     public void setState(AddRecipeState state) {
         this.state = state;
     }
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
     @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
@@ -33,7 +27,6 @@ public class AddRecipeViewModel extends ViewModel {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-
     public AddRecipeState getState() {
         return state;
     }

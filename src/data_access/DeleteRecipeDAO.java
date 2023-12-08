@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class DeleteRecipeDAO implements DeleteRecipeDAI {
     private ArrayList<Cookbook> cookbooks;
-    private File file;
+    private final File file;
 
     public DeleteRecipeDAO(String fileName){
         file = new File(fileName);
@@ -67,13 +67,13 @@ public class DeleteRecipeDAO implements DeleteRecipeDAI {
         return new Gson().fromJson(jsonStr, cookbookListType);
     }
     private Recipe[] removeRecipeLst(Recipe[] oldRecipes, Recipe removedRecipe){
-        ArrayList<Recipe> modifiedRecipes = new ArrayList<Recipe>(Arrays.asList(oldRecipes));
+        ArrayList<Recipe> modifiedRecipes = new ArrayList<>(Arrays.asList(oldRecipes));
         if (modifiedRecipes.contains(removedRecipe))
             modifiedRecipes.remove(removedRecipe);
         return modifiedRecipes.toArray(new Recipe[modifiedRecipes.size()]);
     }
     private void changeCookbook(Cookbook cookbook, Recipe recipeRemove) {
-        int idx = cookbooks.indexOf(cookbook);                              //idx = -1 is not possible
+        int idx = cookbooks.indexOf(cookbook);  //idx = -1 is not possible
         Cookbook oldCookbook = cookbooks.get(idx);
         Recipe[] recipesModified = removeRecipeLst(oldCookbook.getRecipes(), recipeRemove);
         Cookbook newCookbook = new Cookbook(oldCookbook.getName(), recipesModified);

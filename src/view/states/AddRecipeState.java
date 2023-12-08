@@ -3,12 +3,6 @@ package view.states;
 public class AddRecipeState {
     private String[] recipesSelected = {};
     private String[] cookbookNames = {};
-    private String errorMessage = "";
-
-    public AddRecipeState(AddRecipeState copy){
-        recipesSelected = copy.getRecipesSelected();
-        cookbookNames = copy.getCookbookNames();
-    }
 
     public AddRecipeState(){}
 

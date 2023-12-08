@@ -2,13 +2,10 @@ package view.usecase_views;
 
 import backend.service.add_recipe.AddRecipeController;
 import backend.service.back_to_search.BackToSearchController;
-import view.states.AddCookbookState;
 import view.states.AddRecipeState;
-import view.states.SearchResultState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.AddCookbookViewModel;
 import view.view_models.AddRecipeViewModel;
-import view.view_models.MainMenuViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class AddRecipeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Add Recipe";
@@ -27,8 +23,8 @@ public class AddRecipeView extends JPanel implements ActionListener, PropertyCha
     public final BackToSearchController backToSearchController;
     private final JButton cancel;
     private final JButton add;
-    private DefaultListModel<String> cookbookLst = new DefaultListModel<>();
-    private DefaultListModel<String> selectedRecipesLst = new DefaultListModel<>();
+    private final DefaultListModel<String> cookbookLst = new DefaultListModel<>();
+    private final DefaultListModel<String> selectedRecipesLst = new DefaultListModel<>();
 
     public AddRecipeView(ViewManagerModel viewManagerModel, AddRecipeViewModel addRecipeViewModel,
                          AddRecipeController addRecipeController, BackToSearchController backToSearchController) {

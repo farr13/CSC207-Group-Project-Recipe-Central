@@ -14,7 +14,6 @@ public class MainMenuViewModel extends ViewModel {
     public static final String[] FILTER_2_OPTIONS = new String[]{"balanced", "high-fiber", "high-protein", "low-carb", "low-fat", "low-sodium"},
             FILTER_3_OPTIONS = new String[]{"alcohol-cocktail", "alcohol-free", "dairy-free", "egg-free", "fish-free", "gluten-free", "immuno-supportive", "keto-friendly", "kosher", "low-sugar", "paleo", "peanut-free", "pescatarian", "pork-free", "red-meat-free", "vegan", "vegetarian"},
             FILTER_1_OPTIONS = new String[]{"Breakfast", "Dinner", "Lunch", "Snack"};
-
     private MainMenuState state = new MainMenuState();
     public MainMenuViewModel() {
         super(TITLE_LABEL);

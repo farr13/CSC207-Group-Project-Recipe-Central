@@ -1,7 +1,6 @@
 package view.view_models;
 
 import view.states.AddCookbookState;
-import view.states.CookbookListState;
 import view.view_managers.ViewModel;
 
 import java.beans.PropertyChangeListener;
@@ -11,7 +10,6 @@ public class AddCookbookViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Add Cookbook";
     public static final String VIEW_COOKBOOKS_BUTTON_LABEL = "Cancel";
     public static final String ADD_COOKBOOK_BUTTON_LABEL = "Add";
-
     private AddCookbookState state = new AddCookbookState();
     public AddCookbookViewModel() {
         super(TITLE_LABEL);

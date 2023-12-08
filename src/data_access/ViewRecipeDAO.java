@@ -2,11 +2,7 @@ package data_access;
 
 import backend.entity.Recipe;
 import backend.service.delete_recipe.ViewRecipeDAI;
-import backend.service.make_cookbook.MakeCookbookAddDAI;
-import backend.service.make_cookbook.MakeCookbookViewDAI;
-import backend.service.view_cookbook.ViewCookbookDAI;
 import backend.entity.Cookbook;
-import backend.service.see_list_cookbooks.SeeListCookbooksDAI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,7 +14,7 @@ import java.util.Objects;
 
 public class ViewRecipeDAO implements ViewRecipeDAI {
     private ArrayList<Cookbook> cookbooks;
-    private File file;
+    private final File file;
 
     public ViewRecipeDAO(String fileName){
         file = new File(fileName);

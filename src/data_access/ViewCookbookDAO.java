@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class ViewCookbookDAO implements SeeListCookbooksDAI, ViewCookbookDAI, MakeCookbookViewDAI {
     private ArrayList<Cookbook> cookbooks;
-    private File file;
+    private final File file;
 
     public ViewCookbookDAO(String fileName){
         file = new File(fileName);

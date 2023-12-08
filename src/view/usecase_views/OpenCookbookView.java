@@ -1,14 +1,9 @@
 package view.usecase_views;
 
-import backend.entity.Ingredient;
-import backend.entity.Recipe;
 import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_recipe.DeleteRecipeController;
 import backend.service.see_list_cookbooks.SeeListCookbooksController;
-import view.recipe_objects.Triplet;
-import view.states.CookbookListState;
 import view.states.OpenCookbookState;
-import view.states.SearchResultState;
 import view.view_models.OpenCookbookViewModel;
 
 import javax.swing.*;
@@ -17,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class OpenCookbookView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -26,10 +20,8 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
     private final SeeListCookbooksController seeListCookbooksController;
     private final DeleteRecipeController deleteRecipeController;
     private final BackToMenuController backToMenuController;
-    //private final RenameCookbookController renameCookbookController;
     private final JButton mainMenu;
     private final JButton viewCookbooks;
-    //private final JButton renameCookbook;
     private final JButton deleteRecipe;
 
     JLabel cookbookName;
@@ -41,7 +33,6 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
         this.seeListCookbooksController = seeListCookbooksController;
         this.deleteRecipeController = deleteRecipeController;
         this.backToMenuController = backToMenuController;
-        //this.renameCookbookController = renameCookbookController;
 
         openCookbookViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -101,7 +92,7 @@ public class OpenCookbookView extends JPanel implements ActionListener, Property
                 }
         );
 
-        //Adding components to this Jpanel
+        //Adding components to this JPanel
         this.add(recipeScrollPane);
         this.add(editCookbookPanel);
         this.add(navigationPanel);

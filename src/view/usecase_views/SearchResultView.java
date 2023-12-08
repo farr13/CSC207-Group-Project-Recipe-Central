@@ -1,10 +1,8 @@
 package view.usecase_views;
 
 import backend.service.back_to_menu.BackToMenuController;
-import backend.service.go_add_cookbook.GoAddCookbookController;
 import backend.service.go_add_recipe.GoAddRecipeController;
 import view.states.SearchResultState;
-import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +19,7 @@ public class SearchResultView extends JPanel implements ActionListener, Property
     private final GoAddRecipeController goAddRecipeController;
     private final JButton AddToCookbook;
     private final JButton MainMenu;
-    private DefaultListModel<String> listModel = new DefaultListModel<>();
+    private final DefaultListModel<String> listModel = new DefaultListModel<>();
 
     public SearchResultView(SearchResultViewModel searchResultViewModel, BackToMenuController backToMenuController,
                             GoAddRecipeController goAddRecipeController) {
