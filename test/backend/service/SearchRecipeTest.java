@@ -1,46 +1,22 @@
 package backend.service;
 
-import app.CookbookListUseCaseFactory;
-import app.Main;
-import app.MainMenuUseCaseFactory;
-import backend.entity.Cookbook;
-import backend.entity.Ingredient;
-import backend.entity.Recipe;
-import backend.service.back_to_menu.BackToMenuController;
-import backend.service.back_to_menu.BackToMenuInputBoundary;
-import backend.service.back_to_search.BackToSearchController;
-import backend.service.back_to_search.BackToSearchInteractor;
-import backend.service.back_to_search.BackToSearchPresenter;
-import backend.service.delete_cookbook.DeleteCookbookDAI;
 import backend.service.search_recipes.EdamamAPI.EdamamCaller;
 import backend.service.search_recipes.EdamamAPI.EdamamURLGenerator;
 import backend.service.search_recipes.EdamamAPI.JsonRecipeGenerator;
 import backend.service.search_recipes.application_business_rules.SearchInteractor;
 import backend.service.search_recipes.interface_adapters.SearchController;
 import backend.service.search_recipes.interface_adapters.SearchPresenter;
-import backend.service.view_cookbook.ViewCookbookDAI;
-import data_access.AddCookbookDAO;
-import data_access.DeleteCookbookDAO;
-import data_access.ViewCookbookDAO;
 import org.junit.Test;
-import view.usecase_views.CookbookListView;
-import view.usecase_views.MainMenuView;
 import view.view_managers.ViewManager;
 import view.view_managers.ViewManagerModel;
 import view.view_models.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SearchRecipeTest {
     private static SearchController setUp() {
