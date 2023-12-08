@@ -30,7 +30,7 @@ public class OpenCookbookViewBuilder {
                                           CookbookListViewModel cookbookListViewModel, MainMenuViewModel mainMenuViewModel,
                                           SeeListCookbooksDAI viewCookbookDAO, DeleteRecipeDAI deleteRecipeDAO,ViewRecipeDAI viewRecipeDAO){
         DeleteRecipeController deleteRecipeController =
-                OpenCookbookViewBuilder.createDeleteRecipeUseCase(viewManagerModel, openCookbookViewModel, deleteRecipeDAO, viewRecipeDAO);
+                OpenCookbookViewBuilder.createDeleteRecipeUseCase(openCookbookViewModel, deleteRecipeDAO, viewRecipeDAO);
         SeeListCookbooksController seeListCookbooksController =
                 OpenCookbookViewBuilder.createSeeListCookbooksUseCase(viewManagerModel, cookbookListViewModel, viewCookbookDAO);
         BackToMenuController backToMenuController =
@@ -39,11 +39,10 @@ public class OpenCookbookViewBuilder {
         return new OpenCookbookView(openCookbookViewModel, seeListCookbooksController, deleteRecipeController, backToMenuController);
     }
 
-    private static DeleteRecipeController createDeleteRecipeUseCase(ViewManagerModel viewManagerModel,
-                                                                    OpenCookbookViewModel openCookbookViewModel,
+    private static DeleteRecipeController createDeleteRecipeUseCase(OpenCookbookViewModel openCookbookViewModel,
                                                                     DeleteRecipeDAI deleteRecipeDAO,
                                                                     ViewRecipeDAI viewRecipeDAO) {
-        DeleteRecipePresenter deleteCookbookPresenter = new DeleteRecipePresenter(viewManagerModel, openCookbookViewModel);
+        DeleteRecipePresenter deleteCookbookPresenter = new DeleteRecipePresenter(openCookbookViewModel);
         DeleteRecipeInteractor deleteRecipeInteractor = new DeleteRecipeInteractor(deleteRecipeDAO, viewRecipeDAO, deleteCookbookPresenter);
         return new DeleteRecipeController(deleteRecipeInteractor);
     }

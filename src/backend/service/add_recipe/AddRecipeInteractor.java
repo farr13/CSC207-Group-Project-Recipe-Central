@@ -5,8 +5,7 @@ import backend.adapters.TripletsToRecipes;
 public class AddRecipeInteractor implements AddRecipeInputBoundary{
     private final AddRecipeOutputBoundary addRecipePresenter;
     private final AddRecipeDAI addRecipeDAO;
-
-    public AddRecipeInteractor(AddRecipeDAI addRecipeDAO, AddRecipeOutputBoundary addRecipeOutputBoundary){
+    public AddRecipeInteractor(AddRecipeDAI addRecipeDAO, AddRecipeOutputBoundary addRecipeOutputBoundary) {
         this.addRecipeDAO = addRecipeDAO;
         this.addRecipePresenter = addRecipeOutputBoundary;
     }

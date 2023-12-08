@@ -1,12 +1,7 @@
 package backend.service.go_add_recipe;
 
 import backend.adapters.TripletsToRecipeBlocks;
-import view.recipe_objects.Triplet;
-import view.states.AddCookbookState;
 import view.states.AddRecipeState;
-import view.states.CookbookListState;
-import view.states.SearchResultState;
-import view.usecase_views.SearchResultView;
 import view.view_managers.ViewManagerModel;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
@@ -23,7 +18,6 @@ public class GoAddRecipePresenter implements GoAddRecipeOutputBoundary {
         this.addRecipeViewModel = addRecipeViewModel;
         this.searchResultViewModel = searchResultViewModel;
     }
-
     @Override
     public void prepareSuccessView(GoAddRecipeOutputData goAddRecipeOutputData) {
         AddRecipeState addRecipeState = addRecipeViewModel.getState();
@@ -35,10 +29,8 @@ public class GoAddRecipePresenter implements GoAddRecipeOutputBoundary {
         viewManagerModel.setActiveView(addRecipeViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
-
     @Override
-    public void prepareFailView(String error) {
-        SearchResultState searchResultView = searchResultViewModel.getState();
+    public void prepareFailView() {
         searchResultViewModel.firePropertyChanged();
     }
 }

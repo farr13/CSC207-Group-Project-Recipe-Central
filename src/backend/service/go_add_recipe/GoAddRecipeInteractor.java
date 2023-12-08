@@ -14,12 +14,11 @@ public class GoAddRecipeInteractor implements GoAddRecipeInputBoundary {
         this.seeListCookbooksDAO = seeListCookbooksDAO;
     }
     private String[] getCookbookNames(Cookbook[] cookbooks){
-        ArrayList<String> cookbookNames = new ArrayList<String>();
+        ArrayList<String> cookbookNames = new ArrayList<>();
         for (Cookbook cookbook: cookbooks)
             cookbookNames.add(cookbook.getName());
         return cookbookNames.toArray(new String[0]);
     }
-
     @Override
     public void execute(GoAddRecipeInputData goAddRecipeInputData) {
         try {
@@ -30,7 +29,7 @@ public class GoAddRecipeInteractor implements GoAddRecipeInputBoundary {
             else
                 throw new Exception();
         } catch (Exception e) {
-            goAddCookbookPresenter.prepareFailView("Cannot add recipes.");
+            goAddCookbookPresenter.prepareFailView(); //Cannot add recipes
         }
     }
 }
