@@ -1,9 +1,6 @@
 package backend.service.add_recipe;
 
-
-import view.states.AddCookbookState;
 import view.states.AddRecipeState;
-import view.states.CookbookListState;
 import view.states.SearchResultState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.AddRecipeViewModel;
@@ -22,7 +19,7 @@ public class AddRecipePresenter implements AddRecipeOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(AddRecipeOutputData addRecipeOutputData) {
+    public void prepareSuccessView() {
         SearchResultState searchResultState = searchResultViewModel.getState();
         searchResultViewModel.setState(searchResultState);
         searchResultViewModel.firePropertyChanged();
@@ -32,8 +29,7 @@ public class AddRecipePresenter implements AddRecipeOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String error) {
-        AddRecipeState addRecipeState = addRecipeViewModel.getState();
+    public void prepareFailView() {
         addRecipeViewModel.firePropertyChanged();
     }
 }
