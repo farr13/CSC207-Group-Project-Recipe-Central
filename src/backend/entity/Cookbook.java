@@ -2,21 +2,30 @@ package backend.entity;
 
 import java.util.*;
 
-public class Cookbook implements Iterable<Recipe>{
+@SuppressWarnings("ClassCanBeRecord")
+public class Cookbook implements Iterable<Recipe> {
     private final String name;
     private final Recipe[] recipes;
-
-    public Cookbook(String name, Recipe[] recipes){
+    /** Initializes a new Cookbook Object.
+     * @param name name of this recipe
+     * @param recipes list containing the recipes in this cookbook */
+    public Cookbook(String name, Recipe[] recipes) {
         this.name = name;
         this.recipes = recipes;
     }
-
+    /** Returns the name of this Cookbook Object.
+     * @return String */
     public String getName() {
         return name;
     }
+    /** Returns the list of recipes in this Cookbook Object.
+     * @return Recipe[] */
     public Recipe[] getRecipes() {
         return recipes;
     }
+    /** Checks if an input object is the same as this Cookbook Object.
+     * @param o Object
+     * @return boolean */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Cookbook){
@@ -27,12 +36,14 @@ public class Cookbook implements Iterable<Recipe>{
         }
         return false;
     }
+
+    /** Generates a Java iterator for indexing over recipes in the Cookbook Object.
+     * @return Iterator</Recipe> */
     @Override
     public Iterator<Recipe> iterator() {
         return new CookbookItr();
     }
-
-    private class CookbookItr implements Iterator<Recipe>{
+    private class CookbookItr implements Iterator<Recipe> {
         private int currIndex;
         @Override
         public boolean hasNext() {
