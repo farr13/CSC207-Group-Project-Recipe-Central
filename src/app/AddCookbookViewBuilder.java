@@ -17,8 +17,7 @@ public class AddCookbookViewBuilder {
      * @param addCookbookViewModel
      * @param addCookbookDAO
      * @param seeListCookbooksDAO
-     * @return
-     */
+     * @return An object of AddCookbookView type. */
     @SuppressWarnings("JavadocDeclaration")
     public static AddCookbookView create(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
                                           AddCookbookViewModel addCookbookViewModel, MakeCookbookAddDAI addCookbookDAO,

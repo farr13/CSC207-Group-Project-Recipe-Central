@@ -23,8 +23,7 @@ public class OpenCookbookViewBuilder {
      * @param viewCookbookDAO
      * @param deleteRecipeDAO
      * @param viewRecipeDAO
-     * @return An object of the OpenCookbookView type
-     */
+     * @return An object of the OpenCookbookView type. */
     @SuppressWarnings("JavadocDeclaration")
     public static OpenCookbookView create(ViewManagerModel viewManagerModel, OpenCookbookViewModel openCookbookViewModel,
                                           CookbookListViewModel cookbookListViewModel, MainMenuViewModel mainMenuViewModel,

@@ -15,8 +15,7 @@ public class AddRecipeViewBuilder {
      * @param addRecipeViewModel
      * @param searchResultViewModel
      * @param addRecipeDAO
-     * @return
-     */
+     * @return An object of AddRecipeView type */
     @SuppressWarnings("JavadocDeclaration")
     public static AddRecipeView create(ViewManagerModel viewManagerModel, AddRecipeViewModel addRecipeViewModel,
                                        SearchResultViewModel searchResultViewModel,

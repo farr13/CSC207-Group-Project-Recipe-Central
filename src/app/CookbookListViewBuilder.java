@@ -23,8 +23,6 @@ import view.view_models.MainMenuViewModel;
 import view.view_models.OpenCookbookViewModel;
 
 public class CookbookListViewBuilder {
-    private CookbookListViewBuilder(){}
-
     /** Takes the respective view models and data access objects to return a view for the Cookbook List Panel.
      * @param viewManagerModel
      * @param mainMenuViewModel
@@ -33,8 +31,7 @@ public class CookbookListViewBuilder {
      * @param addCookbookViewModel
      * @param viewCookbookDAO
      * @param deleteCookbookDAO
-     * @return An object of type CookbookListView
-     */
+     * @return An object of type CookbookListView */
     @SuppressWarnings("JavadocDeclaration")
     public static CookbookListView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel,
                                           CookbookListViewModel cookbookListViewModel, OpenCookbookViewModel openCookbookViewModel,

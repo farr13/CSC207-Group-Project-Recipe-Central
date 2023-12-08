@@ -21,8 +21,7 @@ public class SearchResultsViewBuilder {
      * @param mainMenuViewModel
      * @param viewManagerModel
      * @param seeListCookbooksDAO
-     * @return An object of the SearchResultView type
-     */
+     * @return An object of the SearchResultView type. */
     @SuppressWarnings("JavadocDeclaration")
     public static SearchResultView create(SearchResultViewModel searchResultViewModel,
                                           AddRecipeViewModel addRecipeViewModel,

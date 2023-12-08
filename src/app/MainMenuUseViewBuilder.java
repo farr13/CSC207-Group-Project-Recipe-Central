@@ -17,16 +17,13 @@ import view.view_models.MainMenuViewModel;
 import view.view_models.SearchResultViewModel;
 
 public class MainMenuUseViewBuilder {
-    private MainMenuUseViewBuilder(){}
-
     /**Takes in the respective view models and data access objects for search and returns a view for the Main Menu Panel.
      * @param viewManagerModel
      * @param mainMenuViewModel
      * @param searchResultViewModel
      * @param cookbookListViewModel
      * @param seeListCookbooksDAO
-     * @return An object of the MainMenuView type
-     */
+     * @return An object of the MainMenuView type. */
     @SuppressWarnings("JavadocDeclaration")
     public static MainMenuView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel, SearchResultViewModel searchResultViewModel,
                                       CookbookListViewModel cookbookListViewModel, SeeListCookbooksDAI seeListCookbooksDAO) {
