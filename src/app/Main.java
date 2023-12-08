@@ -44,25 +44,25 @@ public class Main {
         AddCookbookViewModel addCookbookViewModel = new AddCookbookViewModel();
 
         //Making Views
-        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(
+        MainMenuView mainMenuView = MainMenuUseViewBuilder.create(
                 viewManagerModel, mainMenuViewModel,
                 searchResultViewModel, cookbookListViewModel,
                 viewCookbookDAO);
         view.add(mainMenuView, mainMenuView.viewName);
 
-        CookbookListView cookbookListView = CookbookListUseCaseFactory.create(
+        CookbookListView cookbookListView = CookbookListViewBuilder.create(
                 viewManagerModel, mainMenuViewModel,
                 cookbookListViewModel, openCookbookViewModel, addCookbookViewModel,
                 viewCookbookDAO, deleteCookbookDAO);
         view.add(cookbookListView, cookbookListView.viewName);
 
-        OpenCookbookView openCookbookView = OpenCookbookViewUseCaseFactory.create(
+        OpenCookbookView openCookbookView = OpenCookbookViewBuilder.create(
                 viewManagerModel, openCookbookViewModel,
                 cookbookListViewModel, mainMenuViewModel,
                 viewCookbookDAO, deleteRecipeDAO, viewRecipeDAO);
         view.add(openCookbookView, openCookbookView.viewName);
 
-        SearchResultView searchResultsView = SearchResultUseCaseFactory.create
+        SearchResultView searchResultsView = SearchResultsViewBuilder.create
                 (searchResultViewModel,
                         addRecipeViewModel,
                         mainMenuViewModel,
@@ -70,7 +70,7 @@ public class Main {
                         viewCookbookDAO);
         view.add(searchResultsView, searchResultsView.viewName);
 
-        AddCookbookView addCookbookView = AddCookbookUseCaseFactory.create(
+        AddCookbookView addCookbookView = AddCookbookViewBuilder.create(
                 viewManagerModel,
                 cookbookListViewModel,
                 addCookbookViewModel,
@@ -78,7 +78,7 @@ public class Main {
                 viewCookbookDAO);
         view.add(addCookbookView, addCookbookView.viewName);
 
-        AddRecipeView addRecipeView = AddRecipeUseCaseFactory.create(
+        AddRecipeView addRecipeView = AddRecipeViewBuilder.create(
                 viewManagerModel,
                 addRecipeViewModel,
                 searchResultViewModel,

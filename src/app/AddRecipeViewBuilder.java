@@ -9,15 +9,22 @@ import view.view_managers.ViewManagerModel;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 
-public class AddRecipeUseCaseFactory {
-    public AddRecipeUseCaseFactory() {}
+public class AddRecipeViewBuilder {
+    /** Takes in the respective view models and data access objects to return a view for the Add Recipe Panel.
+     * @param viewManagerModel
+     * @param addRecipeViewModel
+     * @param searchResultViewModel
+     * @param addRecipeDAO
+     * @return
+     */
+    @SuppressWarnings("JavadocDeclaration")
     public static AddRecipeView create(ViewManagerModel viewManagerModel, AddRecipeViewModel addRecipeViewModel,
                                        SearchResultViewModel searchResultViewModel,
                                        AddRecipeDAI addRecipeDAO) {
-        BackToSearchController backToSearchController = AddRecipeUseCaseFactory.createBackToSearchUseCase(viewManagerModel,
-                searchResultViewModel);
-        AddRecipeController addRecipeController = AddRecipeUseCaseFactory.createAddRecipeUseCase(viewManagerModel,
-                addRecipeViewModel, searchResultViewModel, addRecipeDAO);
+        BackToSearchController backToSearchController =
+                AddRecipeViewBuilder.createBackToSearchUseCase(viewManagerModel, searchResultViewModel);
+        AddRecipeController addRecipeController =
+                AddRecipeViewBuilder.createAddRecipeUseCase(viewManagerModel, addRecipeViewModel, searchResultViewModel, addRecipeDAO);
 
         return new AddRecipeView(viewManagerModel, addRecipeViewModel, addRecipeController, backToSearchController);
     }

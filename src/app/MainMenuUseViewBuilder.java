@@ -16,20 +16,32 @@ import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 import view.view_models.SearchResultViewModel;
 
-public class MainMenuUseCaseFactory {
-    private MainMenuUseCaseFactory(){}
+public class MainMenuUseViewBuilder {
+    private MainMenuUseViewBuilder(){}
 
+    /**Takes in the respective view models and data access objects for search and returns a view for the Main Menu Panel.
+     * @param viewManagerModel
+     * @param mainMenuViewModel
+     * @param searchResultViewModel
+     * @param cookbookListViewModel
+     * @param seeListCookbooksDAO
+     * @return An object of the MainMenuView type
+     */
+    @SuppressWarnings("JavadocDeclaration")
     public static MainMenuView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel, SearchResultViewModel searchResultViewModel,
                                       CookbookListViewModel cookbookListViewModel, SeeListCookbooksDAI seeListCookbooksDAO) {
-        SearchController searchController = MainMenuUseCaseFactory.createSearchUseCase(viewManagerModel, searchResultViewModel);
-        SeeListCookbooksController seeListCookbooksController = MainMenuUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel, cookbookListViewModel,seeListCookbooksDAO);
+        SearchController searchController =
+                MainMenuUseViewBuilder.createSearchUseCase(viewManagerModel, searchResultViewModel);
+        SeeListCookbooksController seeListCookbooksController =
+                MainMenuUseViewBuilder.createSeeListCookbooksUseCase(viewManagerModel, cookbookListViewModel,seeListCookbooksDAO);
+
         return new MainMenuView(mainMenuViewModel, searchController, seeListCookbooksController);
     }
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchResultViewModel searchResultViewModel){
         SearchPresenter searchPresenter = new SearchPresenter(viewManagerModel, searchResultViewModel);
-        EdamamCaller edamamCaller = new EdamamCaller();
         EdamamURLGenerator edamamURLGenerator = new EdamamURLGenerator("ebc53afb", "16c8dd744237d5c5cc0ca9b3b5a5f6eb");
         JsonRecipeGenerator jsonRecipeGenerator = new JsonRecipeGenerator();
+        EdamamCaller edamamCaller = new EdamamCaller();
         SearchInteractor searchInteractor = new SearchInteractor(edamamCaller, edamamURLGenerator, jsonRecipeGenerator, searchPresenter);
         return new SearchController(searchInteractor);
     }
@@ -37,8 +49,7 @@ public class MainMenuUseCaseFactory {
                                                                             CookbookListViewModel cookbookListViewModel,
                                                                             SeeListCookbooksDAI seeListCookbooksDAO) {
         SeeListCookbooksPresenter seeListCookbooksPresenter = new SeeListCookbooksPresenter(viewManagerModel, cookbookListViewModel);
-        SeeListCookbooksInteractor seeListCookbooksInteractor = new SeeListCookbooksInteractor(seeListCookbooksDAO,
-                seeListCookbooksPresenter);
+        SeeListCookbooksInteractor seeListCookbooksInteractor = new SeeListCookbooksInteractor(seeListCookbooksDAO, seeListCookbooksPresenter);
         return new SeeListCookbooksController(seeListCookbooksInteractor);
     }
 }
