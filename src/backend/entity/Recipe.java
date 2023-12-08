@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/** Recipe class, an entity which represents recipes that are stored in cookbooks. They have a name,
+ * an instruction link, and a list of ingredient objects that represent each recipe. */
 public class Recipe {
     private final String name;
     private final Ingredient[] ingredients;

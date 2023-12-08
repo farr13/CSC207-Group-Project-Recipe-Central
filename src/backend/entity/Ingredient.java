@@ -2,6 +2,8 @@ package backend.entity;
 
 import java.util.Objects;
 
+/** Ingredient class, an entity which represents ingredients that are used in recipes.
+ * Current implementation purely uses a text description to obtain name, link and ingredients for the views. */
 @SuppressWarnings("ClassCanBeRecord")
 public class Ingredient{
     private final String textDescription;

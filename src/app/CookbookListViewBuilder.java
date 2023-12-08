@@ -22,6 +22,7 @@ import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 import view.view_models.OpenCookbookViewModel;
 
+/** Builder class for building a view of CookbookListView type from the view models and data access objects for use cases.*/
 public class CookbookListViewBuilder {
     /** Takes the respective view models and data access objects to return a view for the Cookbook List Panel.
      * @param viewManagerModel

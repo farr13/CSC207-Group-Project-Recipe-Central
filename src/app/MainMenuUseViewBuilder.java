@@ -16,6 +16,7 @@ import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 import view.view_models.SearchResultViewModel;
 
+/** Builder class for building a view of MainMenuView type from the view models and data access objects for use cases.*/
 public class MainMenuUseViewBuilder {
     /**Takes in the respective view models and data access objects for search and returns a view for the Main Menu Panel.
      * @param viewManagerModel

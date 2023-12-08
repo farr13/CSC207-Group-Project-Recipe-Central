@@ -13,7 +13,7 @@ import view.view_models.AddRecipeViewModel;
 import view.view_models.MainMenuViewModel;
 import view.view_models.SearchResultViewModel;
 
-
+/** Builder class for building a view of SearchResultsView type from the view models and data access objects for use cases.*/
 public class SearchResultsViewBuilder {
     /** Takes in the respective view models and data access objects for search and returns a view for the Search Results Panel.
      * @param searchResultViewModel

@@ -2,6 +2,8 @@ package backend.entity;
 
 import java.util.*;
 
+/** Cookbook class, an entity which represents cookbooks that store recipes. They have a name,
+ * and a list of recipe objects that are stored in them. */
 @SuppressWarnings("ClassCanBeRecord")
 public class Cookbook implements Iterable<Recipe> {
     private final String name;

@@ -9,6 +9,7 @@ import view.view_managers.ViewManagerModel;
 import view.view_models.AddRecipeViewModel;
 import view.view_models.SearchResultViewModel;
 
+/** Builder class for building a view of AddRecipeView type from the view models and data access objects for use cases.*/
 public class AddRecipeViewBuilder {
     /** Takes in the respective view models and data access objects to return a view for the Add Recipe Panel.
      * @param viewManagerModel
