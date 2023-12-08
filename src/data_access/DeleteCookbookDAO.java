@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class DeleteCookbookDAO implements DeleteCookbookDAI {
     private ArrayList<Cookbook> cookbooks;
-    private File file;
+    private final File file;
 
     public DeleteCookbookDAO(String fileName){
         file = new File(fileName);

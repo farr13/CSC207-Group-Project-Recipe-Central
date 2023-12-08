@@ -2,11 +2,7 @@ package backend.service.delete_recipe;
 
 import backend.adapters.RecipesToTriplets;
 import backend.adapters.TripletsToRecipes;
-import backend.entity.Ingredient;
-import backend.entity.Recipe;
 import view.recipe_objects.Triplet;
-
-import java.util.ArrayList;
 
 public class DeleteRecipeInteractor implements DeleteRecipeInputBoundary {
     private final DeleteRecipeDAI deleteRecipeDAO;
@@ -29,7 +25,7 @@ public class DeleteRecipeInteractor implements DeleteRecipeInputBoundary {
 
             deleteRecipePresenter.prepareSuccessView(deleteRecipeOutputData);
         } catch (Exception e) {
-            deleteRecipePresenter.prepareFailView("Could not delete cookbook.");
+            deleteRecipePresenter.prepareFailView(); //Could not delete cookbook
         }
     }
 }

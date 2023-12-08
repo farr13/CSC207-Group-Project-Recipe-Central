@@ -2,24 +2,15 @@ package backend.service.view_cookbook;
 
 import backend.adapters.RecipesToTriplets;
 import backend.entity.Cookbook;
-import backend.entity.Ingredient;
-import backend.entity.Recipe;
-import view.recipe_objects.Triplet;
-
-import java.util.ArrayList;
 
 public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
-
     final ViewCookbookDAI viewCookbookDAO;
-
     final ViewCookbookOutputBoundary viewCookbookPresenter;
-
     public ViewCookbookInteractor(ViewCookbookDAI viewCookbookDAO,
                                   ViewCookbookOutputBoundary viewCookbookPresenter) {
         this.viewCookbookDAO = viewCookbookDAO;
         this.viewCookbookPresenter = viewCookbookPresenter;
     }
-
     @Override
     public void execute(ViewCookbookInputData viewCookbookInputData) {
         ViewCookbookOutputData viewCookbookOutputData;
@@ -29,7 +20,7 @@ public class ViewCookbookInteractor implements ViewCookbookInputBoundary {
 
             viewCookbookPresenter.prepareSuccessView(viewCookbookOutputData);
         } catch (Exception e) {
-            viewCookbookPresenter.prepareFailView("Could not retrieve cookbooks.");
+            viewCookbookPresenter.prepareFailView(); //Could not retrieve cookbooks.
         }
     }
 }

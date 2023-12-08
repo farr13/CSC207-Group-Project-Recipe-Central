@@ -28,9 +28,9 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     private final JTextField searchInputField = new JTextField(30);
     private final JButton search;
     private final JButton viewCookbooks;
-    private DefaultListModel<String> filter1Lst = new DefaultListModel<>();
-    private DefaultListModel<String> filter2Lst = new DefaultListModel<>();
-    private DefaultListModel<String> filter3Lst = new DefaultListModel<>();
+    private final DefaultListModel<String> filter1Lst = new DefaultListModel<>();
+    private final DefaultListModel<String> filter2Lst = new DefaultListModel<>();
+    private final DefaultListModel<String> filter3Lst = new DefaultListModel<>();
 
     public MainMenuView(MainMenuViewModel mainMenuViewModel, SearchController searchController,
                         SeeListCookbooksController seeListCookbooksController) {
@@ -129,7 +129,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        MainMenuState state = (MainMenuState) evt.getNewValue();
         searchInputField.setText("");
         filter1Lst.clear();
         filter1Lst.addAll(Arrays.asList(MainMenuViewModel.FILTER_1_OPTIONS));

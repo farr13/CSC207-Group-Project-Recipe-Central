@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class AddRecipeDAO implements AddRecipeDAI {
     private ArrayList<Cookbook> cookbooks;
-    private File file;
+    private final File file;
 
     public AddRecipeDAO(String fileName){
         file = new File(fileName);

@@ -10,16 +10,24 @@ import view.view_managers.ViewManagerModel;
 import view.view_models.AddCookbookViewModel;
 import view.view_models.CookbookListViewModel;
 
-public class AddCookbookUseCaseFactory {
-    private AddCookbookUseCaseFactory(){}
-
+/** Builder class for building a view of AddCookbookView type from the view models and data access objects for use cases.*/
+public class AddCookbookViewBuilder {
+    /** Take in the respective view models & data access objects to return a view for the Add Cookbook panel.
+     * @param viewManagerModel
+     * @param cookbookListViewModel
+     * @param addCookbookViewModel
+     * @param addCookbookDAO
+     * @param seeListCookbooksDAO
+     * @return An object of AddCookbookView type. */
+    @SuppressWarnings("JavadocDeclaration")
     public static AddCookbookView create(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
                                           AddCookbookViewModel addCookbookViewModel, MakeCookbookAddDAI addCookbookDAO,
                                           SeeListCookbooksDAI seeListCookbooksDAO){
-        MakeCookbookController makeCookbookController = AddCookbookUseCaseFactory.createMakeCookbookUseCase(viewManagerModel,
-                cookbookListViewModel, addCookbookViewModel, addCookbookDAO, seeListCookbooksDAO);
-        SeeListCookbooksController seeListCookbooksController = AddCookbookUseCaseFactory.createSeeListCookbooksUseCase(viewManagerModel,
-                cookbookListViewModel, seeListCookbooksDAO);
+        MakeCookbookController makeCookbookController =
+                AddCookbookViewBuilder.createMakeCookbookUseCase(viewManagerModel, cookbookListViewModel, addCookbookViewModel, addCookbookDAO, seeListCookbooksDAO);
+        SeeListCookbooksController seeListCookbooksController =
+                AddCookbookViewBuilder.createSeeListCookbooksUseCase(viewManagerModel, cookbookListViewModel, seeListCookbooksDAO);
+
         return new AddCookbookView(viewManagerModel, addCookbookViewModel, makeCookbookController, seeListCookbooksController);
     }
 

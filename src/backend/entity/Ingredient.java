@@ -2,51 +2,50 @@ package backend.entity;
 
 import java.util.Objects;
 
+/** Ingredient class, an entity which represents ingredients that are used in recipes.
+ * Current implementation purely uses a text description to obtain name, link and ingredients for the views. */
+@SuppressWarnings("ClassCanBeRecord")
 public class Ingredient{
-    private String name;
-    private String measureType; //Quantity could be count, cups, tsp, lbs, ... etc.
-    private double quantity;
-    private String textDescription;
-
-    public Ingredient(String name, String measureType, double quantity){
-        this.name = name;
-        this.measureType = measureType;
-        this.quantity = quantity;
-    }
-    public Ingredient(String textDescription){
+    private final String textDescription;
+    /** Initializes a new Ingredient Object.
+     * @param textDescription a text description of this ingredient */
+    public Ingredient(String textDescription) {
         this.textDescription = textDescription;
     }
     @Override
-    public boolean equals(Object o){
-        if (o instanceof Ingredient){
+    public boolean equals(Object o) {
+        if (o instanceof Ingredient) {
             return Objects.equals(textDescription, ((Ingredient) o).textDescription);
-        }
-        return false;
+        } return false;
     }
-
-    public String getName(){
-        return name;
-    }
-
-    public String getMeasureType(){
-        return measureType;
-    }
-    public double getQuantity(){
-        return quantity;
-    }
-    public String giveAmount(){
-        if (measureType.equals("<unit>"))
-            return Double.toString(quantity); // removes count from output
-        return Double.toString(quantity) + " " + measureType;
-    }
-
-    public String giveNameAmount(){
-        if (measureType.equals("<unit>"))
-            return name + " " + Double.toString(quantity); // removes count from output
-        return name + " " + Double.toString(quantity) + " " + measureType;
-    }
-
     public String getTextDescription() {
         return textDescription;
     }
 }
+
+// Unused code fragments
+//    public Ingredient(String name, String measureType, double quantity){
+//        this.name = name;
+//        this.measureType = measureType;
+//        this.quantity = quantity;
+//    }
+//    public String getName(){
+//        return name;
+//    }
+//    public String getMeasureType(){
+//        return measureType;
+//    }
+//    public double getQuantity(){
+//        return quantity;
+//    }
+//    public String giveAmount(){
+//        if (measureType.equals("<unit>"))
+//            return Double.toString(quantity); // removes count from output
+//        return Double.toString(quantity) + " " + measureType;
+//    }
+//
+//    public String giveNameAmount(){
+//        if (measureType.equals("<unit>"))
+//            return name + " " + Double.toString(quantity); // removes count from output
+//        return name + " " + Double.toString(quantity) + " " + measureType;
+//    }

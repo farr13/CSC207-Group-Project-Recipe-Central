@@ -1,6 +1,5 @@
 package backend.service.make_cookbook;
 
-import backend.entity.Cookbook;
 import view.states.AddCookbookState;
 import view.states.CookbookListState;
 import view.view_managers.ViewManagerModel;
@@ -30,9 +29,8 @@ public class MakeCookbookPresenter implements MakeCookbookOutputBoundary {
         this.viewManagerModel.setActiveView(cookbookListViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
-
     @Override
-    public void prepareFailView(String error) {
+    public void prepareFailView() {
         AddCookbookState addCookbookState = addCookbookViewModel.getState();
         addCookbookState.setErrorMessage("Invalid Name");
         addCookbookViewModel.firePropertyChanged();

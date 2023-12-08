@@ -22,17 +22,26 @@ import view.view_models.CookbookListViewModel;
 import view.view_models.MainMenuViewModel;
 import view.view_models.OpenCookbookViewModel;
 
-public class CookbookListUseCaseFactory {
-    private CookbookListUseCaseFactory(){}
-
+/** Builder class for building a view of CookbookListView type from the view models and data access objects for use cases.*/
+public class CookbookListViewBuilder {
+    /** Takes the respective view models and data access objects to return a view for the Cookbook List Panel.
+     * @param viewManagerModel
+     * @param mainMenuViewModel
+     * @param cookbookListViewModel
+     * @param openCookbookViewModel
+     * @param addCookbookViewModel
+     * @param viewCookbookDAO
+     * @param deleteCookbookDAO
+     * @return An object of type CookbookListView */
+    @SuppressWarnings("JavadocDeclaration")
     public static CookbookListView create(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel,
                                           CookbookListViewModel cookbookListViewModel, OpenCookbookViewModel openCookbookViewModel,
                                           AddCookbookViewModel addCookbookViewModel,
                                           ViewCookbookDAI viewCookbookDAO, DeleteCookbookDAI deleteCookbookDAO){
-        ViewCookbookController viewCookbookController = CookbookListUseCaseFactory.createViewCookbookUseCase(viewManagerModel, cookbookListViewModel, openCookbookViewModel, viewCookbookDAO);
-        DeleteCookbookController deleteCookbookController = CookbookListUseCaseFactory.createDeleteCookbookUseCase(viewManagerModel, cookbookListViewModel, deleteCookbookDAO, (SeeListCookbooksDAI) viewCookbookDAO);
-        BackToMenuController backToMenuController = CookbookListUseCaseFactory.createBackToMenuUseCase(viewManagerModel, mainMenuViewModel);
-        GoAddCookbookController goAddCookbookController = CookbookListUseCaseFactory.createGoAddCookbookUseCase(viewManagerModel, addCookbookViewModel);
+        ViewCookbookController viewCookbookController = CookbookListViewBuilder.createViewCookbookUseCase(viewManagerModel, cookbookListViewModel, openCookbookViewModel, viewCookbookDAO);
+        DeleteCookbookController deleteCookbookController = CookbookListViewBuilder.createDeleteCookbookUseCase(cookbookListViewModel, deleteCookbookDAO, (SeeListCookbooksDAI) viewCookbookDAO);
+        BackToMenuController backToMenuController = CookbookListViewBuilder.createBackToMenuUseCase(viewManagerModel, mainMenuViewModel);
+        GoAddCookbookController goAddCookbookController = CookbookListViewBuilder.createGoAddCookbookUseCase(viewManagerModel, addCookbookViewModel);
         return new CookbookListView(cookbookListViewModel, viewCookbookController, deleteCookbookController, backToMenuController, goAddCookbookController);
     }
     private static ViewCookbookController createViewCookbookUseCase(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel,
@@ -41,11 +50,10 @@ public class CookbookListUseCaseFactory {
         ViewCookbookInteractor viewCookbookInteractor = new ViewCookbookInteractor(viewCookbookDAO, viewCookbookPresenter);
         return new ViewCookbookController(viewCookbookInteractor);
     }
-    private static DeleteCookbookController createDeleteCookbookUseCase(ViewManagerModel viewManagerModel,
-                                                                        CookbookListViewModel cookbookListViewModel,
+    private static DeleteCookbookController createDeleteCookbookUseCase(CookbookListViewModel cookbookListViewModel,
                                                                         DeleteCookbookDAI deleteCookbookDAO,
                                                                         SeeListCookbooksDAI viewCookbookDAO){
-        DeleteCookbookPresenter deleteCookbookPresenter = new DeleteCookbookPresenter(viewManagerModel, cookbookListViewModel);
+        DeleteCookbookPresenter deleteCookbookPresenter = new DeleteCookbookPresenter(cookbookListViewModel);
         DeleteCookbookInteractor deleteCookbookInteractor = new DeleteCookbookInteractor(deleteCookbookDAO, viewCookbookDAO,
                 deleteCookbookPresenter);
         return new DeleteCookbookController(deleteCookbookInteractor);

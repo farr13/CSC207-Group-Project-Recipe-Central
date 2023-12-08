@@ -1,6 +1,5 @@
 package backend.service.back_to_menu;
 
-import app.Main;
 import view.states.MainMenuState;
 import view.view_managers.ViewManagerModel;
 import view.view_models.MainMenuViewModel;

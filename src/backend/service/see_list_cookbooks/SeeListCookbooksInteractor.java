@@ -22,14 +22,13 @@ public class SeeListCookbooksInteractor implements SeeListCookbooksInputBoundary
     }
 
     @Override
-    public void execute(SeeListCookbooksInputData seeListCookbooksInputData) {
+    public void execute() {
         try {
             Cookbook[] cookbooks = seeListCookbooksDAO.viewCookbooks();
             SeeListCookbooksOutputData seeListCookbooksOutputData = new SeeListCookbooksOutputData(getCookbookNames(cookbooks));
             seeListCookbooksPresenter.prepareSuccessView(seeListCookbooksOutputData);
         } catch (Exception e) {
-            e.printStackTrace();
-            seeListCookbooksPresenter.prepareFailView("Could not get cookbooks.");
+            seeListCookbooksPresenter.prepareFailView(); //Could not get cookbooks.
         }
     }
 }

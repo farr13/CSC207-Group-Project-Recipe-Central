@@ -1,7 +1,5 @@
 package view.recipe_objects;
 
-import view.view_models.MainMenuViewModel;
-
 import javax.swing.*;
 
 public class JRecipePanel extends JPanel {

@@ -1,6 +1,5 @@
 package view.usecase_views;
 
-import backend.entity.Recipe;
 import backend.service.back_to_menu.BackToMenuController;
 import backend.service.delete_cookbook.DeleteCookbookController;
 import backend.service.go_add_cookbook.GoAddCookbookController;
@@ -109,12 +108,6 @@ public class CookbookListView extends JPanel implements ActionListener, Property
         this.add(scrollPane);
         this.add(cookbookEditButtons);
         this.add(navigationButtons);
-    }
-    private static void createCheckBoxes(JPanel panel, String[] options) {
-        for (String option : options) {
-            JCheckBox checkBox = new JCheckBox(option);
-            panel.add(checkBox);
-        }
     }
     @Override
     public void actionPerformed(ActionEvent evt) {

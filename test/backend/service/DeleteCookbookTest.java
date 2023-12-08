@@ -1,8 +1,5 @@
 package backend.service;
 
-import backend.service.add_recipe.AddRecipeController;
-import backend.service.add_recipe.AddRecipeInteractor;
-import backend.service.add_recipe.AddRecipePresenter;
 import backend.service.delete_cookbook.DeleteCookbookController;
 import backend.service.delete_cookbook.DeleteCookbookInteractor;
 import backend.service.delete_cookbook.DeleteCookbookPresenter;
@@ -28,21 +25,12 @@ public class DeleteCookbookTest {
         frame.add(view, BorderLayout.CENTER);
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(view, cardLayout, viewManagerModel);
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         CookbookListViewModel cookbookListViewModel = new CookbookListViewModel();
-        OpenCookbookViewModel openCookbookViewModel = new OpenCookbookViewModel();
-        SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
-        AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
-        AddCookbookViewModel addCookbookViewModel = new AddCookbookViewModel();
 
-        AddCookbookDAO addCookbookDAO = new AddCookbookDAO("test.json");
-        AddRecipeDAO addRecipeDAO = new AddRecipeDAO("test.json");
         DeleteCookbookDAO deleteCookbookDAO = new DeleteCookbookDAO("test.json");
-        DeleteRecipeDAO deleteRecipeDAO = new DeleteRecipeDAO("test.json");
         ViewCookbookDAO viewCookbookDAO = new ViewCookbookDAO("test.json");
-        ViewRecipeDAO viewRecipeDAO = new ViewRecipeDAO("test.json");
 
-        DeleteCookbookPresenter deleteCookbookPresenter = new DeleteCookbookPresenter(viewManagerModel, cookbookListViewModel);
+        DeleteCookbookPresenter deleteCookbookPresenter = new DeleteCookbookPresenter(cookbookListViewModel);
         DeleteCookbookInteractor deleteCookbookInteractor = new DeleteCookbookInteractor(deleteCookbookDAO, viewCookbookDAO,
                 deleteCookbookPresenter);
         return new DeleteCookbookController(deleteCookbookInteractor);

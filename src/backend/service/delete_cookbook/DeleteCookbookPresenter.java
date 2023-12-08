@@ -1,19 +1,12 @@
 package backend.service.delete_cookbook;
 
-import backend.entity.Cookbook;
 import view.states.CookbookListState;
-import view.states.MainMenuState;
-import view.view_managers.ViewManagerModel;
 import view.view_models.CookbookListViewModel;
 
-import java.util.ArrayList;
-
 public class DeleteCookbookPresenter implements DeleteCookbookOutputBoundary {
-    private final ViewManagerModel viewManagerModel;
     private final CookbookListViewModel cookbookListViewModel;
 
-    public DeleteCookbookPresenter(ViewManagerModel viewManagerModel, CookbookListViewModel cookbookListViewModel) {
-        this.viewManagerModel = viewManagerModel;
+    public DeleteCookbookPresenter(CookbookListViewModel cookbookListViewModel) {
         this.cookbookListViewModel = cookbookListViewModel;
     }
     @Override
@@ -25,8 +18,7 @@ public class DeleteCookbookPresenter implements DeleteCookbookOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String error) {
-        CookbookListState cookbookListState = cookbookListViewModel.getState();
+    public void prepareFailView() {
         cookbookListViewModel.firePropertyChanged();
     }
 }

@@ -22,7 +22,7 @@ public class AddCookbookView extends JPanel implements ActionListener, PropertyC
     public final SeeListCookbooksController seeListCookbooksController;
     private final JButton cancel;
     private final JButton add;
-    private JTextField nameInputField = new JTextField(30);
+    private final JTextField nameInputField = new JTextField(30);
 
     public AddCookbookView(ViewManagerModel viewManagerModel, AddCookbookViewModel addCookbookViewModel,
                            MakeCookbookController makeCookbookController, SeeListCookbooksController seeListCookbooksController) {
